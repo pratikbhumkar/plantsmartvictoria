@@ -48,19 +48,15 @@ export default class SettingsScreen extends React.Component  {
                <Picker.Item label = "Black" value = "B" />
                <Picker.Item label = "Green" value = "G" />
             </Picker>
-            <Button
-          onPress={this.handleHelpPress}
-          title="Plant Picker"
-          color="#808080"
-          width='250px'
-          height='300px'
-        />
+            <Button  onPress={this.handleHelpPress}   title="Plant Picker"
+                  color="#808080"
+                  width='100px'
+                  height='400px'/>
         </View>
       );
     }
-    
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
+  title: 'Plant Picker',
 };
