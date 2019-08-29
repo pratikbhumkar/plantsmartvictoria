@@ -31,50 +31,22 @@ export default class HomeScreen extends  React.Component{
             }
             style={styles.welcomeImage}
           />
-        <Button
-          onPress={() => this.props.navigation.navigate('SettingsScreen')}
-          title="Plant Picker"
-          color="#808080"
-          width='450px'
-          height='200px'
-        />
+        <TouchableOpacity
+        style={styles.button}
+          onPress={() => this.props.navigation.navigate('SettingsScreen')}>
+            <Text >Plant Picker</Text>
+        </TouchableOpacity>
         </View>
       </ScrollView>
-
-      
     </View>
   );
     
 }
 }
-
 HomeScreen.navigationOptions = {
   header: null,
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      null
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleButtonPress() {
-  this.props.navigation.push('SettingsScreen');
-}
 
 function handleHelpPress() {
   WebBrowser.openBrowserAsync(
@@ -83,6 +55,17 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    height:150,
+    width:80
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

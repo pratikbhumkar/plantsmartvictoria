@@ -21,6 +21,9 @@ export default class SettingsScreen extends React.Component  {
     super(props);
     this.handleHelpPress=this.handleHelpPress.bind(this);
   }
+  static navigationOptions={
+    tabBarVisible:false
+  }
   state = {
     planttype: '',
     Color:''
@@ -32,25 +35,30 @@ export default class SettingsScreen extends React.Component  {
     this.setState({ Color: Color })
  }
   handleHelpPress() {
-  if (this.state.Color=='B'&& this.state.planttype=='Shrub') {
     this.props.navigation.navigate('LinksScreen', {
-      itemId: 'BS',
-    });
-  } else if(this.state.Color=='G'&& this.state.planttype=='Shrub'){
-    this.props.navigation.navigate('LinksScreen', {
-      itemId: 'GS',
-    });
-  }
-  else if(this.state.Color=='G'&& this.state.planttype=='Tree'){
-    this.props.navigation.navigate('LinksScreen', {
-      itemId: 'GT',
-    });
-  }
-  else if(this.state.Color=='B'&& this.state.planttype=='Tree'){
-    this.props.navigation.navigate('LinksScreen', {
-      itemId: 'BT',
-    });
-  }
+          itemId: 'BS',
+          
+        });
+  // this.props.navigation.navigate('LinksScreen')
+  // if (this.state.Color=='B'&& this.state.planttype=='Shrub') {
+  //   this.props.navigation.navigate('LinksScreen', {
+  //     itemId: 'BS',
+  //   });
+  // } else if(this.state.Color=='G'&& this.state.planttype=='Shrub'){
+  //   this.props.navigation.navigate('LinksScreen', {
+  //     itemId: 'GS',
+  //   });
+  // }
+  // else if(this.state.Color=='G'&& this.state.planttype=='Tree'){
+  //   this.props.navigation.navigate('LinksScreen', {
+  //     itemId: 'GT',
+  //   });
+  // }
+  // else if(this.state.Color=='B'&& this.state.planttype=='Tree'){
+  //   this.props.navigation.navigate('LinksScreen', {
+  //     itemId: 'BT',
+  //   });
+  // }
 }
     render(){
       
@@ -66,14 +74,32 @@ export default class SettingsScreen extends React.Component  {
                <Picker.Item label = "Black" value = "B" />
                <Picker.Item label = "Green" value = "G" />
             </Picker>
-            <Button  onPress={this.handleHelpPress}   title="Plant Picker"
-                  color="#808080"
-                  width='100px'
-                  height='400px'/>
+            <TouchableOpacity
+        style={styles.button}
+          onPress={() => this.props.navigation.navigate('SettingsScreen')}>
+            <Text >Plant Picker</Text>
+        </TouchableOpacity>
         </View>
       );
     }
 }
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    height:150,
+    width:80
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  }
+});
 
 SettingsScreen.navigationOptions = {
   title: 'Plant Picker',
