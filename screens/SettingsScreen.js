@@ -32,7 +32,25 @@ export default class SettingsScreen extends React.Component  {
     this.setState({ Color: Color })
  }
   handleHelpPress() {
-  alert(this.state.Color);
+  if (this.state.Color=='B'&& this.state.planttype=='Shrub') {
+    this.props.navigation.navigate('LinksScreen', {
+      itemId: 'BS',
+    });
+  } else if(this.state.Color=='G'&& this.state.planttype=='Shrub'){
+    this.props.navigation.navigate('LinksScreen', {
+      itemId: 'GS',
+    });
+  }
+  else if(this.state.Color=='G'&& this.state.planttype=='Tree'){
+    this.props.navigation.navigate('LinksScreen', {
+      itemId: 'GT',
+    });
+  }
+  else if(this.state.Color=='B'&& this.state.planttype=='Tree'){
+    this.props.navigation.navigate('LinksScreen', {
+      itemId: 'BT',
+    });
+  }
 }
     render(){
       
