@@ -1,6 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import SettingsScreen from './SettingsScreen';
+import firebase from 'firebase';
 import {
   Image,
   Platform,
@@ -34,7 +35,7 @@ export default class HomeScreen extends  React.Component{
         <TouchableOpacity
         style={styles.button}
           onPress={() => this.props.navigation.navigate('SettingsScreen')}>
-            <Text >Plant Picker</Text>
+            <Text style={styles.titleText}>Plant Picker</Text>
         </TouchableOpacity>
         </View>
       </ScrollView>
@@ -63,8 +64,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10,
-    height:150,
-    width:80
+    height:80,
+    width:150
   },
   container: {
     flex: 1,
