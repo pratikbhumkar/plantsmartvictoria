@@ -49,11 +49,7 @@ HomeScreen.navigationOptions = {
 };
 
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
+
 
 const styles = StyleSheet.create({
   titleText: {
@@ -93,27 +89,9 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
+
+ 
+  
   tabBarInfoContainer: {
     position: 'absolute',
     bottom: 0,
@@ -134,24 +112,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbfbfb',
     paddingVertical: 20,
   },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
   navigationFilename: {
     marginTop: 5,
   },
   helpContainer: {
     marginTop: 15,
     alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    backgroundColor:'#7f7f7f',
-    height:'150px',
-    width:'300px'
-  },
+  }
+ 
 });
