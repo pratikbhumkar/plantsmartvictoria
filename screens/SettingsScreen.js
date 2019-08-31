@@ -26,17 +26,17 @@ export default class SettingsScreen extends React.Component  {
     soiltype:'',
     soilph:'',
     frost:'',
-    planttypeMasterList:['Shrub','Groundcover','Climbers','Sedges'],
+    planttypeMasterList:['Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
+    ,'Other Strap-leaved Plants','Rushes and Sedges'],
     soiltypeMasterList:['Sand','Loam','Clay','Limestone'],
-    soilPhMasterList:['Acidic','Alkaline','Neutral'],
+    soilPhMasterList:['Acidic','Neutral','Alkaline'],
     climateMasterList:['Resistent','Moderate','Sensitive']
 }
 componentDidMount(){
-  var ref= firebase.database().ref('react-fire-6c362/');
+  var ref= firebase.database().ref('/plantsmartvictoria/');
   ref.on('child_added',function (data) {
     ref.on("value", function(snapshot) {
-      // console.log(snapshot.val());
-      alert(snapshot.val())
+      console.log(snapshot.val());
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
       alert('failed')
@@ -44,44 +44,41 @@ componentDidMount(){
   })
 }
 componentWillMount(){
+  
   firebase.initializeApp({
-    apiKey: "AIzaSyCvYnr2_slCbph-ZG3AHKdv7sqi-CqtZh4",
-    authDomain: "react-fire-6c362.firebaseapp.com",
-    databaseURL: "https://react-fire-6c362.firebaseio.com",
-    projectId: "react-fire-6c362",
-    storageBucket: "",
-    messagingSenderId: "183735561443",
-    appId: "1:183735561443:web:8a729e37c85daacf"
+    apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
+    authDomain: "plantsmartvictoria.firebaseapp.com",
+    databaseURL: "https://plantsmartvictoria.firebaseio.com",
+    projectId: "plantsmartvictoria",
+    storageBucket: "plantsmartvictoria.appspot.com",
+    messagingSenderId: "723453194803",
+    appId: "1:723453194803:web:9bd33978fafce44d"
   });
 }
+
     updateplanttype= (planttype) => {
       this.setState({ planttype: planttype })
     }
-    updateplanttype= (soiltype) => {
+    updatesoiltype= (soiltype) => {
       this.setState({ soiltype: soiltype })
-    }
-    updateplanttype= (soilph) => {
-      this.setState({ soilph: soilph })
-    }
-    updateplanttype= (frost) => {
-      this.setState({ frost: frost })
     }
    
     readFromDatabase= (Color) => {
-    firebase.database().ref('react-fire-6c362/').limitToFirst(5)
-    .on('value', function (snapshot) {
-      console.log(snapshot.val());
+    var that=this;
+    var listofTrees=[];
+    firebase.database().ref('/').orderByChild('Genus').equalTo('Acacia ').limitToFirst(5).on('value', function (snapshot)
+     {
+      listofTrees =snapshot.val();
+      that.props.navigation.navigate('LinksScreen', {
+        plants: listofTrees
+      });
     });
-    }
-    handleHelpPress() {
-    this.props.navigation.navigate('LinksScreen', {
-          itemId: 'BS',
-        });
+    
     }
 
     addToDatabase() {
     var email='Checkin'
-    firebase.database().ref('react-fire-6c362/').push({
+    firebase.database().ref('/').push({
       email
     }).then((data)=>{
     console.log("Added")
@@ -96,12 +93,6 @@ componentWillMount(){
       let soiltypeitems = this.state.soiltypeMasterList.map( (s, i) => {
         return <Picker.Item key={i} value={s} label={s} />
       });
-      let climateitems = this.state.climateMasterList.map( (s, i) => {
-      return <Picker.Item key={i} value={s} label={s} />
-      });
-      let soilPhitems = this.state.soilPhMasterList.map( (s, i) => {
-      return <Picker.Item key={i} value={s} label={s} />
-      });
       return (
         <View style={styles.container}>
             <Text>Plant Type</Text>
@@ -109,20 +100,12 @@ componentWillMount(){
                {plantypeitems}
             </Picker>
             <Text>Soil Type</Text>
-            <Picker selectedValue = {this.state.soiltype} onValueChange = {this.updateColor}>
+            <Picker selectedValue = {this.state.soiltype} onValueChange = {this.updatesoiltype}>
                {soiltypeitems}
             </Picker>
-            <Text>Soil PH</Text>
-            <Picker selectedValue = {this.state.soilph} onValueChange = {this.updateColor}>
-               {soilPhitems}
-            </Picker>
-            <Text>Level of tolerence</Text>
-            <Picker selectedValue = {this.state.frost} onValueChange = {this.updateColor}>
-               {climateitems}
-            </Picker>
+            
             <TouchableOpacity
             style={styles.button}
-            // onPress={() => this.props.navigation.navigate('SettingsScreen')}>
             onPress={this.readFromDatabase}>
               <Text >Plant Picker</Text>
         </TouchableOpacity>
