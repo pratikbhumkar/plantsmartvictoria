@@ -1,4 +1,4 @@
-# plantsmartvictoria
+# Plant Smart Victoria
 I.E Project Protecting Victorian Flora. Group E17. Mobile app 
 
 
