@@ -13,8 +13,8 @@ I.E Project Protecting Victorian Flora. Group E17. Mobile app
 
 > Open in visual studio code.
 
-> Open cmd-> run yarn
+> Open cmd change directory to local location of the app-> run 'yarn'
 
-> yarn start
+> Run 'yarn start' on cmd/visual studio code terminal
 
 Enjoy!
