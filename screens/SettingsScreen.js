@@ -32,17 +32,17 @@ export default class SettingsScreen extends React.Component  {
     soilPhMasterList:['Select one','Acidic','Neutral','Alkaline'],
     climateMasterList:['Select one','Resistent','Moderate','Sensitive']
 }
-componentDidMount(){
-  var ref= firebase.database().ref('/plantsmartvictoria/');
-  ref.on('child_added',function (data) {
-    ref.on("value", function(snapshot) {
-      console.log(snapshot.val());
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-      alert('failed')
-    });
-  })
-}
+// componentDidMount(){
+//   var ref= firebase.database().ref('/plantsmartvictoria/');
+//   ref.on('child_added',function (data) {
+//     ref.on("value", function(snapshot) {
+//       console.log(snapshot.val());
+//     }, function (errorObject) {
+//       console.log("The read failed: " + errorObject.code);
+//       alert('failed')
+//     });
+//   })
+// }
 componentWillMount(){
   if (!firebase.apps.length) {
     firebase.initializeApp({
@@ -65,7 +65,6 @@ componentWillMount(){
     }
    
     readFromDatabase= () => {
-      // 'Sand','Loam','Clay','Limestone'],
     var soiltype=this.state.soiltype;
     if (soiltype.includes('Sand')) {
       soiltype='Sa'
@@ -78,7 +77,7 @@ componentWillMount(){
     else if (soiltype=='Limestone') {
       soiltype='Li'
     }
-    var query=''
+
     if(this.state.planttype=='Select one'|| soiltype=='Select one'){
       alert('Please select option')
     }
@@ -87,20 +86,24 @@ componentWillMount(){
       var listofTrees=[];
       var passedList=[];
       var counter=0;
-      firebase.database().ref('/').orderByChild('Type').startAt(this.state.planttype).on('value', function (snapshot)
+      var pType=this.state.planttype
+      firebase.database().ref('/').orderByChild('Type').equalTo(pType).on('value', function (snapshot)
        {
         listofTrees =snapshot.val();
-        if (listofTrees.length>0) {
-          listofTrees.forEach(treeObject => {
-            if(treeObject['Soiltexture'].includes(soiltype)&&counter<5){
-              passedList.push(treeObject)
-              counter=counter+1;
-              that.props.navigation.navigate('LinksScreen', {
-              plants: passedList
-            });
+        if (snapshot.numChildren()>0) {
+          for(var k in listofTrees){
+            var element = listofTrees[k];
+            if(element['Soiltexture'].includes(soiltype)){
+               passedList.push(element)
+               counter=counter+1
+               if (counter>4) {
+                 break;
+               }
             }
-          });
-          
+          }
+            that.props.navigation.navigate('LinksScreen', {
+            plants: passedList
+            });
         } else {
           alert('No Data found!, Please try other options')
         }
