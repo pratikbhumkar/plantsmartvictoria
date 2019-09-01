@@ -22,8 +22,8 @@ export default class SettingsScreen extends React.Component  {
     super(props);
   }
   state = {
-    planttype: '',
-    soiltype:'',
+    planttype: 'Select one',
+    soiltype:'Select one',
     soilph:'',
     frost:'',
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
@@ -65,24 +65,49 @@ componentWillMount(){
     }
    
     readFromDatabase= () => {
+      // 'Sand','Loam','Clay','Limestone'],
+    var soiltype=this.state.soiltype;
+    if (soiltype.includes('Sand')) {
+      soiltype='Sa'
+    } else if (soiltype=='Loam') {
+      soiltype='Lo'
+    }
+    else if (soiltype=='Clay') {
+      soiltype='Cl'
+    }
+    else if (soiltype=='Limestone') {
+      soiltype='Li'
+    }
     var query=''
-    if (this.state.planttype=='Trees and Shrubs') {
-      query='TS'
+    if(this.state.planttype=='Select one'|| soiltype=='Select one'){
+      alert('Please select option')
     }
-    else if(this.state.planttype=='Trees and Shrubs'){
-
-    }
-    var that=this;
-    var listofTrees=[];
-    firebase.database().ref('/').orderByChild('searchQuery').startAt('Acacia ').limitToFirst(5).on('value', function (snapshot)
-     {
-      listofTrees =snapshot.val();
-      that.props.navigation.navigate('LinksScreen', {
-        plants: listofTrees
+    else{
+      var that=this;
+      var listofTrees=[];
+      var passedList=[];
+      var counter=0;
+      firebase.database().ref('/').orderByChild('Type').startAt(this.state.planttype).on('value', function (snapshot)
+       {
+        listofTrees =snapshot.val();
+        if (listofTrees.length>0) {
+          listofTrees.forEach(treeObject => {
+            if(treeObject['Soiltexture'].includes(soiltype)&&counter<5){
+              passedList.push(treeObject)
+              counter=counter+1;
+              that.props.navigation.navigate('LinksScreen', {
+              plants: passedList
+            });
+            }
+          });
+          
+        } else {
+          alert('No Data found!, Please try other options')
+        }
+        
       });
-    });
-    
     }
+  }
 
     addToDatabase() {
     var email='Checkin'
@@ -112,11 +137,10 @@ componentWillMount(){
                {soiltypeitems}
             </Picker>
             
-            <TouchableOpacity
-            style={styles.button}
-            onPress={this.readFromDatabase}>
+            <TouchableOpacity style={styles.button}
+              onPress={this.readFromDatabase}>
               <Text >Plant Picker</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
         </View>
       );
     }

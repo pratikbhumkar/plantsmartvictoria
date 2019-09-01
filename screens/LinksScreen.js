@@ -15,7 +15,6 @@ render(){
  
   return (
     <ScrollView style={styles.container}>
-      
       {
           this.state.plants.map((u, i) => {
             return (
@@ -27,8 +26,7 @@ render(){
                 ? require('../assets/images/logo.jpg')
                 : require('../assets/images/logo.jpg')
             }
-            style={{width:180,height:80}}
-          />
+            style={{width:180,height:80}} />
                   <Text>item</Text>
                 </View>
               </Card>
