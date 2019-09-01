@@ -40,11 +40,13 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    marginTop:50,
+    backgroundColor: '#50b274',
+    marginTop:150,
     padding:10,
     height:50,
-    width:150
+    width:150,
+    borderRadius:15,
+    zIndex:2
   },
   container: {
     alignContent:'center',

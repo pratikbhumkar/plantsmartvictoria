@@ -26,11 +26,11 @@ export default class SettingsScreen extends React.Component  {
     soiltype:'',
     soilph:'',
     frost:'',
-    planttypeMasterList:['Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
+    planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Other Strap-leaved Plants','Rushes and Sedges'],
-    soiltypeMasterList:['Sand','Loam','Clay','Limestone'],
-    soilPhMasterList:['Acidic','Neutral','Alkaline'],
-    climateMasterList:['Resistent','Moderate','Sensitive']
+    soiltypeMasterList:['Select one','Sand','Loam','Clay','Limestone'],
+    soilPhMasterList:['Select one','Acidic','Neutral','Alkaline'],
+    climateMasterList:['Select one','Resistent','Moderate','Sensitive']
 }
 componentDidMount(){
   var ref= firebase.database().ref('/plantsmartvictoria/');
@@ -44,16 +44,17 @@ componentDidMount(){
   })
 }
 componentWillMount(){
-  
-  firebase.initializeApp({
-    apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
-    authDomain: "plantsmartvictoria.firebaseapp.com",
-    databaseURL: "https://plantsmartvictoria.firebaseio.com",
-    projectId: "plantsmartvictoria",
-    storageBucket: "plantsmartvictoria.appspot.com",
-    messagingSenderId: "723453194803",
-    appId: "1:723453194803:web:9bd33978fafce44d"
-  });
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
+      authDomain: "plantsmartvictoria.firebaseapp.com",
+      databaseURL: "https://plantsmartvictoria.firebaseio.com",
+      projectId: "plantsmartvictoria",
+      storageBucket: "plantsmartvictoria.appspot.com",
+      messagingSenderId: "723453194803",
+      appId: "1:723453194803:web:9bd33978fafce44d"
+    });
+  }
 }
 
     updateplanttype= (planttype) => {
@@ -63,10 +64,17 @@ componentWillMount(){
       this.setState({ soiltype: soiltype })
     }
    
-    readFromDatabase= (Color) => {
+    readFromDatabase= () => {
+    var query=''
+    if (this.state.planttype=='Trees and Shrubs') {
+      query='TS'
+    }
+    else if(this.state.planttype=='Trees and Shrubs'){
+
+    }
     var that=this;
     var listofTrees=[];
-    firebase.database().ref('/').orderByChild('Genus').equalTo('Acacia ').limitToFirst(5).on('value', function (snapshot)
+    firebase.database().ref('/').orderByChild('searchQuery').startAt('Acacia ').limitToFirst(5).on('value', function (snapshot)
      {
       listofTrees =snapshot.val();
       that.props.navigation.navigate('LinksScreen', {
