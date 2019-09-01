@@ -1,23 +1,8 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import SettingsScreen from './SettingsScreen';
-import firebase from 'firebase';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  Button,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Image,  Platform,  ScrollView, StyleSheet, Text,TouchableOpacity, View} from 'react-native';
 
 export default class HomeScreen extends  React.Component{
-
   render() {
-  
   return (
     <View style={styles.container}>
       <ScrollView
@@ -27,8 +12,8 @@ export default class HomeScreen extends  React.Component{
           <Image
             source={
               __DEV__
-                ? require('../assets/images/logo.jpg')
-                : require('../assets/images/logo.jpg')
+                ? require('../assets/images/logo.jpeg')
+                : require('../assets/images/logo.jpeg')
             }
             style={styles.welcomeImage}
           />
@@ -48,9 +33,6 @@ HomeScreen.navigationOptions = {
   header: null,
 };
 
-
-
-
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
@@ -59,12 +41,14 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
-    padding: 10,
-    height:80,
+    marginTop:50,
+    padding:10,
+    height:50,
     width:150
   },
   container: {
-    flex: 1,
+    alignContent:'center',
+    alignSelf:'center',
     backgroundColor: '#fff',
   },
   developmentModeText: {
@@ -81,13 +65,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
+    alignContent:'center',
+    alignSelf:'center'
   },
   welcomeImage: {
     width: 250,
     height: 200,
     resizeMode: 'contain',
     marginTop: 3,
-    marginLeft: -10,
+    marginLeft: 10,
   },
 
  
