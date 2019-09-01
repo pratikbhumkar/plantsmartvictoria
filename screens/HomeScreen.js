@@ -40,21 +40,23 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#50b274',
-    marginTop:150,
-    padding:10,
+    alignContent:'center',
+    backgroundColor: '#DDDDDD',
+    alignSelf:'center',
+    padding: 10,
+    
+    marginTop:100,
     height:50,
-    width:150,
     borderRadius:15,
-    zIndex:2
+    width:200
   },
   container: {
-    alignContent:'center',
-    alignSelf:'center',
+    flex: 1,
+    padding:20,
     backgroundColor: '#fff',
   },
   developmentModeText: {
-    marginBottom: 20,
+    margin: 20,
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,

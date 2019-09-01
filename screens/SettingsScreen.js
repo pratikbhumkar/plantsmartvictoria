@@ -1,37 +1,28 @@
 import React from 'react';
 import firebase from 'firebase';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  Button,
-  TouchableOpacity,
-  Picker,
-  View,
-} from 'react-native';
+import {StyleSheet, Text,TouchableOpacity,Picker,View} from 'react-native';
+import { ButtonGroup } from 'react-native-elements';
 
 export default class SettingsScreen extends React.Component  {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
+   * we just wanted to give you a quick view of your config. 
    */
 
   constructor(props) {
     super(props);
+   
   }
   state = {
+    selectedIndex: 0,
     planttype: 'Select one',
     soiltype:'Select one',
-    soilph:'',
-    frost:'',
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Other Strap-leaved Plants','Rushes and Sedges'],
-    soiltypeMasterList:['Select one','Sand','Loam','Clay','Limestone'],
-    soilPhMasterList:['Select one','Acidic','Neutral','Alkaline'],
-    climateMasterList:['Select one','Resistent','Moderate','Sensitive']
+    soiltypeMasterList:['Sand','Loam','Clay','Limestone']
 }
+  updateIndex = (selectedIndex) => this.setState({ selectedIndex })
+
 // componentDidMount(){
 //   var ref= firebase.database().ref('/plantsmartvictoria/');
 //   ref.on('child_added',function (data) {
@@ -60,12 +51,9 @@ componentWillMount(){
     updateplanttype= (planttype) => {
       this.setState({ planttype: planttype })
     }
-    updatesoiltype= (soiltype) => {
-      this.setState({ soiltype: soiltype })
-    }
-   
+  
     readFromDatabase= () => {
-    var soiltype=this.state.soiltype;
+    var soiltype=this.state.soiltypeMasterList[this.state.selectedIndex]
     if (soiltype.includes('Sand')) {
       soiltype='Sa'
     } else if (soiltype=='Loam') {
@@ -126,23 +114,22 @@ componentWillMount(){
       let plantypeitems = this.state.planttypeMasterList.map( (s, i) => {
         return <Picker.Item key={i} value={s} label={s} />
       });
-      let soiltypeitems = this.state.soiltypeMasterList.map( (s, i) => {
-        return <Picker.Item key={i} value={s} label={s} />
-      });
+      var index=this.state.selectedIndex;
+      const buttons = this.state.soiltypeMasterList;
       return (
         <View style={styles.container}>
-            <Text>Plant Type</Text>
+          <View style={{marginBottom:20}}>
+            <Text style={styles.titleText}>Plant Type</Text>
             <Picker selectedValue = {this.state.planttype} onValueChange = {this.updateplanttype}>
                {plantypeitems}
             </Picker>
-            <Text>Soil Type</Text>
-            <Picker selectedValue = {this.state.soiltype} onValueChange = {this.updatesoiltype}>
-               {soiltypeitems}
-            </Picker>
-            
+            </View>
+            <Text style={styles.titleText}>Soil Type</Text>
+            <ButtonGroup onPress={this.updateIndex} selectedIndex={index}
+          buttons={buttons} containerStyle={{height: 50}} selectedButtonStyle={{backgroundColor:'#0d9b60'}}/>
             <TouchableOpacity style={styles.button}
               onPress={this.readFromDatabase}>
-              <Text >Plant Picker</Text>
+              <Text style={styles.titleText}>Show me!</Text>
             </TouchableOpacity>
         </View>
       );
@@ -155,14 +142,21 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+    alignContent:'center',
     backgroundColor: '#DDDDDD',
+    alignSelf:'center',
     padding: 10,
-    height:80,
-    width:150
+    position:'absolute',
+    bottom:1,
+    marginBottom:160,
+    height:50,
+    borderRadius:15,
+    width:200
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    padding:20,
+    backgroundColor: '#fff'
   }
 });
 
