@@ -12,7 +12,7 @@ export default class LinksScreen extends React.Component  {
     this.state.plants=this.props.navigation.getParam('plants', '');
   }
 render(){
- 
+
   return (
     <ScrollView style={styles.container}>
       {
@@ -22,12 +22,8 @@ render(){
                 <View key={i} style={{width:'100%',padding:5}}>
                   <Text style={{fontSize:20,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}}>{u['Commonname'].toUpperCase()}</Text>
                 <Image
-            source={
-              __DEV__
-                ? require('../assets/images/logo.jpg')
-                : require('../assets/images/logo.jpg')
-            }
-            style={{width:'100%',height:200}} />
+            source={{uri: u['url']}}
+            style={{width:'100%',height:250}} />
             <View style={{borderTopWidth:0.5,borderTopColor:'#000'}}>
                   <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
@@ -43,8 +39,8 @@ render(){
               </Card>
             );
           })
-      } 
-      
+      }
+
     </ScrollView>
   );
 }
@@ -57,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 2,
-    
+
     backgroundColor: '#c8cdce',
   },
   containerStyle:{alignContent:'center',padding:2,paddingLeft:-3,paddingRight:-3,marginBottom:10,

@@ -18,7 +18,7 @@ export default class SettingsScreen extends React.Component  {
     planttype: 'Select one',
     soiltype:'Select one',
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
-    ,'Other Strap-leaved Plants','Rushes and Sedges'],
+    ,'Rushes and Sedges'],
     soiltypeMasterList:['Sand','Loam','Clay','Limestone']
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
@@ -70,11 +70,13 @@ componentWillMount(){
       alert('Please select option')
     }
     else{
+
       var that=this;
       var listofTrees=[];
       var passedList=[];
       var counter=0;
       var pType=this.state.planttype
+
       firebase.database().ref('/').orderByChild('Type').equalTo(pType).on('value', function (snapshot)
        {
         listofTrees =snapshot.val();
