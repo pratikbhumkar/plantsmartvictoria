@@ -23,16 +23,20 @@ const styles = StyleSheet.create(
   {
     menuItem: {
       width: '33.333333%',
-      height: '50%',
+      height: '60%',
       padding: 20,
+      backgroundColor: 'transparent',
 
     },
     image: {
       padding: 40,
-      width: '40%',
-      height: '40%',
-      opacity: 0.8,
+      //width: '1%',
+      //height: '1%',
+      opacity: 0.7,
       borderColor: '#fff',
-      borderWidth: 3
+      borderWidth: 1,
+      backgroundColor: 'transparent',
+
+
     }
   });

@@ -39,16 +39,20 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+
   },
 
   overlayContainer: {
     flex: 1,
     backgroundColor: 'rgba(47,163,218, .4)',
+    //resizeMode : 'stretch',
+
   },
   top: {
   height:'50%',
   alignItems: 'center',
   justifyContent: 'center',
+  backgroundColor: 'transparent',
 },
 header: {
   color: '#fff',
@@ -58,14 +62,20 @@ header: {
   padding: 20,
   paddingLeft: 40,
   paddingRight: 40,
-  //backgroundColor: 'rgba(255,255,255, .1)',
   textAlign: 'center',
+  backgroundColor: 'transparent',
 },
 menuContainer: {
   height: '35%',
   paddingLeft: 30,
   flexDirection: 'row',
   flexWrap: 'wrap',
+  backgroundColor: 'transparent',
+
+  shadowColor: 'rgba(0,0,0, .4)',
+  shadowOffset: { height: 2, width: 2 },
+  shadowOpacity: 2,
+  shadowRadius: 4,
 },
 
 

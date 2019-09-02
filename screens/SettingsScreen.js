@@ -6,12 +6,12 @@ import { ButtonGroup } from 'react-native-elements';
 export default class SettingsScreen extends React.Component  {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config. 
+   * we just wanted to give you a quick view of your config.
    */
 
   constructor(props) {
     super(props);
-   
+
   }
   state = {
     selectedIndex: 0,
@@ -51,7 +51,7 @@ componentWillMount(){
     updateplanttype= (planttype) => {
       this.setState({ planttype: planttype })
     }
-  
+
     readFromDatabase= () => {
     var soiltype=this.state.soiltypeMasterList[this.state.selectedIndex]
     if (soiltype.includes('Sand')) {
@@ -89,13 +89,15 @@ componentWillMount(){
                }
             }
           }
+          if (counter>0) {
             that.props.navigation.navigate('LinksScreen', {
             plants: passedList
             });
-        } else {
-          alert('No Data found!, Please try other options')
+          }else {
+            alert('No Data found!, Please try other options')
+          }
         }
-        
+
       });
     }
   }
@@ -162,4 +164,4 @@ const styles = StyleSheet.create({
 
 SettingsScreen.navigationOptions = {
   title: 'Plant Picker',
-};  
+};
