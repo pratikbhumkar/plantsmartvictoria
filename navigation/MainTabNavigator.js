@@ -6,11 +6,28 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import MyPlants from '../screens/MyPlants.js';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+
+MyPlants.navigationOptions = {
+  tabBarLabel: 'My Plants',
+  gesturesEnabled: true,
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
 
 const HomeStack = createStackNavigator(
   {
@@ -64,8 +81,9 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarVisible:false,
+  gesturesEnabled: true,
+  tabBarLabel: 'Plant Picker',
+  
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
@@ -74,8 +92,8 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
   SettingsStack,
+  MyPlants
 });
 
 tabNavigator.path = '';

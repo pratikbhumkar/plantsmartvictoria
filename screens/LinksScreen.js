@@ -1,15 +1,35 @@
 import React from 'react';
-import { ScrollView, StyleSheet,View, Text, Image  } from 'react-native';
-import { Card,Button,Icon } from 'react-native-elements'
+import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage  } from 'react-native';
+import { Card,Button } from 'react-native-elements'
 
 export default class LinksScreen extends React.Component  {
   state ={
     plants:[],
-    PlantName:''
+    PlantName:'',
+    userplants:[],
   }
   constructor(props) {
     super(props);
     this.state.plants=this.props.navigation.getParam('plants', '');
+    userData = AsyncStorage.getItem("userData");
+   
+  }
+  componentWillMount(){
+    try {
+      var userData= JSON.parse(userData);
+    } catch (error) {
+      
+    }
+   
+    // this.state.userplants = JSON.parse(userData);
+  }
+  addToMyPlants(u) {
+    ToastAndroid.show('Added to my plants, Swipe left to view!', ToastAndroid.LONG);
+    var userplantsArray=this.state.userplants;
+    userplantsArray.push(u)
+  }
+  componentWillUnmount(){
+    AsyncStorage.setItem("userData", JSON.stringify(this.state.userplants));
   }
 render(){
 
@@ -39,6 +59,7 @@ render(){
             <Button
                 raised={true}
                 title="Add"
+                onPress={(u)=>this.addToMyPlants(u)}
                 buttonStyle={{height:30,width:80,borderRadius:20}}
               />
               </View>

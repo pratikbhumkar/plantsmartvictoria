@@ -23,17 +23,7 @@ export default class SettingsScreen extends React.Component  {
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
 
-// componentDidMount(){
-//   var ref= firebase.database().ref('/plantsmartvictoria/');
-//   ref.on('child_added',function (data) {
-//     ref.on("value", function(snapshot) {
-//       console.log(snapshot.val());
-//     }, function (errorObject) {
-//       console.log("The read failed: " + errorObject.code);
-//       alert('failed')
-//     });
-//   })
-// }
+
 componentWillMount(){
   if (!firebase.apps.length) {
     firebase.initializeApp({
@@ -166,4 +156,5 @@ const styles = StyleSheet.create({
 
 SettingsScreen.navigationOptions = {
   title: 'Plant Picker',
+  gesturesEnabled: true
 };
