@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet,View, Text, Image  } from 'react-native';
-import { Card } from 'react-native-elements'
+import { Card,Button,Icon } from 'react-native-elements'
 
 export default class LinksScreen extends React.Component  {
   state ={
@@ -35,6 +35,13 @@ render(){
                   <Text style={styles.contents}>Soil pH: {u['SoilpH'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
             </View>
+            <View style={{alignContent:'flex-end',alignItems:'flex-end',margin:15}}>
+            <Button
+                raised={true}
+                title="Add"
+                buttonStyle={{height:30,width:80,borderRadius:20}}
+              />
+              </View>
                 </View>
               </Card>
             );
