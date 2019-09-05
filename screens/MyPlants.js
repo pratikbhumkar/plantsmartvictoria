@@ -1,28 +1,30 @@
 import React from 'react';
-import { ImageBackground, Image,  Platform,AsyncStorage,  ScrollView, StyleSheet, Text,TouchableOpacity, View} from 'react-native';
-
+import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage  } from 'react-native';
+import { Card,Button } from 'react-native-elements'
 
 export default class MyPlants extends  React.Component{
     constructor(props){
         super(props)
-
+        this.retrieveItem('userData');
     }
     state={
-        plants:[],
+        plants:[]
+    }
 
-    }
-    componentWillMount(){
-        var userData = AsyncStorage.getItem("userData");
+    async retrieveItem(key) {
         try {
-            userData= JSON.parse(userData);
-            this.setState({
-                plants:userData
-            });
-          } catch (error) {
-            
-          }
-         
-    }
+          const retrievedItem =  await AsyncStorage.getItem(key);
+          const item = JSON.parse(retrievedItem);
+          this.setState({
+            plants:item
+          })
+          return item;
+        } catch (error) {
+          console.log(error.message);
+        }
+        return
+      }
+
   render() {
     if(this.state.plants.length>0){
     
@@ -76,3 +78,14 @@ MyPlants.navigationOptions = {
     title: 'My Plants',
     gesturesEnabled: true
   };
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 2,
+  
+      backgroundColor: '#c8cdce',
+    },
+    containerStyle:{alignContent:'center',padding:2,paddingLeft:-3,paddingRight:-3,marginBottom:10,
+    marginTop:-3,backgroundColor:'#fff',borderWidth:0.5,borderColor:'#827f7b'},
+    contents:{fontSize:12,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}
+  });

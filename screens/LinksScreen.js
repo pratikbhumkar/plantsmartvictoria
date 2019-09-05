@@ -26,11 +26,20 @@ export default class LinksScreen extends React.Component  {
   addToMyPlants(u) {
     ToastAndroid.show('Added to my plants, Swipe left to view!', ToastAndroid.LONG);
     var userplantsArray=this.state.userplants;
-    userplantsArray.push(u)
+    userplantsArray.push(u);
+    this.storeItem("userData", userplantsArray);
   }
-  componentWillUnmount(){
-    AsyncStorage.setItem("userData", JSON.stringify(this.state.userplants));
+  async storeItem(key, item) {
+    try {
+        //we want to wait for the Promise returned by AsyncStorage.setItem()
+        //to be resolved to the actual value before returning the value
+        var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+        return jsonOfItem;
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+
 render(){
 
   return (
@@ -59,7 +68,7 @@ render(){
             <Button
                 raised={true}
                 title="Add"
-                onPress={(u)=>this.addToMyPlants(u)}
+                onPress={()=>this.addToMyPlants(u)}
                 buttonStyle={{height:30,width:80,borderRadius:20}}
               />
               </View>
