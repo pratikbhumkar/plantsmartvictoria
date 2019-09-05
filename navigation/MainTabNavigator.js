@@ -83,7 +83,7 @@ const SettingsStack = createStackNavigator(
 SettingsStack.navigationOptions = {
   gesturesEnabled: true,
   tabBarLabel: 'Plant Picker',
-  
+
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
@@ -92,6 +92,7 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
+  HomeStack,
   SettingsStack,
   MyPlants
 });
