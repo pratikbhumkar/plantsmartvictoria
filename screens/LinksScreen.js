@@ -90,9 +90,9 @@ render(){
               />
               </View>
                 </View>
+                </Card>
                 </TouchableOpacity>
-              </Card>
-              </TouchableOpacity>
+             
             );
           })
       }
