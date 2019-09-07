@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet,View, Text, Image,AsyncStorage  } from 'react-native';
+import { ScrollView, StyleSheet,View, Text, Image,AsyncStorage,StatusBar  } from 'react-native';
 import { Card,Button } from 'react-native-elements'
 
 export default class MyPlants extends  React.Component{
@@ -34,6 +34,7 @@ export default class MyPlants extends  React.Component{
     
   return (
     <ScrollView style={styles.container}>
+      <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
     {
         
         this.state.plants.map((u, i) => {

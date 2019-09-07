@@ -1,12 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator,createMaterialTopTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import MyPlants from '../screens/MyPlants.js';
+import MyJournal from '../screens/MyJournal.js'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -30,7 +31,26 @@ MyPlants.navigationOptions = {
 };
 
 
+const topMaterialBar=createMaterialTopTabNavigator({
+  'My Plants':MyPlants,
+  'My Journal':MyJournal
+},{
+  tabBarOptions: {
+    labelStyle: {
+      fontSize: 16,
+      fontWeight:'600',
+      marginTop:50
+    },
+    tabStyle: {
+      height:90
+    },
+    style: {
+      backgroundColor: '#6ac99e',
+    },
+  }
+}
 
+);
 
 const LinksStack = createStackNavigator(
   {
@@ -69,8 +89,8 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  SettingsStack,
-  MyPlants
+  Picker:SettingsStack,
+  Journal:topMaterialBar
 });
 
 tabNavigator.path = 'Tabs';
