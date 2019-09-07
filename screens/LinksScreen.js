@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage  } from 'react-native';
+import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage, TouchableOpacity} from 'react-native';
 import { Card,Button } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -12,7 +12,7 @@ export default class LinksScreen extends React.Component  {
   constructor(props) {
     super(props);
     this.state.plants=this.props.navigation.getParam('plants', '');
-    
+
     this.props.navigation.addListener(
       'willFocus',
       payload => {
@@ -57,6 +57,7 @@ render(){
       {
           this.state.plants.map((u, i) => {
             return (
+<<<<<<< HEAD
               <TouchableOpacity key={i} 
               onPress={()=>{
                 this.props.navigation.navigate('PlantStack', {
@@ -65,6 +66,10 @@ render(){
               }}
               >
               <Card containerStyle={styles.containerStyle} key={i} >
+=======
+              <Card containerStyle={styles.containerStyle} key={i}>
+              <TouchableOpacity>
+>>>>>>> 3f005efadbe0f91563c6350e8f286ddfa6b87e73
                 <View key={i} style={{width:'100%',padding:5}}>
                   <Text style={{fontSize:20,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}}>{u['Commonname'].toUpperCase()}</Text>
                 <Image
@@ -90,6 +95,7 @@ render(){
               />
               </View>
                 </View>
+                </TouchableOpacity>
               </Card>
               </TouchableOpacity>
             );
