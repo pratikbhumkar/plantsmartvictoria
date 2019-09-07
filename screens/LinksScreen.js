@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage  } from 'react-native';
+import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage, TouchableOpacity} from 'react-native';
 import { Card,Button } from 'react-native-elements'
 
 export default class LinksScreen extends React.Component  {
@@ -11,7 +11,7 @@ export default class LinksScreen extends React.Component  {
   constructor(props) {
     super(props);
     this.state.plants=this.props.navigation.getParam('plants', '');
-    
+
     this.props.navigation.addListener(
       'willFocus',
       payload => {
@@ -57,6 +57,7 @@ render(){
           this.state.plants.map((u, i) => {
             return (
               <Card containerStyle={styles.containerStyle} key={i}>
+              <TouchableOpacity>
                 <View key={i} style={{width:'100%',padding:5}}>
                   <Text style={{fontSize:20,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}}>{u['Commonname'].toUpperCase()}</Text>
                 <Image
@@ -82,6 +83,7 @@ render(){
               />
               </View>
                 </View>
+                </TouchableOpacity>
               </Card>
             );
           })
