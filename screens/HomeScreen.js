@@ -19,7 +19,7 @@ export default class HomeScreen extends  React.Component{
         </View>
 
         <View style = {styles.menuContainer}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('SettingsScreen')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
         <MenuItem itemImage={require('../assets/images/plantPicker.png')}/>
         </TouchableOpacity>
 

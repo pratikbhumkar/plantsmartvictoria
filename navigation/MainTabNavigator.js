@@ -29,31 +29,8 @@ MyPlants.navigationOptions = {
   ),
 };
 
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    SettingsScreen:SettingsScreen,
-    LinksScreen:LinksScreen
-  },
-  config
-);
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarVisible:false,
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
 
-HomeStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
@@ -96,6 +73,19 @@ const tabNavigator = createBottomTabNavigator({
   MyPlants
 });
 
-tabNavigator.path = '';
+tabNavigator.path = 'Tabs';
 
-export default tabNavigator;
+const HomeStack = createStackNavigator(
+  {
+    HomeScreen:HomeScreen,
+    Tabs: tabNavigator
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+   }
+  );
+
+export default HomeStack;
