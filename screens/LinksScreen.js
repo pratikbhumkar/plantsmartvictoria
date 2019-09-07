@@ -57,7 +57,6 @@ render(){
       {
           this.state.plants.map((u, i) => {
             return (
-<<<<<<< HEAD
               <TouchableOpacity key={i} 
               onPress={()=>{
                 this.props.navigation.navigate('PlantStack', {
@@ -66,10 +65,6 @@ render(){
               }}
               >
               <Card containerStyle={styles.containerStyle} key={i} >
-=======
-              <Card containerStyle={styles.containerStyle} key={i}>
-              <TouchableOpacity>
->>>>>>> 3f005efadbe0f91563c6350e8f286ddfa6b87e73
                 <View key={i} style={{width:'100%',padding:5}}>
                   <Text style={{fontSize:20,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}}>{u['Commonname'].toUpperCase()}</Text>
                 <Image
