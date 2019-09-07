@@ -2,6 +2,9 @@ import React from 'react';
 import firebase from 'firebase';
 import {StyleSheet, Text,TouchableOpacity,Picker,View} from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+
 
 export default class SettingsScreen extends React.Component  {
   /**
@@ -19,7 +22,8 @@ export default class SettingsScreen extends React.Component  {
     soiltype:'Select one',
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Rushes and Sedges'],
-    soiltypeMasterList:['Sand','Loam','Clay','Limestone']
+    soiltypeMasterList:['Sand','Loam','Clay','Limestone'],
+    location:false
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
 
@@ -36,6 +40,7 @@ componentWillMount(){
       appId: "1:723453194803:web:9bd33978fafce44d"
     });
   }
+  this._getLocationAsync();
 }
 
     updateplanttype= (planttype) => {
@@ -93,6 +98,18 @@ componentWillMount(){
       });
     }
   }
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    location=await Location.reverseGeocodeAsync(location.coords);
+    this.setState({ location });
+  };
 
     addToDatabase() {
     var email='Checkin'
@@ -154,7 +171,4 @@ const styles = StyleSheet.create({
   }
 });
 
-SettingsScreen.navigationOptions = {
-  title: 'Plant Picker',
-  gesturesEnabled: true
-};
+

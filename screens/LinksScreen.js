@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage  } from 'react-native';
 import { Card,Button } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class LinksScreen extends React.Component  {
   state ={
@@ -56,13 +57,20 @@ render(){
       {
           this.state.plants.map((u, i) => {
             return (
-              <Card containerStyle={styles.containerStyle} key={i}>
+              <TouchableOpacity key={i} 
+              onPress={()=>{
+                this.props.navigation.navigate('PlantStack', {
+                  plant: u
+                  });
+              }}
+              >
+              <Card containerStyle={styles.containerStyle} key={i} >
                 <View key={i} style={{width:'100%',padding:5}}>
                   <Text style={{fontSize:20,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}}>{u['Commonname'].toUpperCase()}</Text>
                 <Image
             source={{uri: u['url']}}
             style={{width:'100%',height:250}} />
-            <View style={{borderTopWidth:0.5,borderTopColor:'#000'}}>
+            {/* <View style={{borderTopWidth:0.5,borderTopColor:'#000'}}>
                   <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
                   <Text style={styles.contents}>Rain(mm): {u['Rain(mm)']}</Text>
@@ -72,7 +80,7 @@ render(){
                   <Text style={styles.contents}>Plant Type: {u['Type'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Soil pH: {u['SoilpH'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
-            </View>
+            </View> */}
             <View style={{alignContent:'flex-end',alignItems:'flex-end',margin:15}}>
             <Button
                 raised={true}
@@ -83,6 +91,7 @@ render(){
               </View>
                 </View>
               </Card>
+              </TouchableOpacity>
             );
           })
       }
@@ -93,6 +102,7 @@ render(){
 }
 LinksScreen.navigationOptions = {
   title: 'Recommendations',
+  
 };
 
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform,Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator,createMaterialTopTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -7,12 +7,15 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import MyPlants from '../screens/MyPlants.js';
-import MyJournal from '../screens/MyJournal.js'
+import MyJournal from '../screens/MyJournal.js';
+import PlantData from '../screens/PlantData.js';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+
 
 
 MyPlants.navigationOptions = {
@@ -29,7 +32,6 @@ MyPlants.navigationOptions = {
     />
   ),
 };
-
 
 const topMaterialBar=createMaterialTopTabNavigator({
   'My Plants':MyPlants,
@@ -51,12 +53,23 @@ const topMaterialBar=createMaterialTopTabNavigator({
 }
 
 );
-
+const PlantStack = createStackNavigator(
+  {
+    'Plant Data':PlantData
+  },
+  config
+);
+PlantStack.navigationOptions = {
+  tabBarLabel: 'Plant Data',
+  gesturesEnabled: true,
+  tabBarVisible:false
+};
 const LinksStack = createStackNavigator(
   {
     Links: LinksScreen,
+    PlantStack:PlantStack
   },
-  config
+  
 );
 
 LinksStack.navigationOptions = {
@@ -72,27 +85,38 @@ LinksStack.path = '';
 const SettingsStack = createStackNavigator(
   {
     SettingsScreen: SettingsScreen,
-    LinksScreen: LinksScreen
+    LinksScreen: LinksScreen,
+    PlantStack:PlantStack
   },
-  config
+  
 );
-
+SettingsScreen.navigationOptions = {
+  title: 'Plant Picker',
+  gesturesEnabled: true
+};
 SettingsStack.navigationOptions = {
-  gesturesEnabled: true,
-  tabBarLabel: 'Plant Picker',
-
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
+  tabBarLabel:'Plant-Picker'
 };
 
-SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   Picker:SettingsStack,
   Journal:topMaterialBar
-});
+}
+);
+tabNavigator.navigationOptions
 
+SettingsStack.navigationOptions = ({ navigation }) => {
+  
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible,
+    
+  };
+};
 tabNavigator.path = 'Tabs';
 
 const HomeStack = createStackNavigator(

@@ -94,3 +94,5 @@ MyPlants.navigationOptions = {
     marginTop:-3,backgroundColor:'#fff',borderWidth:0.5,borderColor:'#827f7b'},
     contents:{fontSize:12,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}
   });
+
+  
