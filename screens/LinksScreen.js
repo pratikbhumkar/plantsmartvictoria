@@ -11,18 +11,27 @@ export default class LinksScreen extends React.Component  {
   constructor(props) {
     super(props);
     this.state.plants=this.props.navigation.getParam('plants', '');
-    userData = AsyncStorage.getItem("userData");
-   
+    
+    this.props.navigation.addListener(
+      'willFocus',
+      payload => {
+        this.retrieveItem("userData");
+      });
   }
-  componentWillMount(){
+  async retrieveItem(key) {
     try {
-      var userData= JSON.parse(userData);
+      const retrievedItem =  await AsyncStorage.getItem(key);
+      const item = JSON.parse(retrievedItem);
+      this.setState({
+        userplants:item
+      })
+      return item;
     } catch (error) {
-      
+      console.log(error.message);
     }
-   
-    // this.state.userplants = JSON.parse(userData);
+    return
   }
+
   addToMyPlants(u) {
     ToastAndroid.show('Added to my plants, Swipe left to view!', ToastAndroid.LONG);
     var userplantsArray=this.state.userplants;

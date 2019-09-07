@@ -1,11 +1,15 @@
 import React from 'react';
-import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage  } from 'react-native';
+import { ScrollView, StyleSheet,View, Text, Image,AsyncStorage  } from 'react-native';
 import { Card,Button } from 'react-native-elements'
 
 export default class MyPlants extends  React.Component{
     constructor(props){
         super(props)
-        this.retrieveItem('userData');
+        this.props.navigation.addListener(
+          'willFocus',
+          payload => {
+            this.retrieveItem('userData');
+          });
     }
     state={
         plants:[]
