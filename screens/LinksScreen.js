@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage, TouchableOpacity} from 'react-native';
+import { ScrollView, StyleSheet,View, Text, Image,ToastAndroid,AsyncStorage} from 'react-native';
 import { Card,Button } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -57,7 +57,7 @@ render(){
       {
           this.state.plants.map((u, i) => {
             return (
-              <TouchableOpacity key={i} 
+              <TouchableOpacity key={i}
               onPress={()=>{
                 this.props.navigation.navigate('PlantStack', {
                   plant: u
@@ -92,7 +92,7 @@ render(){
                 </View>
                 </Card>
                 </TouchableOpacity>
-             
+
             );
           })
       }
@@ -103,7 +103,7 @@ render(){
 }
 LinksScreen.navigationOptions = {
   title: 'Recommendations',
-  
+
 };
 
 const styles = StyleSheet.create({
