@@ -1,9 +1,10 @@
 import React from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text,TouchableOpacity,Picker,View} from 'react-native';
+import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput, KeyboardAvoidingView} from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+
 
 
 export default class SettingsScreen extends React.Component  {
@@ -23,7 +24,8 @@ export default class SettingsScreen extends React.Component  {
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Rushes and Sedges'],
     soiltypeMasterList:['Sand','Loam','Clay','Limestone'],
-    location:false
+    location:false,
+    TextInputValue:'',
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
 
@@ -49,6 +51,7 @@ componentWillMount(){
 
     readFromDatabase= () => {
     var soiltype=this.state.soiltypeMasterList[this.state.selectedIndex]
+    var postcode=this.state.TextInputValue
     if (soiltype.includes('Sand')) {
       soiltype='Sa'
     } else if (soiltype=='Loam') {
@@ -78,7 +81,7 @@ componentWillMount(){
         if (snapshot.numChildren()>0) {
           for(var k in listofTrees){
             var element = listofTrees[k];
-            if(element['Soiltexture'].includes(soiltype)){
+            if(element['Soiltexture'].includes(soiltype) && element['Postcode'].includes(postcode)){
                passedList.push(element)
                counter=counter+1
                if (counter>4) {
@@ -109,6 +112,7 @@ componentWillMount(){
     let location = await Location.getCurrentPositionAsync({});
     location=await Location.reverseGeocodeAsync(location.coords);
     this.setState({ location });
+
   };
 
     addToDatabase() {
@@ -129,7 +133,16 @@ componentWillMount(){
       const buttons = this.state.soiltypeMasterList;
       return (
         <View style={styles.container}>
-          <View style={{marginBottom:20}}>
+        <Text style={styles.titleText}>Your Location</Text>
+        <View style={styles.postcodeLocator}>
+        <TextInput
+          maxLength={4}
+          style={styles.input}
+          placeholder="Postcode"
+          onChangeText={TextInputValue => this.setState({TextInputValue})}
+        />
+        </View>
+          <View style={styles.plantTypeContainer}>
             <Text style={styles.titleText}>Plant Type</Text>
             <Picker selectedValue = {this.state.planttype} onValueChange = {this.updateplanttype}>
                {plantypeitems}
@@ -147,22 +160,46 @@ componentWillMount(){
     }
 }
 const styles = StyleSheet.create({
+  input:{
+    height:40,
+    width:90,
+    backgroundColor:'#edf9ec',
+    marginBottom:20,
+    fontSize: 20,
+    borderColor: '#c1cbc0',
+    borderWidth:1,
+    alignContent:'center',
+    marginTop:10,
+
+  },
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+
   },
+
+  searchText: {
+    textAlign:'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  postcodeLocator: {
+    paddingTop: 10,
+    padding: 20,
+  },
+
   button: {
     alignItems: 'center',
-    alignContent:'center',
-    backgroundColor: '#DDDDDD',
-    alignSelf:'center',
-    padding: 10,
-    position:'absolute',
-    bottom:1,
-    marginBottom:160,
-    height:50,
-    borderRadius:15,
-    width:200
+   alignContent:'center',
+   backgroundColor: '#DDDDDD',
+   alignSelf:'center',
+   padding: 10,
+   position:'absolute',
+   bottom:1,
+   marginBottom:160,
+   height:50,
+   borderRadius:15,
+   width:200
   },
   container: {
     flex: 1,
@@ -170,5 +207,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   }
 });
-
-
