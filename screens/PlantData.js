@@ -14,7 +14,9 @@ export default class MyPlants extends  React.Component{
     render(){
         var u=this.state.plant;
         return(
-            <View style={{borderTopWidth:0.5,borderTopColor:'#000'}}>
+            <View style = {styles.container}>
+                  <Text style={{fontSize:25,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}}>{u['Commonname'].toUpperCase()}</Text>
+                  <Image source={{uri: u['url']}} style={{width:'100%',height:400}} />
                   <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
                   <Text style={styles.contents}>Rain(mm): {u['Rain(mm)']}</Text>
@@ -31,13 +33,11 @@ export default class MyPlants extends  React.Component{
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 2,
-  
-      backgroundColor: '#c8cdce',
+      width: '100%',
+      height: '100%',
+
     },
     containerStyle:{alignContent:'center',padding:2,paddingLeft:-3,paddingRight:-3,marginBottom:10,
     marginTop:-3,backgroundColor:'#fff',borderWidth:0.5,borderColor:'#827f7b'},
-    contents:{fontSize:12,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}
+    contents:{fontSize:20,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}
   });
-
-  

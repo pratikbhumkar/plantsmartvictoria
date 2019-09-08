@@ -69,7 +69,7 @@ const LinksStack = createStackNavigator(
     Links: LinksScreen,
     PlantStack:PlantStack
   },
-  
+
 );
 
 LinksStack.navigationOptions = {
@@ -88,7 +88,7 @@ const SettingsStack = createStackNavigator(
     LinksScreen: LinksScreen,
     PlantStack:PlantStack
   },
-  
+
 );
 SettingsScreen.navigationOptions = {
   title: 'Plant Picker',
@@ -107,14 +107,14 @@ const tabNavigator = createBottomTabNavigator({
 tabNavigator.navigationOptions
 
 SettingsStack.navigationOptions = ({ navigation }) => {
-  
+
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
     tabBarVisible = false;
   }
   return {
     tabBarVisible,
-    
+
   };
 };
 tabNavigator.path = 'Tabs';
