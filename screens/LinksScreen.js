@@ -36,6 +36,9 @@ export default class LinksScreen extends React.Component  {
   addToMyPlants(u) {
     ToastAndroid.show('Added to my plants, Swipe left to view!', ToastAndroid.LONG);
     var userplantsArray=this.state.userplants;
+    if (typeof userplantsArray!==null) {
+      userplantsArray=[];
+    } 
     const date = new Date();
     var addDate= date.toISOString().split('T')[0];
     u.addDate=addDate;
