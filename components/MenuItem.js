@@ -23,19 +23,19 @@ const styles = StyleSheet.create(
   {
     menuItem: {
       width: '33.333333%',
-      height: '60%',
+      height: '50%',
       padding: 20,
       backgroundColor: 'transparent',
 
     },
     image: {
       padding: 40,
-      //width: '1%',
-      //height: '1%',
+      width:'100%',
+      height:'100%',
       opacity: 0.7,
       borderColor: '#fff',
       borderWidth: 1,
-      backgroundColor: 'transparent',
+      backgroundColor: '#ffc966',
 
 
     }
