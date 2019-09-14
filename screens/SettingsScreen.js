@@ -22,14 +22,14 @@ export default class SettingsScreen extends React.Component  {
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Rushes and Sedges'],
     location:false,
-    postalCode:'',
-    TextInputValue:'',
+    postalCode:'3145',
     errorMessage:''
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
 
 
 componentWillMount(){
+  console.disableYellowBox=true;
   if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
@@ -49,7 +49,7 @@ componentWillMount(){
     }
 
     readFromDatabase= () => {
-    var postcode=this.state.TextInputValue
+    var postcode=this.state.postalCode
     if(this.state.planttype=='Select one'){
       alert('Please select option')
     }
@@ -120,21 +120,13 @@ componentWillMount(){
       });
       return (
         <View style={styles.container}>
-        {/* <Text style={styles.titleText}>Your Location</Text>
-        <View style={styles.postcodeLocator}>
-        <TextInput
-          maxLength={4}
-          style={styles.input}
-          value={this.state.postalCode}
-          placeholder="Postcode"
-          onChangeText={TextInputValue => this.setState({TextInputValue})}
-        /> */}
+     
         <Input
             label="Post Code"
             placeholder='Post code'
             value={this.state.postalCode}
             errorStyle={{ color: 'red' }}
-            onChangeText={TextInputValue => this.setState({TextInputValue})}
+            onChangeText={postalCode => this.setState({postalCode})}
             errorMessage={this.state.errorMessage}
             inputContainerStyle={{width:'50%'}}
           />
@@ -150,6 +142,7 @@ componentWillMount(){
       );
     }
 }
+
 const styles = StyleSheet.create({
   input:{
     height:40,
