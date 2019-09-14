@@ -38,7 +38,7 @@ export default class LinksScreen extends React.Component  {
     var userplantsArray=this.state.userplants;
     if (typeof userplantsArray!==null) {
       userplantsArray=[];
-    } 
+    }
     const date = new Date();
     var addDate= date.toISOString().split('T')[0];
     u.addDate=addDate;
@@ -76,7 +76,7 @@ render(){
                 <Image
             source={{uri: u['url']}}
             style={{width:'100%',height:250}} />
-           
+
             <View style={{alignContent:'flex-end',alignItems:'flex-end',margin:15}}>
             <Button
                 raised={true}

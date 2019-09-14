@@ -35,7 +35,8 @@ MyPlants.navigationOptions = {
 
 const topMaterialBar=createMaterialTopTabNavigator({
   'My Plants':MyPlants,
-  'My Journal':MyJournal
+  'My Journal':MyJournal,
+
 },{
   tabBarOptions: {
     labelStyle: {
@@ -67,7 +68,8 @@ PlantStack.navigationOptions = {
 const LinksStack = createStackNavigator(
   {
     Links: LinksScreen,
-    PlantStack:PlantStack
+    PlantStack:PlantStack,
+
   },
 
 );
@@ -87,6 +89,7 @@ const SettingsStack = createStackNavigator(
     SettingsScreen: SettingsScreen,
     LinksScreen: LinksScreen,
     PlantStack:PlantStack
+
   },
 
 );
@@ -101,6 +104,7 @@ SettingsStack.navigationOptions = {
 
 const tabNavigator = createBottomTabNavigator({
   Picker:SettingsStack,
+
   Journal:topMaterialBar
 }
 );
@@ -122,6 +126,8 @@ tabNavigator.path = 'Tabs';
 const HomeStack = createStackNavigator(
   {
     HomeScreen:HomeScreen,
+    MyPlants:MyPlants,
+    MyJournal:MyJournal,
     Tabs: tabNavigator
   },
   {
