@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput} from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
@@ -22,8 +22,9 @@ export default class SettingsScreen extends React.Component  {
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Rushes and Sedges'],
     location:false,
-    postalCode:0,
+    postalCode:'',
     TextInputValue:'',
+    errorMessage:''
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
 
@@ -119,7 +120,7 @@ componentWillMount(){
       });
       return (
         <View style={styles.container}>
-        <Text style={styles.titleText}>Your Location</Text>
+        {/* <Text style={styles.titleText}>Your Location</Text>
         <View style={styles.postcodeLocator}>
         <TextInput
           maxLength={4}
@@ -127,19 +128,25 @@ componentWillMount(){
           value={this.state.postalCode}
           placeholder="Postcode"
           onChangeText={TextInputValue => this.setState({TextInputValue})}
-        />
-        </View>
-          <View style={styles.plantTypeContainer}>
+        /> */}
+        <Input
+            label="Post Code"
+            placeholder='Post code'
+            value={this.state.postalCode}
+            errorStyle={{ color: 'red' }}
+            onChangeText={TextInputValue => this.setState({TextInputValue})}
+            errorMessage={this.state.errorMessage}
+            inputContainerStyle={{width:'50%'}}
+          />
             <Text style={styles.titleText}>Plant Type</Text>
             <Picker selectedValue = {this.state.planttype} onValueChange = {this.updateplanttype}>
                {plantypeitems}
             </Picker>
-            </View>
             <TouchableOpacity style={styles.button}
               onPress={this.readFromDatabase}>
               <Text style={styles.titleText}>Show me!</Text>
             </TouchableOpacity>
-        </View>
+           </View>
       );
     }
 }
