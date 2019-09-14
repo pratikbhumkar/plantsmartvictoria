@@ -10,9 +10,7 @@ export default class MyJournal extends  React.Component{
           'willFocus',
           payload => {
             this.retrieveItem("userData");
-            this.setState({
-              
-            })
+            this.setState({});
           });
 
       }
