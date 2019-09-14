@@ -104,16 +104,7 @@ componentWillMount(){
 
   };
 
-  //   addToDatabase() {
-  //   var email='Checkin'
-  //   firebase.database().ref('/').push({
-  //     email
-  //   }).then((data)=>{
-  //   console.log("Added")
-  //   }).catch((error)=>{
-  //   console.log("Error",error)
-  //   })
-  // }
+
     render(){
       let plantypeitems = this.state.planttypeMasterList.map( (s, i) => {
         return <Picker.Item key={i} value={s} label={s} />
