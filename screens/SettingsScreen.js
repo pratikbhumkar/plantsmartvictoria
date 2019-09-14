@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput, KeyboardAvoidingView} from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
+import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput} from 'react-native';
+import { Input } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
@@ -18,19 +18,18 @@ export default class SettingsScreen extends React.Component  {
 
   }
   state = {
-    selectedIndex: 0,
     planttype: 'Select one',
-    soiltype:'Select one',
     planttypeMasterList:['Select one','Trees and Shrubs','Aquatic and Riparian Zone Plants','Bulbs and Lilies','Climbers','Grasses','Groundcover'
     ,'Rushes and Sedges'],
-    soiltypeMasterList:['Sand','Loam','Clay','Limestone'],
     location:false,
-    TextInputValue:'',
+    postalCode:'3145',
+    errorMessage:''
 }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
 
 
 componentWillMount(){
+  console.disableYellowBox=true;
   if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
@@ -50,21 +49,8 @@ componentWillMount(){
     }
 
     readFromDatabase= () => {
-    var soiltype=this.state.soiltypeMasterList[this.state.selectedIndex]
-    var postcode=this.state.TextInputValue
-    if (soiltype.includes('Sand')) {
-      soiltype='Sa'
-    } else if (soiltype=='Loam') {
-      soiltype='Lo'
-    }
-    else if (soiltype=='Clay') {
-      soiltype='Cl'
-    }
-    else if (soiltype=='Limestone') {
-      soiltype='Li'
-    }
-
-    if(this.state.planttype=='Select one'|| soiltype=='Select one'){
+    var postcode=this.state.postalCode
+    if(this.state.planttype=='Select one'){
       alert('Please select option')
     }
     else{
@@ -73,7 +59,7 @@ componentWillMount(){
       var listofTrees=[];
       var passedList=[];
       var counter=0;
-      var pType=this.state.planttype
+      var pType=this.state.planttype;
 
       firebase.database().ref('/').orderByChild('Type').equalTo(pType).on('value', function (snapshot)
        {
@@ -81,10 +67,10 @@ componentWillMount(){
         if (snapshot.numChildren()>0) {
           for(var k in listofTrees){
             var element = listofTrees[k];
-            if(element['Soiltexture'].includes(soiltype) && element['Postcode'].includes(postcode)){
+            if(element['Postcode'].includes(postcode)){
                passedList.push(element)
                counter=counter+1
-               if (counter>4) {
+               if (counter>9) {
                  break;
                }
             }
@@ -111,54 +97,52 @@ componentWillMount(){
 
     let location = await Location.getCurrentPositionAsync({});
     location=await Location.reverseGeocodeAsync(location.coords);
-    this.setState({ location });
+    this.setState({
+       location:location,
+       postalCode:location[0].postalCode
+       });
 
   };
 
-    addToDatabase() {
-    var email='Checkin'
-    firebase.database().ref('/').push({
-      email
-    }).then((data)=>{
-    console.log("Added")
-    }).catch((error)=>{
-    console.log("Error",error)
-    })
-  }
+  //   addToDatabase() {
+  //   var email='Checkin'
+  //   firebase.database().ref('/').push({
+  //     email
+  //   }).then((data)=>{
+  //   console.log("Added")
+  //   }).catch((error)=>{
+  //   console.log("Error",error)
+  //   })
+  // }
     render(){
       let plantypeitems = this.state.planttypeMasterList.map( (s, i) => {
         return <Picker.Item key={i} value={s} label={s} />
       });
-      var index=this.state.selectedIndex;
-      const buttons = this.state.soiltypeMasterList;
       return (
         <View style={styles.container}>
-        <Text style={styles.titleText}>Your Location</Text>
-        <View style={styles.postcodeLocator}>
-        <TextInput
-          maxLength={4}
-          style={styles.input}
-          placeholder="Postcode"
-          onChangeText={TextInputValue => this.setState({TextInputValue})}
-        />
-        </View>
-          <View style={styles.plantTypeContainer}>
+     
+        <Input
+            label="Post Code"
+            placeholder='Post code'
+            value={this.state.postalCode}
+            errorStyle={{ color: 'red' }}
+            onChangeText={postalCode => this.setState({postalCode})}
+            errorMessage={this.state.errorMessage}
+            inputContainerStyle={{width:'50%'}}
+          />
             <Text style={styles.titleText}>Plant Type</Text>
             <Picker selectedValue = {this.state.planttype} onValueChange = {this.updateplanttype}>
                {plantypeitems}
             </Picker>
-            </View>
-            <Text style={styles.titleText}>Soil Type</Text>
-            <ButtonGroup onPress={this.updateIndex} selectedIndex={index}
-          buttons={buttons} containerStyle={{height: 50}} selectedButtonStyle={{backgroundColor:'#0d9b60'}}/>
             <TouchableOpacity style={styles.button}
               onPress={this.readFromDatabase}>
               <Text style={styles.titleText}>Show me!</Text>
             </TouchableOpacity>
-        </View>
+           </View>
       );
     }
 }
+
 const styles = StyleSheet.create({
   input:{
     height:40,
