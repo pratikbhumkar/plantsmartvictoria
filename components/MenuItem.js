@@ -29,12 +29,15 @@ const styles = StyleSheet.create(
 
     },
     image: {
-      padding: 40,
+      paddingRight: 40,
+      paddingLeft: 40,
+      paddingTop: 40,
+      paddingBottom: 40,
       width:'100%',
       height:'100%',
       opacity: 0.7,
-      borderColor: '#fff',
-      borderWidth: 1,
+      borderColor: '#F5B041',
+      borderWidth: 3,
       backgroundColor: '#ffc966',
 
 

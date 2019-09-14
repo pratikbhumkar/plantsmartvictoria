@@ -20,8 +20,16 @@ export default class HomeScreen extends  React.Component{
 
         <View style = {styles.menuContainer}>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
-        <MenuItem itemImage={require('../assets/images/Aloe-Vera.png')}/>
+        <MenuItem itemImage={require('../assets/images/plantPicker.png')}/>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('MyPlants')}>
+        <MenuItem itemImage={require('../assets/images/MyPlants.png')}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('MyJournal')}>
+        <MenuItem itemImage={require('../assets/images/WateringCan.png')}/>
+        </TouchableOpacity>
+
+
 
         </View>
         </View>
@@ -67,7 +75,8 @@ header: {
 },
 menuContainer: {
   height: '30%',
-  paddingLeft: 30,
+  paddingLeft: 20,
+  //paddingRight: 30,
   flexDirection: 'row',
   flexWrap: 'wrap',
   //backgroundColor: 'transparent',
