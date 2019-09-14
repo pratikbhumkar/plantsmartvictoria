@@ -6,19 +6,49 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 export default class MyJournal extends  React.Component{
     constructor(props){
         super(props)
-        
-    }
+        this.props.navigation.addListener(
+          'willFocus',
+          payload => {
+            this.retrieveItem("userData");
+            this.setState({
+              
+            })
+          });
+
+      }
+
     state={
-        plants:[],
-        items: {}
+      userplants:[],
+      items: {},
+      today:''
     }
+    componentWillMount(){
+      const date = new Date();
+      var today= date.toISOString().split('T')[0];
+      this.state.today=today;
+    }
+    async retrieveItem(key) {
+      try {
+        const retrievedItem =  await AsyncStorage.getItem(key);
+        const item = JSON.parse(retrievedItem);
+        this.setState({
+          userplants:item
+        })
+
+        return item;
+      } catch (error) {
+        console.log(error.message);
+      }
+      return
+    }
+
     render(){
         return(
 
     <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={'2019-09-07'}
+        selected={this.state.today}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -31,30 +61,60 @@ export default class MyJournal extends  React.Component{
       />          
         )
     }
-    loadItems(day) {
-        setTimeout(() => {
-          for (let i = -15; i < 85; i++) {
-            const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-            const strTime = this.timeToString(time);
-            if (!this.state.items[strTime]) {
-              this.state.items[strTime] = [];
-              const numItems = Math.floor(Math.random() * 5);
-              for (let j = 0; j < numItems; j++) {
-                this.state.items[strTime].push({
-                  name: 'Item for ' + strTime,
-                  height: Math.max(50, Math.floor(Math.random() * 150))
-                });
-              }
-            }
-          }
-          //console.log(this.state.items);
-          const newItems = {};
-          Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-          this.setState({
-            items: newItems
-          });
-        }, 1000);
-        // console.log(`Load Items for ${day.year}-${day.month}`);
+    
+// Fertilize, Prune Type
+// 'Trees and Shrubs' F-1ce a year P-3-years 
+// ,'Aquatic and Riparian Zone Plants' F-Never P-Never 
+// ,'Bulbs and Lilies' F-1ce a month P-1ce year
+// ,'Climbers' F-weekly P- P-1ce year
+// ,'Grasses' F-twice a year P-1ce
+// ,'Groundcover' F-twice a year  P-1ce
+
+    //       Rainfall Rain(mm)
+// 0-300: low, Bi weekly
+// 300-400 moderate, after 5 days
+// 400+ : high,Daily
+
+loadItems(day) {
+  setTimeout(() => {
+    for (let i = 0; i < 30; i++) {
+      const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+      const strTime = this.timeToString(time);
+      if (!this.state.items[strTime]) {
+        this.state.items[strTime] = [];
+        var numItems = this.state.userplants.length;
+        for (let j = 0; j < numItems; j++) {
+          var item=this.state.userplants[j];
+          var itemRain=Number(item['Rain(mm)']);
+          if (itemRain>0 && itemRain<301 && [1,5,8,12,15,19,22,26].includes(i) ) {
+            this.state.items[strTime].push({
+              name: 'Water '+this.state.userplants[j].Commonname,
+              height: 100
+            });
+            
+          } else if (itemRain>300 && itemRain<401 && [1,15].includes(i) ) {
+            this.state.items[strTime].push({
+              name: 'Water '+this.state.userplants[j].Commonname,
+              height: 100
+            });
+          } else if (itemRain>400)  {
+            this.state.items[strTime].push({
+              name: 'Water '+this.state.userplants[j].Commonname,
+              height: 100
+            });
+          } 
+          
+          
+        }
+      }
+    }
+    const newItems = {};
+    Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+    this.setState({
+      items: newItems
+    });
+  }, 1000);
+        
       }
     
       renderItem(item) {
