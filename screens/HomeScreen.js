@@ -20,13 +20,13 @@ export default class HomeScreen extends  React.Component{
 
         <View style = {styles.menuContainer}>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
-        <MenuItem itemImage={require('../assets/images/plantPicker.png')}/>
+        <MenuItem itemImage={require('../assets/images/plantPickerSize.png')}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('MyPlants')}>
-        <MenuItem itemImage={require('../assets/images/MyPlants.png')}/>
+        <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('MyJournal')}>
-        <MenuItem itemImage={require('../assets/images/WateringCan.png')}/>
+        <MenuItem itemImage={require('../assets/images/MyJournalSize.png')}/>
         </TouchableOpacity>
 
 
@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
 
   overlayContainer: {
     flex: 1,
-    //backgroundColor: 'rgba(47,163,218, .4)',
-    //resizeMode : 'stretch',
+    
 
   },
   top: {
@@ -74,12 +73,9 @@ header: {
   backgroundColor: 'transparent',
 },
 menuContainer: {
-  height: '30%',
-  paddingLeft: 20,
-  //paddingRight: 30,
+  paddingLeft: 39,
   flexDirection: 'row',
-  flexWrap: 'wrap',
-  //backgroundColor: 'transparent',
+  flexWrap: 'wrap'
 },
 
 

@@ -22,19 +22,13 @@ export default class MenuItem extends React.Component{
 const styles = StyleSheet.create(
   {
     menuItem: {
-      width: '33.333333%',
-      height: '50%',
-      padding: 20,
+      padding: 10,
       backgroundColor: 'transparent',
 
     },
     image: {
-      paddingRight: 40,
-      paddingLeft: 40,
-      paddingTop: 40,
-      paddingBottom: 40,
-      width:'100%',
-      height:'100%',
+      width:90,
+      height:90,
       opacity: 0.7,
       borderColor: '#F5B041',
       borderWidth: 3,
