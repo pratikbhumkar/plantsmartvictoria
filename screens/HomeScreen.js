@@ -22,11 +22,11 @@ export default class HomeScreen extends  React.Component{
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
         <MenuItem itemImage={require('../assets/images/plantPickerSize.png')}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('MyPlants')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants')}>
         <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('MyJournal')}>
-        <MenuItem itemImage={require('../assets/images/MyJournalSize.png')}/>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('My Journal')}>
+        <MenuItem itemImage={require('../assets/images/WateringCanSize.png')}/>
         </TouchableOpacity>
 
 
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
   overlayContainer: {
     flex: 1,
-    
+
 
   },
   top: {
