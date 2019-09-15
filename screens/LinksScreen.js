@@ -18,25 +18,27 @@ export default class LinksScreen extends React.Component {
       payload => {
         this.retrieveItem("userData");
       });
+
+    // this.props.navigation.addListener(
+    //   'willBlur',
+    //   payload => {
+    //     this.retrieveItem("userData");
+    //   });
   }
   async retrieveItem(key) {
     try {
-      const retrievedItem = await AsyncStorage.getItem(key);
-      const item = JSON.parse(retrievedItem);
-      this.setState({
-        userplants: item
-      })
-      return item;
+      var retrievedItem = await AsyncStorage.getItem(key);
+      var item = JSON.parse(retrievedItem);
+      this.state.userplants = item;
     } catch (error) {
       console.log(error.message);
     }
-    return
   }
 
   addToMyPlants(u) {
-    ToastAndroid.show('Added to my plants, Swipe left to view!', ToastAndroid.LONG);
+    ToastAndroid.show('Added to my plants', ToastAndroid.LONG);
     var userplantsArray = this.state.userplants;
-    if (typeof userplantsArray !== null) {
+    if (userplantsArray === null) {       //This fix is for new devices using app and no data in app storage so cant store in empty array.
       userplantsArray = [];
     }
     const date = new Date();
@@ -63,7 +65,6 @@ export default class LinksScreen extends React.Component {
         {
           this.state.plants.map((u, i) => {
             return (
-
               <Card containerStyle={styles.containerStyle} key={i} >
 
                 <View key={i} style={{ width: '100%', padding: 5 }}>
@@ -72,8 +73,7 @@ export default class LinksScreen extends React.Component {
                       this.props.navigation.navigate('PlantStack', {
                         plant: u
                       });
-                    }}
-                  >
+                    }}>
                     <View>
                       <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
                       <Image
@@ -91,7 +91,6 @@ export default class LinksScreen extends React.Component {
                   </View>
                 </View>
               </Card>
-
             );
           })
         }
