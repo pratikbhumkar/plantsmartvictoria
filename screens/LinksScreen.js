@@ -36,7 +36,7 @@ export default class LinksScreen extends React.Component {
   }
 
   addToMyPlants(u) {
-    ToastAndroid.show('Added to my plants', ToastAndroid.LONG);
+    var uploadFlag=true;
     var userplantsArray = this.state.userplants;
     if (userplantsArray === null) {       //This fix is for new devices using app and no data in app storage so cant store in empty array.
       userplantsArray = [];
@@ -44,15 +44,23 @@ export default class LinksScreen extends React.Component {
     const date = new Date();
     var addDate = date.toISOString().split('T')[0];
     u.addDate = addDate;
-    userplantsArray.push(u);
-    this.state.userplants=userplantsArray;
-    this.storeItem("userData", userplantsArray);
+    userplantsArray.forEach(element => {
+      if(element['Botanicalname']==u['Botanicalname']){
+        uploadFlag=false;
+      }
+    });
+    if (uploadFlag) {
+      userplantsArray.push(u);
+      this.storeItem("userData", userplantsArray);
+    }else
+    ToastAndroid.show('Plant already added to my plants', ToastAndroid.LONG);
   }
   async storeItem(key, item) {
     try {
       //we want to wait for the Promise returned by AsyncStorage.setItem()
       //to be resolved to the actual value before returning the value
       var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+      ToastAndroid.show('Added to my plants', ToastAndroid.LONG);
       return jsonOfItem;
     } catch (error) {
       console.log(error.message);
