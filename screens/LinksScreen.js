@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, Platform, Alert} from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -52,15 +52,37 @@ export default class LinksScreen extends React.Component {
     if (uploadFlag) {
       userplantsArray.push(u);
       this.storeItem("userData", userplantsArray);
-    }else
-    ToastAndroid.show('Plant already added to my plants', ToastAndroid.LONG);
+    }
+    else{
+      if (Platform.OS === 'ios'){
+
+      Alert.alert('Plant already added to my plants');
+
+      }
+      else {
+        ToastAndroid.show('Plant already added to my plants', ToastAndroid.LONG);
+
+      }
+    }
+
+
   }
   async storeItem(key, item) {
     try {
       //we want to wait for the Promise returned by AsyncStorage.setItem()
       //to be resolved to the actual value before returning the value
       var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
-      ToastAndroid.show('Added to my plants', ToastAndroid.LONG);
+      if (Platform.OS === 'ios'){
+        Alert.alert('Added to my plants');
+
+      }
+      else {
+        ToastAndroid.show('Added to my plants', ToastAndroid.LONG);
+
+      }
+
+
+
       return jsonOfItem;
     } catch (error) {
       console.log(error.message);
@@ -77,6 +99,7 @@ export default class LinksScreen extends React.Component {
               <Card containerStyle={styles.containerStyle} key={i} >
 
                 <View key={i} style={{ width: '100%', padding: 5 }}>
+
                   <TouchableOpacity key={i}
                     onPress={() => {
                       this.props.navigation.navigate('PlantStack', {
@@ -85,11 +108,13 @@ export default class LinksScreen extends React.Component {
                     }}>
                     <View>
                       <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
+
                       <Image
                         source={{ uri: u['url'] }}
                         style={{ width: '100%', height: 250 }} />
                     </View>
                   </TouchableOpacity>
+
                   <View style={{ alignContent: 'flex-end', alignItems: 'flex-end', margin: 15 }}>
                     <Button
                       raised={true}
@@ -97,12 +122,15 @@ export default class LinksScreen extends React.Component {
                       onPress={() => this.addToMyPlants(u)}
                       buttonStyle={{ height: 30, width: 80, borderRadius: 20 }}
                     />
+
+
                   </View>
                 </View>
               </Card>
             );
           })
         }
+
 
       </ScrollView>
     );
