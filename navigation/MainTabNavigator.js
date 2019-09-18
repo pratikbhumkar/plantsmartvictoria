@@ -107,6 +107,16 @@ const tabNavigator = createBottomTabNavigator({
   Picker:SettingsStack,
 
   Journal:topMaterialBar,
+},{
+  tabBarOptions: {
+    labelStyle:{
+      fontSize:16
+    },
+
+    style:{
+      backgroundColor:'#6ac99e'
+    },
+  }
 }
 );
 tabNavigator.navigationOptions
