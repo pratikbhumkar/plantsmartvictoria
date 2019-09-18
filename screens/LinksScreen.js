@@ -111,7 +111,7 @@ export default class LinksScreen extends React.Component {
                       raised={true}
                       title="Add"
                       onPress={() => this.addToMyPlants(u)}
-                      buttonStyle={{ height: 30, width: 80, borderRadius: 20 }}
+                      buttonStyle={{ height: 20, width: 100, borderRadius: 20 }}
                     />
 
 

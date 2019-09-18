@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet,View, Text, Image } from 'react-native';
-import { Card } from 'react-native-elements'
+import { StyleSheet,View, Text, Image,ScrollView } from 'react-native';
+import { Card } from 'react-native-elements';
 
 export default class MyPlants extends  React.Component{
     constructor(props){
@@ -14,23 +14,25 @@ export default class MyPlants extends  React.Component{
     render(){
         var u=this.state.plant;
         return(
-            <Card style = {styles.container}
-            image={{uri: u['url']}}
-            imageStyle={{width:'100%',height:400}}
-            title={u['Commonname'].toUpperCase()}
-            titleStyle={{alignSelf:'flex-start',paddingLeft:10,paddingBottom:-5}}
-            >
-                  
-                  <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
-                  <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
-                  <Text style={styles.contents}>Rain(mm): {u['Rain(mm)']}</Text>
-                  <Text style={styles.contents}>Genus: {u['Genus'].toUpperCase()}</Text>
-                  <Text style={styles.contents}>Spread(m): {u['Spread(m)'].toUpperCase()}</Text>
-                  <Text style={styles.contents}>Tube Colour: {u['Tubecolour'].toUpperCase()}</Text>
-                  <Text style={styles.contents}>Plant Type: {u['Type'].toUpperCase()}</Text>
-                  <Text style={styles.contents}>Soil pH: {u['SoilpH'].toUpperCase()}</Text>
-                  <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
-            </Card>
+            <ScrollView>
+                <Card style = {styles.container}
+                image={{uri: u['url']}}
+                imageStyle={{width:'100%',height:400}}
+                title={u['Commonname'].toUpperCase()}
+                titleStyle={{alignSelf:'flex-start',paddingLeft:10,paddingBottom:-5}}
+                >
+                    
+                    <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
+                    <Text style={styles.contents}>Rain(mm): {u['Rain(mm)']}</Text>
+                    <Text style={styles.contents}>Genus: {u['Genus'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Spread(m): {u['Spread(m)'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Tube Colour: {u['Tubecolour'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Plant Type: {u['Type'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Soil pH: {u['SoilpH'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
+                </Card>
+            </ScrollView>
         )
     }
 }
