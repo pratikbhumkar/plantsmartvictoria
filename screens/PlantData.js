@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,View, Text, Image } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements'
 
 export default class MyPlants extends  React.Component{
@@ -14,7 +14,7 @@ export default class MyPlants extends  React.Component{
     render(){
         var u=this.state.plant;
         return(
-          <View style = {styles.mainContainer}>
+          <ScrollView style = {styles.mainContainer}>
             <Card style = {styles.container}
             image={{uri: u['url']}}
             imageStyle={{width:'100%',height:400}}
@@ -32,7 +32,7 @@ export default class MyPlants extends  React.Component{
                   <Text style={styles.contents}>Soil pH: {u['SoilpH'].toUpperCase()}</Text>
                   <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
             </Card>
-            </View>
+            </ScrollView>
         )
     }
 }
