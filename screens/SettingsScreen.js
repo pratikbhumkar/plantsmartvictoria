@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput} from 'react-native';
+import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput, ImageBackground} from 'react-native';
 import { Input } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -106,20 +106,25 @@ componentWillMount(){
 
 
     render(){
+
       let plantypeitems = this.state.planttypeMasterList.map( (s, i) => {
         return <Picker.Item key={i} value={s} label={s} />
       });
       return (
+        <ImageBackground
+          source={require('../assets/images/background_3.png')}
+          style={styles.container}>
+
         <View style={styles.container}>
-     
+
         <Input
-            label="Post Code"
+            label="Postcode"
             placeholder='Post code'
             value={this.state.postalCode}
             errorStyle={{ color: 'red' }}
             onChangeText={postalCode => this.setState({postalCode})}
             errorMessage={this.state.errorMessage}
-            inputContainerStyle={{width:'50%'}}
+            inputContainerStyle={{width:'18%'}}
           />
             <Text style={styles.titleText}>Plant Type</Text>
             <Picker selectedValue = {this.state.planttype} onValueChange = {this.updateplanttype}>
@@ -127,9 +132,11 @@ componentWillMount(){
             </Picker>
             <TouchableOpacity style={styles.button}
               onPress={this.readFromDatabase}>
-              <Text style={styles.titleText}>Show me!</Text>
+              <Text style={styles.searchText}>GO!</Text>
             </TouchableOpacity>
            </View>
+           </ImageBackground>
+
       );
     }
 }
@@ -144,19 +151,21 @@ const styles = StyleSheet.create({
     borderColor: '#c1cbc0',
     borderWidth:1,
     alignContent:'center',
-    marginTop:10,
-
+    marginTop:10
   },
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+    paddingTop:20
 
   },
 
   searchText: {
     textAlign:'center',
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
+    paddingTop:20,
+    color:'white'
   },
   postcodeLocator: {
     paddingTop: 10,
@@ -166,15 +175,18 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
    alignContent:'center',
-   backgroundColor: '#DDDDDD',
+   backgroundColor: '#6ac99e',
    alignSelf:'center',
    padding: 10,
    position:'absolute',
    bottom:1,
    marginBottom:160,
-   height:50,
-   borderRadius:15,
-   width:200
+   height:100,
+   borderRadius:200,
+   width:100,
+   fontSize:20,
+   borderWidth:0.3,
+   borderColor:'black'
   },
   container: {
     flex: 1,

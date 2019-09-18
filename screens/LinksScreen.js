@@ -111,7 +111,7 @@ export default class LinksScreen extends React.Component {
                       raised={true}
                       title="Add"
                       onPress={() => this.addToMyPlants(u)}
-                      buttonStyle={{ height: 30, width: 80, borderRadius: 20 }}
+                      buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
                     />
 
 
@@ -190,7 +190,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 2,
 
-    backgroundColor: '#c8cdce',
+    //backgroundColor: '#c8cdce',
+    backgroundColor: '#6ac99e',
+
+
   },
   containerStyle: {
     alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,

@@ -35,7 +35,7 @@ export default class MyPlants extends  React.Component{
         <ScrollView style={styles.container}>
           <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
         {
-            
+
             this.state.plants.map((u, i) => {
               return (
                 <Card containerStyle={styles.containerStyle} key={i}>
@@ -60,14 +60,14 @@ export default class MyPlants extends  React.Component{
               );
             })
         }
-    
+
       </ScrollView>
       )
     }
   }
     return (
         <View><Text>No Plants, add some</Text></View>
-    ) 
+    )
   }
 }
 MyPlants.navigationOptions = {
@@ -78,12 +78,12 @@ MyPlants.navigationOptions = {
     container: {
       flex: 1,
       paddingTop: 2,
-  
-      backgroundColor: '#c8cdce',
+
+      //backgroundColor: '#c8cdce',
+      backgroundColor: '#6ac99e',
+
     },
     containerStyle:{alignContent:'center',padding:2,paddingLeft:-3,paddingRight:-3,marginBottom:10,
     marginTop:-3,backgroundColor:'#fff',borderWidth:0.5,borderColor:'#827f7b'},
     contents:{fontSize:12,fontWeight:'bold',borderBottomWidth:0.5,borderBottomColor:'#000'}
   });
-
-  
