@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform,Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator,createMaterialTopTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -44,7 +44,7 @@ const topMaterialBar=createMaterialTopTabNavigator({
       height:90
     },
     style: {
-      backgroundColor: '#6ac99e',
+      backgroundColor: '#6ac99e'
     },
   }
 }
@@ -57,7 +57,8 @@ const PlantStack = createStackNavigator(
   {
     headerMode: 'none',
     title: 'Plant Data'
-  }
+  },
+
 );
 PlantStack.navigationOptions = {
   tabBarLabel: 'Plant Data',
@@ -74,6 +75,7 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
+  backgroundColor:'#6ac99e',
   tabBarLabel: 'Links',
   tabBarVisible:false,
   tabBarIcon: ({ focused }) => (
@@ -104,7 +106,7 @@ SettingsStack.navigationOptions = {
 const tabNavigator = createBottomTabNavigator({
   Picker:SettingsStack,
 
-  Journal:topMaterialBar
+  Journal:topMaterialBar,
 }
 );
 tabNavigator.navigationOptions
@@ -133,8 +135,13 @@ const HomeStack = createStackNavigator(
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
+      backgroundColor:'#6ac99e'
+
+
     }
    }
   );
+
+
 
 export default HomeStack;
