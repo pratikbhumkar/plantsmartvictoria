@@ -10,10 +10,6 @@ import MyPlants from '../screens/MyPlants.js';
 import MyJournal from '../screens/MyJournal.js';
 import PlantData from '../screens/PlantData.js';
 
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
 
 
 
@@ -58,7 +54,10 @@ const PlantStack = createStackNavigator(
   {
     'Plant Data':PlantData
   },
-  config
+  {
+    headerMode: 'none',
+    title: 'Plant Data'
+  }
 );
 PlantStack.navigationOptions = {
   tabBarLabel: 'Plant Data',

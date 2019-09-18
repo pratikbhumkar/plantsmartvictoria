@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Image,  Platform,  ScrollView, StyleSheet, Text,TouchableOpacity, View} from 'react-native';
+import { ImageBackground, StyleSheet, Text,TouchableOpacity, View} from 'react-native';
 
 import MenuItem from '../components/MenuItem';
 

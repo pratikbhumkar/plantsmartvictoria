@@ -1,7 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, Platform, Alert} from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, Platform, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class LinksScreen extends React.Component {
   state = {
@@ -36,7 +35,7 @@ export default class LinksScreen extends React.Component {
   }
 
   addToMyPlants(u) {
-    var uploadFlag=true;
+    var uploadFlag = true;
     var userplantsArray = this.state.userplants;
     if (userplantsArray === null) {       //This fix is for new devices using app and no data in app storage so cant store in empty array.
       userplantsArray = [];
@@ -45,23 +44,26 @@ export default class LinksScreen extends React.Component {
     var addDate = date.toISOString().split('T')[0];
     u.addDate = addDate;
     userplantsArray.forEach(element => {
-      if(element['Botanicalname']==u['Botanicalname']){
-        uploadFlag=false;
+      if (element['Botanicalname'] == u['Botanicalname']) {
+        uploadFlag = false;
       }
     });
     if (uploadFlag) {
+      if (Platform.OS === 'ios') {
+        alert('Plant added to my plants');
+      }
+      else {
+        ToastAndroid.show('Plant added to my plants', ToastAndroid.LONG);
+      }
       userplantsArray.push(u);
       this.storeItem("userData", userplantsArray);
     }
-    else{
-      if (Platform.OS === 'ios'){
-
-      Alert.alert('Plant already added to my plants');
-
+    else {
+      if (Platform.OS === 'ios') {
+        alert('Plant already added to my plants');
       }
       else {
         ToastAndroid.show('Plant already added to my plants', ToastAndroid.LONG);
-
       }
     }
 
@@ -72,17 +74,6 @@ export default class LinksScreen extends React.Component {
       //we want to wait for the Promise returned by AsyncStorage.setItem()
       //to be resolved to the actual value before returning the value
       var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
-      if (Platform.OS === 'ios'){
-        Alert.alert('Added to my plants');
-
-      }
-      else {
-        ToastAndroid.show('Added to my plants', ToastAndroid.LONG);
-
-      }
-
-
-
       return jsonOfItem;
     } catch (error) {
       console.log(error.message);
@@ -147,7 +138,7 @@ export default class LinksScreen extends React.Component {
   async loadItems() {
     // setTimeout(() => {
     var day = new Date().valueOf();
-    var items={};
+    var items = {};
     for (let i = 0; i < 30; i++) {
       var time = day + i * 24 * 60 * 60 * 1000;
       var strTime = this.timeToString(time);
@@ -184,7 +175,7 @@ export default class LinksScreen extends React.Component {
     const newItems = {};
 
     Object.keys(items).forEach(key => { newItems[key] = items[key]; });
-    this.storeItem("CalendarItems",newItems);
+    this.storeItem("CalendarItems", newItems);
     // }, 1000);
   }
 
