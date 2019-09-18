@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput, ImageBackground} from 'react-native';
+import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput, ImageBackground, StatusBar} from 'react-native';
 import { Input } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
