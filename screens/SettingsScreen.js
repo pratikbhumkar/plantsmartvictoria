@@ -112,7 +112,7 @@ componentWillMount(){
       });
       return (
         <ImageBackground
-          source={require('../assets/images/background_3.png')}
+          source={require('../assets/images/backgroundset1.png')}
           style={styles.container}>
 
         <View style={styles.container}>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     paddingTop:20,
-    color:'white'
+    color:'black'
   },
   postcodeLocator: {
     paddingTop: 10,
@@ -175,22 +175,22 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
    alignContent:'center',
-   backgroundColor: '#6ac99e',
+   backgroundColor: '#fff',
    alignSelf:'center',
    padding: 10,
    position:'absolute',
    bottom:1,
    marginBottom:160,
    height:100,
-   borderRadius:200,
+   borderRadius:120,
    width:100,
    fontSize:20,
-   borderWidth:0.3,
+   borderWidth:0.1,
    borderColor:'black'
   },
   container: {
     flex: 1,
     padding:20,
-    backgroundColor: '#fff'
+    //backgroundColor: '#fff'
   }
 });
