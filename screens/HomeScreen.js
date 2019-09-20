@@ -4,6 +4,8 @@ import { ImageBackground, StyleSheet, Text,TouchableOpacity, View} from 'react-n
 import MenuItem from '../components/MenuItem';
 
 export default class HomeScreen extends  React.Component{
+
+
   render() {
   return (
     <ImageBackground
@@ -25,7 +27,7 @@ export default class HomeScreen extends  React.Component{
         <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants')}>
         <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('My Journal')}>
+        <TouchableOpacity style={{paddingRight:30 }} onPress={() => this.props.navigation.navigate('My Journal')}>
         <MenuItem itemImage={require('../assets/images/WateringCanSize.png')}/>
         </TouchableOpacity>
 
@@ -47,7 +49,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+    alignContent:'center',
+    alignItems:'center',
+    alignSelf:'center',
 
+  },
+  items:{
+    paddingRight:30
   },
 
   overlayContainer: {
@@ -75,7 +83,10 @@ header: {
 menuContainer: {
   paddingLeft: 39,
   flexDirection: 'row',
-  flexWrap: 'wrap'
+  flexWrap: 'wrap',
+  alignContent:'center',
+  alignItems:'center',
+  alignSelf:'center'
 },
 
 

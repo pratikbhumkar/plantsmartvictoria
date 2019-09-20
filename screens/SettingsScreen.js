@@ -48,6 +48,7 @@ componentWillMount(){
       this.setState({ planttype: planttype })
     }
 
+
     readFromDatabase= () => {
     var postcode=this.state.postalCode
     if(this.state.planttype=='Select one'){
