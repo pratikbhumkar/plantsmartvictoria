@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+import TabBarIcon from '../components/TabBarIcon';
 
 export default class MyJournal extends React.Component {
   constructor(props) {
@@ -31,9 +32,16 @@ export default class MyJournal extends React.Component {
     try {
       const retrievedItem = await AsyncStorage.getItem("CalendarItems");
       const item = JSON.parse(retrievedItem);
+      // console.log(item)
+      if(item!==null || typeof item!==undefined)
       this.setState({
         items: item
       })
+      else{
+        this.setState({
+          items: {}
+        })
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -53,78 +61,31 @@ export default class MyJournal extends React.Component {
   }
 
   render() {
-    return (
+    // console.log(this.state.items)
+    if(this.state.items!== null){
+      return (
 
-      <Agenda
-        // items={{
-        //   '2019-09-15': [{text: 'item 1 - any js object'}],
-        //   '2019-09-16': [{text: 'item 2 - any js object'}],
-        //   '2019-09-17': [],
-        //   '2019-09-18': [{text: 'item 3 - any js object'},{text: 'any js object'}]
-        // }}
-        items={this.state.items}
-        // loadItemsForMonth={}
-        // loadItemsForMonth={this.loadItems.bind(this)}
-        selected={this.state.today}
-        renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
-        pastScrollRange={1}
-        theme={{
-          week: {
-            height: 150
-          }
-        }}
-      />
-    )
+        <Agenda
+          items={this.state.items}
+          selected={this.state.today}
+          renderItem={this.renderItem.bind(this)}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+          pastScrollRange={1}
+          theme={{
+            week: {
+              height: 150
+            }
+          }}
+        />
+      )
+    }
+    else{
+      return(
+        <View><Text>No Plants added please add some!</Text></View>
+      )
+    }
   }
-
-
-  // loadItems() {
-  //   // setTimeout(() => {
-  //   var day = new Date().valueOf();
-  //   for (let i = 0; i < 30; i++) {
-  //     var time = day + i * 24 * 60 * 60 * 1000;
-  //     var strTime = this.timeToString(time);
-
-  //     if (!this.state.items[strTime]) {
-  //       this.state.items[strTime] = [];
-  //       // console.log(this.state.userplants);
-  //       if (this.state.userplants !== null) {
-  //         var numItems = this.state.userplants.length;
-  //         for (let j = 0; j < numItems; j++) {
-  //           var item = this.state.userplants[j];
-  //           var itemRain = Number(item['Rain(mm)']);
-  //           if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
-  //             this.state.items[strTime].push({
-  //               name: 'Water ' + this.state.userplants[j].Commonname,
-  //               height: 100
-  //             });
-
-  //           } else if (itemRain > 300 && itemRain < 401 && [1, 15].includes(i)) {
-  //             this.state.items[strTime].push({
-  //               name: 'Water ' + this.state.userplants[j].Commonname,
-  //               height: 100
-  //             });
-  //           } else if (itemRain > 400) {
-  //             this.state.items[strTime].push({
-  //               name: 'Water ' + this.state.userplants[j].Commonname,
-  //               height: 100
-  //             });
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   const newItems = {};
-
-  //   Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
-  //   // console.log(newItems)
-  //   this.setState({
-  //     items: newItems
-  //   });
-  //   // }, 1000);
-  // }
 
   renderItem(item) {
     return (
@@ -142,15 +103,6 @@ export default class MyJournal extends React.Component {
     return r1.name !== r2.name;
   }
 
-  // timeToString(time) {
-  //   try {
-  //     const date = new Date(time);
-  //     return date.toISOString().split('T')[0];
-  //   } catch (error) {
-
-  //   }
-
-  // }
 }
 
 const styles = StyleSheet.create({

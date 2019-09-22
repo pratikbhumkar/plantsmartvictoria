@@ -12,6 +12,20 @@ import PlantData from '../screens/PlantData.js';
 
 
 
+MyJournal.navigationOptions = {
+  tabBarLabel: 'My Journal',
+  gesturesEnabled: true,
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
 
 
 MyPlants.navigationOptions = {
@@ -29,27 +43,7 @@ MyPlants.navigationOptions = {
   ),
 };
 
-const topMaterialBar=createMaterialTopTabNavigator({
-  'My Plants':MyPlants,
-  'My Journal':MyJournal,
 
-},{
-  tabBarOptions: {
-    labelStyle: {
-      fontSize: 16,
-      fontWeight:'600',
-      marginTop:50
-    },
-    tabStyle: {
-      height:90
-    },
-    style: {
-      backgroundColor: '#6ac99e'
-    },
-  }
-}
-
-);
 const PlantStack = createStackNavigator(
   {
     'Plant Data':PlantData
@@ -65,6 +59,7 @@ PlantStack.navigationOptions = {
   gesturesEnabled: true,
   tabBarVisible:false
 };
+
 const LinksStack = createStackNavigator(
   {
     Links: LinksScreen,
@@ -90,49 +85,41 @@ const SettingsStack = createStackNavigator(
     SettingsScreen: SettingsScreen,
     LinksScreen: LinksScreen,
     PlantStack:PlantStack
-
   },
-
+  {
+    headerMode:"none"
+  }
 );
-SettingsScreen.navigationOptions = {
-  title: 'Plant Picker',
-  gesturesEnabled: true
-};
 SettingsStack.navigationOptions = {
-  tabBarLabel:'Plant-Picker'
+  tabBarLabel: 'Plant Picker',
+  gesturesEnabled: true,
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
 };
 
 
 const tabNavigator = createBottomTabNavigator({
-  Picker:SettingsStack,
-
-  Journal:topMaterialBar,
+  'Plant Picker':SettingsStack,
+  'My Plants':MyPlants,
+  'My Journal':MyJournal,
 },{
   tabBarOptions: {
     labelStyle:{
-      fontSize:16
-    },
-
-    style:{
-      backgroundColor:'#6ac99e'
+      fontSize:13
     },
   }
 }
 );
 tabNavigator.navigationOptions
 
-SettingsStack.navigationOptions = ({ navigation }) => {
-
-  let tabBarVisible = true;
-  if (navigation.state.index > 0) {
-    tabBarVisible = false;
-  }
-  return {
-    tabBarVisible,
-
-  };
-};
-tabNavigator.path = 'Tabs';
 
 const HomeStack = createStackNavigator(
   {

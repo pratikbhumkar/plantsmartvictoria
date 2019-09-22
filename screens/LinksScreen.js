@@ -114,7 +114,6 @@ export default class LinksScreen extends React.Component {
                       buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
                     />
 
-
                   </View>
                 </View>
               </Card>
@@ -165,6 +164,19 @@ export default class LinksScreen extends React.Component {
             } else if (itemRain > 400) {
               items[strTime].push({
                 name: 'Water ' + this.state.userplants[j].Commonname,
+                height: 60
+              });
+            }
+            else if([1, 15].includes(i)){
+              items[strTime].push({
+                name: 'Fertilize ' + this.state.userplants[j].Commonname,
+                height: 60
+              });
+              
+            }
+            else if([1].includes(i)){
+              items[strTime].push({
+                name: 'Prune ' + this.state.userplants[j].Commonname,
                 height: 60
               });
             }
