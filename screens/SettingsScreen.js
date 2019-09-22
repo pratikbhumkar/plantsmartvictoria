@@ -117,7 +117,7 @@ componentWillMount(){
           style={styles.container}>
 
         <View style={styles.container}>
-
+        
         <Input
             label="Postcode"
             placeholder='Post code'

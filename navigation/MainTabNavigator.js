@@ -20,8 +20,8 @@ MyJournal.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `md-wallet${focused ? '' : '-outline'}`
+          : 'md-wallet'
       }
     />
   ),
@@ -98,8 +98,8 @@ SettingsStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-rose${focused ? '' : '-outline'}`
+          : 'ios-rose'
       }
     />
   ),
@@ -133,8 +133,6 @@ const HomeStack = createStackNavigator(
     navigationOptions: {
       headerVisible: false,
       backgroundColor:'#6ac99e'
-
-
     }
    }
   );
