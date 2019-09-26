@@ -55,7 +55,6 @@ componentWillMount(){
       alert('Please select option')
     }
     else{
-
       var that=this;
       var listofTrees=[];
       var passedList=[];
@@ -114,13 +113,13 @@ componentWillMount(){
       return (
         <ImageBackground
           source={require('../assets/images/backgroundset1.png')} style={{width: '100%', height: '100%'}}>
-        <HeaderComponent/>
+        <HeaderComponent text="Picker"/>
         
         <StatusBar  backgroundColor="#75ebb6" barStyle="light-content" />
       
         <View style={styles.container}>
+        <Text style={styles.titleText}>Post Code</Text>
         <Input
-            label="Postcode"
             placeholder='Post code'
             value={this.state.postalCode}
             errorStyle={{ color: 'red' }}
@@ -157,9 +156,9 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    paddingTop:20
-
+    fontWeight: '300',
+    paddingTop:20,
+    color:'#7d7b7a'
   },
 
   searchText: {

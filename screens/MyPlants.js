@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, Alert, AsyncStorage, StatusBar,Platform,ToastAndroid } from 'react-native';
 import { Card, Button } from 'react-native-elements'
-
+import HeaderComponent from '../components/HeaderComponent.js';
 export default class MyPlants extends React.Component {
   constructor(props) {
     super(props)
@@ -140,6 +140,7 @@ export default class MyPlants extends React.Component {
         return (
           <ScrollView style={styles.container}>
             <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
+            <HeaderComponent text="My Plants"/>
             {
 
               this.state.userplants.map((u, i) => {
@@ -150,6 +151,7 @@ export default class MyPlants extends React.Component {
                     title={u['Commonname'].toUpperCase()}
                     titleStyle={{ alignSelf: 'flex-start', paddingLeft: 10, paddingBottom: -5 }}
                     key={i}
+                    containerStyle={{borderRadius:10,borderBottomLeftRadius:10,padding:10,marginBottom:10}}
                   >
 
                     <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
@@ -189,14 +191,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 2,
-
+    borderRadius:10,
     //backgroundColor: '#c8cdce',
     backgroundColor: '#6ac99e',
 
   },
   containerStyle: {
     alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,
-    marginTop: -3, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b'
+    marginTop: -3, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b',
   },
-  contents: { fontSize: 12, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }
+  contents: { fontSize: 15, fontWeight: '300', borderBottomWidth: 0.5, borderBottomColor: '#fff',marginBottom:3 }
 });
