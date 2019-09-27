@@ -83,50 +83,41 @@ export default class Recommendations extends React.Component {
   render() {
 
     return (
-      <View style={{width:'100%',height:'100%'}}>
-    <HeaderComponent text="Recommendations"/>
-
-      <ScrollView style={styles.container}>
-        
-        {
-          this.state.plants.map((u, i) => {
-            return (
-              <Card containerStyle={styles.containerStyle} key={i} >
-
-                <View key={i} style={{ width: '100%', padding: 5 }}>
-
-                  <TouchableOpacity key={i}
-                    onPress={() => {
-                      this.props.navigation.navigate('PlantStack', {
-                        plant: u
-                      });
-                    }}>
-                    <View>
-                      <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
-
-                      <Image
-                        source={{ uri: u['url'] }}
-                        style={{ width: '100%', height: 250 }} />
+      <View style={{ width: '100%', height: '100%' }}>
+        <HeaderComponent text="Recommendations" />
+        <ScrollView style={styles.container}>
+          {
+            this.state.plants.map((u, i) => {
+              return (
+                <Card containerStyle={styles.containerStyle} key={i} >
+                  <View key={i} style={{ width: '100%', padding: 5 }}>
+                    <TouchableOpacity key={i}
+                      onPress={() => {
+                        this.props.navigation.navigate('PlantStack', {
+                          plant: u
+                        });
+                      }}>
+                      <View>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
+                        <Image
+                          source={{ uri: u['url'] }}
+                          style={{ width: '100%', height: 250 }} />
+                      </View>
+                    </TouchableOpacity>
+                    <View style={{ alignContent: 'flex-end', alignItems: 'flex-end', margin: 15 }}>
+                      <Button
+                        raised={true}
+                        title="Add"
+                        onPress={() => this.addToMyPlants(u)}
+                        buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
+                      />
                     </View>
-                  </TouchableOpacity>
-
-                  <View style={{ alignContent: 'flex-end', alignItems: 'flex-end', margin: 15 }}>
-                    <Button
-                      raised={true}
-                      title="Add"
-                      onPress={() => this.addToMyPlants(u)}
-                      buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
-                    />
-
                   </View>
-                </View>
-              </Card>
-            );
-          })
-        }
-
-
-      </ScrollView>
+                </Card>
+              );
+            })
+          }
+        </ScrollView>
       </View>
     );
   }
@@ -135,9 +126,7 @@ export default class Recommendations extends React.Component {
       const date = new Date(time);
       return date.toISOString().split('T')[0];
     } catch (error) {
-
     }
-
   }
   async loadItems() {
     // setTimeout(() => {
@@ -172,14 +161,14 @@ export default class Recommendations extends React.Component {
                 height: 60
               });
             }
-            else if([1, 15].includes(i)){
+            else if ([1, 15].includes(i)) {
               items[strTime].push({
                 name: 'Fertilize ' + this.state.userplants[j].Commonname,
                 height: 60
               });
-              
+
             }
-            else if([1].includes(i)){
+            else if ([1].includes(i)) {
               items[strTime].push({
                 name: 'Prune ' + this.state.userplants[j].Commonname,
                 height: 60
@@ -195,16 +184,14 @@ export default class Recommendations extends React.Component {
     this.storeItem("CalendarItems", newItems);
     // }, 1000);
   }
-
 }
 Recommendations.navigationOptions = {
   title: 'Recommendations',
-
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding:10,
+    padding: 10,
     flex: 1,
     paddingTop: 2,
     backgroundColor: '#6ac99e',
