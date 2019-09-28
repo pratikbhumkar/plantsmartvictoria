@@ -2,13 +2,8 @@
   "expo": {
     "name": "PlantSmartVictoria",
     "slug": "plantsmartvictoria",
-    
     "privacy": "public",
     "sdkVersion": "34.0.0",
-    "androidStatusBar": {
-      "barStyle": "dark-content",
-      "backgroundColor": "#75ebb6"
-    },
     "platforms": [
       "ios",
       "android",
