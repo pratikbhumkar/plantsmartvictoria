@@ -7,7 +7,7 @@ import * as Permissions from 'expo-permissions';
 import HeaderComponent from '../components/HeaderComponent.js';
 
 
-export default class SettingsScreen extends React.Component  {
+export default class PlantPicker extends React.Component  {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
    * we just wanted to give you a quick view of your config.
@@ -76,7 +76,7 @@ componentWillMount(){
             }
           }
           if (counter>0) {
-            that.props.navigation.navigate('LinksScreen', {
+            that.props.navigation.navigate('Recommendations', {
             plants: passedList
             });
           }else {

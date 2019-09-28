@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, Platform, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
-export default class LinksScreen extends React.Component {
+export default class Recommendations extends React.Component {
   state = {
     plants: [],
     PlantName: '',
@@ -197,7 +197,7 @@ export default class LinksScreen extends React.Component {
   }
 
 }
-LinksScreen.navigationOptions = {
+Recommendations.navigationOptions = {
   title: 'Recommendations',
 
 };
