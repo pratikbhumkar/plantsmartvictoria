@@ -20,7 +20,7 @@ MyJournal.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `${focused ? 'md-wallet' : 'md-wallet'}`
+          ? `md-wallet${focused ? '' : '-outline'}`
           : 'md-wallet'
       }
     />
@@ -36,7 +36,7 @@ MyPlants.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `${focused ? 'md-information-circle' : 'md-information-circle'}`
+          ? `ios-information-circle${focused ? '' : '-outline'}`
           : 'md-information-circle'
       }
     />
@@ -74,7 +74,7 @@ LinksStack.navigationOptions = {
   tabBarLabel: 'Links',
   tabBarVisible:false,
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'md-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
 };
 
@@ -98,7 +98,7 @@ SettingsStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-rose${focused ? '' : ''}`
+          ? `ios-rose${focused ? '' : '-outline'}`
           : 'ios-rose'
       }
     />
