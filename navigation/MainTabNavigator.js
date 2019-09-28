@@ -4,8 +4,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import Recommendations from '../screens/Recommendations';
-import PlantPicker from '../screens/PlantPicker';
+import LinksScreen from '../screens/LinksScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import MyPlants from '../screens/MyPlants.js';
 import MyJournal from '../screens/MyJournal.js';
 import PlantData from '../screens/PlantData.js';
@@ -62,8 +62,9 @@ PlantStack.navigationOptions = {
 
 const LinksStack = createStackNavigator(
   {
-    Recommendations: Recommendations,
+    Links: LinksScreen,
     PlantStack:PlantStack,
+
   },
 
 );
@@ -81,8 +82,8 @@ LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    PlantPicker: PlantPicker,
-    Recommendations: Recommendations,
+    SettingsScreen: SettingsScreen,
+    LinksScreen: LinksScreen,
     PlantStack:PlantStack
   },
   {
@@ -135,5 +136,7 @@ const HomeStack = createStackNavigator(
     }
    }
   );
+
+
 
 export default HomeStack;
