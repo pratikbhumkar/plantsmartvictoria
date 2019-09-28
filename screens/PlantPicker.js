@@ -51,6 +51,9 @@ export default class PlantPicker extends React.Component {
 
   readFromDatabase = () => {
     var postcode = this.state.postalCode
+    if (postcode == ''|| postcode < 3000 || postcode > 3999){
+      alert('Please select a valid postcode in Victoria')
+    }
     if (this.state.planttype == 'Select one') {
       alert('Please select option')
     }
