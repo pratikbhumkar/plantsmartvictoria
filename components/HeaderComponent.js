@@ -6,17 +6,15 @@ export default function HeaderComponent(props) {
   return (
     <Header
           leftComponent={ <View style={{display:'flex'}}><Image 
-            style={{width: 50, height: 50,display:'flex',padding:5}}
+            style={{width: 90, height: '100%',display:'flex'}}
             source={require('../assets/images/logoboxed.png')}
           /></View>}
-          centerComponent={{text:props.text,style:{fontSize:22,color:'#ffff'}}}
+          centerComponent={{text:'Plant Picker',style:{fontSize:28,color:'#ffff'}}}
           containerStyle={{
             backgroundColor: '#75ebb6',
-            height:100,
+            height:'10%',
             justifyContent: 'space-around',
           }}
-          statusBarProps={{ translucent: true}
-            }
         />
   );
 }

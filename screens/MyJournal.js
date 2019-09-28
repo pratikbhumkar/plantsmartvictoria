@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import HeaderComponent from '../components/HeaderComponent.js';
+import TabBarIcon from '../components/TabBarIcon';
+
 export default class MyJournal extends React.Component {
   constructor(props) {
     super(props)
@@ -63,8 +64,7 @@ export default class MyJournal extends React.Component {
     // console.log(this.state.items)
     if(this.state.items!== null){
       return (
-        <View style={{width:'100%',height:'100%'}}>
-          <HeaderComponent text="My Journal"/>
+
         <Agenda
           items={this.state.items}
           selected={this.state.today}
@@ -78,7 +78,6 @@ export default class MyJournal extends React.Component {
             }
           }}
         />
-        </View>
       )
     }
     else{

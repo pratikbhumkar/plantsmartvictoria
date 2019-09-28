@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet,View, Text, Image, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements'
-import HeaderComponent from '../components/HeaderComponent.js';
 
 export default class MyPlants extends  React.Component{
     constructor(props){
@@ -16,7 +15,6 @@ export default class MyPlants extends  React.Component{
         var u=this.state.plant;
         return(
             <ScrollView style = {styles.mainContainer}>
-                <HeaderComponent text="Plant Data"/>
                 <Card style = {styles.container}
                 image={{uri: u['url']}}
                 imageStyle={{width:'100%',height:400}}
