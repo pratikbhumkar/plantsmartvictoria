@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Alert, AsyncStorage, StatusBar, Platform, ToastAndroid } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Alert, AsyncStorage, StatusBar,Platform,ToastAndroid } from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 export default class MyPlants extends React.Component {
@@ -10,15 +10,15 @@ export default class MyPlants extends React.Component {
       payload => {
         this.retrieveItem('userData');
       });
-    this.props.navigation.addListener(
-      'willBlur',
-      payload => {
-        this.loadItems("userData");
-      });
+      this.props.navigation.addListener(
+        'willBlur',
+        payload => {
+          this.loadItems("userData");
+        });
   }
   state = {
     plants: [],
-    userplants: []
+    userplants:[]
   }
   async storeItem(key, item) {
     try {
@@ -96,14 +96,14 @@ export default class MyPlants extends React.Component {
         {
           text: 'OK', onPress: () => {
             var i = 0;
-
+            
             CurrentPlants.forEach(element => {
               if (element['Botanicalname'] == plant['Botanicalname']) {
-                var indexToDel = CurrentPlants.indexOf(plant)
+                var indexToDel=CurrentPlants.indexOf(plant)
                 CurrentPlants.splice(indexToDel, 1);
                 this.setState({
                   plants: CurrentPlants,
-                  userplants: CurrentPlants
+                  userplants:CurrentPlants
                 });
                 this.storeItem("userData", CurrentPlants);
                 if (Platform.OS === 'ios') {
@@ -140,7 +140,7 @@ export default class MyPlants extends React.Component {
         return (
           <ScrollView style={styles.container}>
             <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
-            <HeaderComponent text="My Plants" />
+            <HeaderComponent text="My Plants"/>
             {
 
               this.state.userplants.map((u, i) => {
@@ -151,7 +151,8 @@ export default class MyPlants extends React.Component {
                     title={u['Commonname'].toUpperCase()}
                     titleStyle={{ alignSelf: 'flex-start', paddingLeft: 10, paddingBottom: -5 }}
                     key={i}
-                    containerStyle={{ borderRadius: 10, borderBottomLeftRadius: 10, padding: 10, marginBottom: 10 }}>
+                    containerStyle={{borderRadius:10,borderBottomLeftRadius:10,padding:10,marginBottom:10}}
+                  >
 
                     <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
                     <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
@@ -166,12 +167,13 @@ export default class MyPlants extends React.Component {
                       raised={true}
                       title="Remove"
                       onPress={() => this.removePlant(u)}
-                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
+                      buttonStyle={{ height: 40, width:'100%', borderRadius: 20, backgroundColor: '#6ac99e',alignSelf:'flex-end' }}
                     />
                   </Card>
                 );
               })
             }
+
           </ScrollView>
         )
       }
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 2,
-    borderRadius: 10,
+    borderRadius:10,
     //backgroundColor: '#c8cdce',
     backgroundColor: '#6ac99e',
 
@@ -198,5 +200,5 @@ const styles = StyleSheet.create({
     alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,
     marginTop: -3, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b',
   },
-  contents: { fontSize: 15, fontWeight: '300', borderBottomWidth: 0.5, borderBottomColor: '#fff', marginBottom: 3 }
+  contents: { fontSize: 15, fontWeight: '300', borderBottomWidth: 0.5, borderBottomColor: '#fff',marginBottom:3 }
 });

@@ -1,10 +1,8 @@
 import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
@@ -30,9 +28,11 @@ export default function App(props) {
 
 async function loadResourcesAsync() {
   await Promise.all([
-
     Font.loadAsync({
+      // This is the font that we are using for our tab bar
       ...Ionicons.font,
+      // We include SpaceMono because we use it in HomeScreen.js. Feel free to
+      // remove this if you are not using it in your app
     }),
   ]);
 }
@@ -50,8 +50,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:'100%',
-    width:'100%',
     backgroundColor: '#fff',
   },
 });
