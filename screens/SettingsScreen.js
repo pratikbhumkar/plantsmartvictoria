@@ -1,10 +1,10 @@
 import React from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text,TouchableOpacity,Picker,View, TextInput, ImageBackground, StatusBar} from 'react-native';
+import {StyleSheet, Text,TouchableOpacity,Picker,View, ImageBackground, StatusBar} from 'react-native';
 import { Input } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-
+import HeaderComponent from '../components/HeaderComponent.js';
 
 
 export default class SettingsScreen extends React.Component  {
@@ -113,11 +113,12 @@ componentWillMount(){
       });
       return (
         <ImageBackground
-          source={require('../assets/images/backgroundset1.png')}
-          style={styles.container}>
-
-        <View style={styles.container}>
+          source={require('../assets/images/backgroundset1.png')} style={{width: '100%', height: '100%'}}>
+        <HeaderComponent/>
         
+        <StatusBar  backgroundColor="#75ebb6" barStyle="light-content" />
+      
+        <View style={styles.container}>
         <Input
             label="Postcode"
             placeholder='Post code'
