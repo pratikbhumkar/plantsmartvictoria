@@ -84,7 +84,7 @@ export default class Recommendations extends React.Component {
 
     return (
       <View style={{ width: '100%', height: '100%' }}>
-        <HeaderComponent text="Recommendations" />
+        <HeaderComponent text="Recommendations" back={this.props.navigation}/>
         <ScrollView style={styles.container}>
           {
             this.state.plants.map((u, i) => {

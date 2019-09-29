@@ -140,7 +140,7 @@ export default class MyPlants extends React.Component {
         return (
           <ScrollView style={styles.container}>
             <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
-            <HeaderComponent text="My Plants" />
+            <HeaderComponent text="My Plants" back={this.props.navigation}/>
             {
 
               this.state.userplants.map((u, i) => {
