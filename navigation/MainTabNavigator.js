@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, Text } from 'react-native';
+import { Platform,Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -46,7 +46,7 @@ MyPlants.navigationOptions = {
 
 const PlantStack = createStackNavigator(
   {
-    'Plant Data': PlantData
+    'Plant Data':PlantData
   },
   {
     headerMode: 'none',
@@ -57,21 +57,21 @@ const PlantStack = createStackNavigator(
 PlantStack.navigationOptions = {
   tabBarLabel: 'Plant Data',
   gesturesEnabled: true,
-  tabBarVisible: false
+  tabBarVisible:false
 };
 
 const LinksStack = createStackNavigator(
   {
     Recommendations: Recommendations,
-    PlantStack: PlantStack,
+    PlantStack:PlantStack,
   },
 
 );
 
 LinksStack.navigationOptions = {
-  backgroundColor: '#6ac99e',
+  backgroundColor:'#6ac99e',
   tabBarLabel: 'Links',
-  tabBarVisible: false,
+  tabBarVisible:false,
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'md-link' : 'md-link'} />
   ),
@@ -83,10 +83,10 @@ const SettingsStack = createStackNavigator(
   {
     PlantPicker: PlantPicker,
     Recommendations: Recommendations,
-    PlantStack: PlantStack
+    PlantStack:PlantStack
   },
   {
-    headerMode: "none"
+    headerMode:"none"
   }
 );
 SettingsStack.navigationOptions = {
@@ -106,13 +106,13 @@ SettingsStack.navigationOptions = {
 
 
 const tabNavigator = createBottomTabNavigator({
-  'Plant Picker': SettingsStack,
-  'My Plants': MyPlants,
-  'My Journal': MyJournal,
-}, {
+  'Plant Picker':SettingsStack,
+  'My Plants':MyPlants,
+  'My Journal':MyJournal,
+},{
   tabBarOptions: {
-    labelStyle: {
-      fontSize: 13
+    labelStyle:{
+      fontSize:13
     },
   }
 }
@@ -122,18 +122,18 @@ tabNavigator.navigationOptions
 
 const HomeStack = createStackNavigator(
   {
-    HomeScreen: HomeScreen,
-    MyPlants: MyPlants,
-    MyJournal: MyJournal,
+    HomeScreen:HomeScreen,
+    MyPlants:MyPlants,
+    MyJournal:MyJournal,
     Tabs: tabNavigator
   },
   {
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
-      backgroundColor: '#6ac99e'
+      backgroundColor:'#6ac99e'
     }
-  }
-);
+   }
+  );
 
 export default HomeStack;
