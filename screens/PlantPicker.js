@@ -49,18 +49,16 @@ componentWillMount(){
     }
 
 
-<<<<<<< HEAD
   readFromDatabase = () => {
     var postcode = this.state.postalCode
     if (postcode == ''|| postcode < 3000 || postcode > 3999){
       alert('Please select a valid postcode in Victoria')
     }
     if (this.state.planttype == 'Select one') {
-=======
+
     readFromDatabase= () => {
     var postcode=this.state.postalCode
     if(this.state.planttype=='Select one'){
->>>>>>> parent of d10555b... Revert "Revert "code cleanup and refactoring""
       alert('Please select option')
     }
     else{
