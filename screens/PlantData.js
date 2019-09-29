@@ -12,16 +12,18 @@ export default class MyPlants extends React.Component {
         plant: {}
     }
 
-    render() {
-        var u = this.state.plant;
-        return (
-            <ScrollView style={styles.mainContainer}>
-                <HeaderComponent text="Plant Data" />
-                <Card style={styles.container}
-                    image={{ uri: u['url'] }}
-                    imageStyle={{ width: '100%', height: 400 }}
-                    title={u['Commonname'].toUpperCase()}
-                    titleStyle={{ alignSelf: 'flex-start', paddingLeft: 10, paddingBottom: -5 }}>
+    render(){
+        var u=this.state.plant;
+        return(
+            <ScrollView style = {styles.mainContainer}>
+                <HeaderComponent text="Plant Data"/>
+                <Card style = {styles.container}
+                image={{uri: u['url']}}
+                imageStyle={{width:'100%',height:400}}
+                title={u['Commonname'].toUpperCase()}
+                titleStyle={{alignSelf:'flex-start',paddingLeft:10,paddingBottom:-5}}
+                >
+
                     <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
                     <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
                     <Text style={styles.contents}>Rain(mm): {u['Rain(mm)']}</Text>
