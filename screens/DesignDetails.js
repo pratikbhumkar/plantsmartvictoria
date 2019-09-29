@@ -15,10 +15,23 @@ export default class DesignDetails extends React.Component {
     render(){
         var u=this.state.plant;
         return(
-            <View>
+            <ScrollView style = {styles.mainContainer}>
                 <HeaderComponent text="Design Details" />
-                <Text>Yes!</Text>
-            </View>
+                <Card style = {styles.container}>
+
+                <Image source={require('../assets/images/balltree.jpg')} style={{width: 40, height: 200, borderRadius:200}}/>
+
+                <ScrollView
+                    horizontal={true}
+                >
+
+                </ScrollView>
+
+                </Card>
+
+                
+                
+            </ScrollView>
 
         );
     
@@ -26,3 +39,20 @@ export default class DesignDetails extends React.Component {
 
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: '100%',
+        height: '100%'
+    },
+    mainContainer: {
+        backgroundColor: '#6ac99e'
+    },
+
+    containerStyle: {
+        alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,
+        marginTop: -3, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b'
+    },
+    contents: { fontSize: 14, fontWeight: '300', borderBottomWidth: 0.5, borderBottomColor: '#000', paddingTop: 10 }
+});
