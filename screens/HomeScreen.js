@@ -1,47 +1,46 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text,TouchableOpacity, View} from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import MenuItem from '../components/MenuItem';
 
-export default class HomeScreen extends  React.Component{
-
+export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    console.disableYellowBox=true;
+  }
 
   render() {
-  return (
-    <ImageBackground
-      source={require('../assets/images/balltree.jpg')}
-      style={styles.container}>
+    return (
+      <ImageBackground
+        source={require('../assets/images/balltree.jpg')}
+        style={styles.container}>
 
-      <View style = {styles.overlayContainer}>
-        <View style ={styles.top}>
+        <View style={styles.overlayContainer}>
+          <View style={styles.top}>
             <Text style={styles.header}>
-            P L A N T  S M A R T{"\n"}
-               V I C T O R I A
+              P L A N T  S M A R T{"\n"}
+              V I C T O R I A
             </Text>
+          </View>
+
+          <View style={styles.menuContainer}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
+              <MenuItem itemImage={require('../assets/images/plantPickerSize.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants')}>
+              <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('My Journal')}>
+              <MenuItem itemImage={require('../assets/images/WateringCanSize.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
+      </ImageBackground>
 
-        <View style = {styles.menuContainer}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
-        <MenuItem itemImage={require('../assets/images/plantPickerSize.png')}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants')}>
-        <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={{paddingRight:30 }} onPress={() => this.props.navigation.navigate('My Journal')}>
-        <MenuItem itemImage={require('../assets/images/WateringCanSize.png')}/>
-        </TouchableOpacity>
+    );
 
-
-
-        </View>
-        </View>
-
-        </ImageBackground>
-
-         );
-
-       }
-     }
+  }
+}
 
 
 const styles = StyleSheet.create({
@@ -49,13 +48,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    alignContent:'center',
-    alignItems:'center',
-    alignSelf:'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
 
   },
-  items:{
-    paddingRight:30
+  items: {
+    paddingRight: 30
   },
 
   overlayContainer: {
@@ -64,30 +63,30 @@ const styles = StyleSheet.create({
 
   },
   top: {
-  height:'50%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'transparent',
-},
-header: {
-  color: '#fff',
-  fontSize: 28,
-  borderColor: '#fff',
-  borderWidth: 2,
-  padding: 20,
-  paddingLeft: 40,
-  paddingRight: 40,
-  textAlign: 'center',
-  backgroundColor: 'transparent',
-},
-menuContainer: {
-  paddingLeft: 39,
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  alignContent:'center',
-  alignItems:'center',
-  alignSelf:'center'
-},
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  header: {
+    color: '#fff',
+    fontSize: 28,
+    borderColor: '#fff',
+    borderWidth: 2,
+    padding: 20,
+    paddingLeft: 40,
+    paddingRight: 40,
+    textAlign: 'center',
+    backgroundColor: 'transparent',
+  },
+  menuContainer: {
+    paddingLeft: 39,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
 
 
 });

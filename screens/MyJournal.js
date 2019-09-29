@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import HeaderComponent from '../components/HeaderComponent.js';
+
 export default class MyJournal extends React.Component {
   constructor(props) {
     super(props)
@@ -32,11 +33,11 @@ export default class MyJournal extends React.Component {
       const retrievedItem = await AsyncStorage.getItem("CalendarItems");
       const item = JSON.parse(retrievedItem);
       // console.log(item)
-      if(item!==null || typeof item!==undefined)
-      this.setState({
-        items: item
-      })
-      else{
+      if (item !== null || typeof item !== undefined)
+        this.setState({
+          items: item
+        })
+      else {
         this.setState({
           items: {}
         })
@@ -61,28 +62,28 @@ export default class MyJournal extends React.Component {
 
   render() {
     // console.log(this.state.items)
-    if(this.state.items!== null){
+    if (this.state.items !== null) {
       return (
-        <View style={{width:'100%',height:'100%'}}>
-          <HeaderComponent text="My Journal"/>
-        <Agenda
-          items={this.state.items}
-          selected={this.state.today}
-          renderItem={this.renderItem.bind(this)}
-          renderEmptyDate={this.renderEmptyDate.bind(this)}
-          rowHasChanged={this.rowHasChanged.bind(this)}
-          pastScrollRange={1}
-          theme={{
-            week: {
-              height: 150
-            }
-          }}
-        />
+        <View style={{ width: '100%', height: '100%' }}>
+          <HeaderComponent text="My Journal" />
+          <Agenda
+            items={this.state.items}
+            selected={this.state.today}
+            renderItem={this.renderItem.bind(this)}
+            renderEmptyDate={this.renderEmptyDate.bind(this)}
+            rowHasChanged={this.rowHasChanged.bind(this)}
+            pastScrollRange={1}
+            theme={{
+              week: {
+                height: 150
+              }
+            }}
+          />
         </View>
       )
     }
-    else{
-      return(
+    else {
+      return (
         <View><Text>No Plants added please add some!</Text></View>
       )
     }
