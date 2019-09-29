@@ -63,7 +63,7 @@ PlantStack.navigationOptions = {
 const LinksStack = createStackNavigator(
   {
     Recommendations: Recommendations,
-    PlantStack: PlantStack,
+    PlantStack:PlantStack,
   },
 
 );
@@ -83,7 +83,7 @@ const SettingsStack = createStackNavigator(
   {
     PlantPicker: PlantPicker,
     Recommendations: Recommendations,
-    PlantStack: PlantStack
+    PlantStack:PlantStack
   },
   {
     headerMode: "none"
@@ -133,7 +133,7 @@ const HomeStack = createStackNavigator(
       headerVisible: false,
       backgroundColor: '#6ac99e'
     }
-  }
-);
+   }
+  );
 
 export default HomeStack;
