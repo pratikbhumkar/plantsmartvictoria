@@ -16,7 +16,7 @@ export default class MyPlants extends React.Component {
         var u=this.state.plant;
         return(
             <ScrollView style = {styles.mainContainer}>
-                <HeaderComponent text="Plant Data"/>
+                <HeaderComponent text="Plant Data" back={this.props.navigation}/>
                 <Card style = {styles.container}
                 image={{uri: u['url']}}
                 imageStyle={{width:'100%',height:400}}

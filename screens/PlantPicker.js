@@ -112,7 +112,7 @@ export default class PlantPicker extends React.Component {
     return (
       <ImageBackground
         source={require('../assets/images/backgroundset1.png')} style={{ width: '100%', height: '100%' }}>
-        <HeaderComponent text="Picker" />
+        <HeaderComponent text="Picker" back={this.props.navigation} back={this.props.navigation}/>
         <StatusBar backgroundColor="#75ebb6" barStyle="light-content" />
         <View style={styles.container}>
           <Text style={styles.titleText}>Post Code</Text>

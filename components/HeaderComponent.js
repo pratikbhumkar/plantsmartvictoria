@@ -1,6 +1,6 @@
 import React from 'react';
 import { View,Image } from 'react-native';
-import {Header } from 'react-native-elements';
+import {Header,Button } from 'react-native-elements';
 
 export default function HeaderComponent(props) {
   return (
@@ -10,6 +10,13 @@ export default function HeaderComponent(props) {
             source={require('../assets/images/logoboxed.png')}
           /></View>}
           centerComponent={{text:props.text,style:{fontSize:22,color:'#ffff'}}}
+          rightComponent={
+            <Button
+            title="Back"
+            type="clear"
+            onPress={() => props.back.pop()}
+            titleStyle={{color:'#fff'}}
+          />}
           containerStyle={{
             backgroundColor: '#75ebb6',
             height:100,

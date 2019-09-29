@@ -65,7 +65,7 @@ export default class MyJournal extends React.Component {
     if (this.state.items !== null) {
       return (
         <View style={{ width: '100%', height: '100%' }}>
-          <HeaderComponent text="My Journal" />
+          <HeaderComponent text="My Journal" back={this.props.navigation}/>
           <Agenda
             items={this.state.items}
             selected={this.state.today}
