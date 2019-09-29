@@ -61,7 +61,7 @@ export default class PlantPicker extends React.Component {
       var counter = 0;
       var pType = this.state.planttype;
 
-      firebase.database().ref('/').orderByChild('Type').equalTo(pType).on('value', function (snapshot) {
+      firebase.database().ref('/0/Plant/').orderByChild('Type').equalTo(pType).on('value', function (snapshot) {
         listofTrees = snapshot.val();
         if (snapshot.numChildren() > 0) {
           for (var k in listofTrees) {
