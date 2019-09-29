@@ -9,6 +9,7 @@ import PlantPicker from '../screens/PlantPicker';
 import MyPlants from '../screens/MyPlants.js';
 import MyJournal from '../screens/MyJournal.js';
 import PlantData from '../screens/PlantData.js';
+import GardenDesign from '../screens/GardenDesign.js';
 
 
 
@@ -108,7 +109,8 @@ SettingsStack.navigationOptions = {
 const tabNavigator = createBottomTabNavigator({
   'Plant Picker': SettingsStack,
   'My Plants': MyPlants,
-  'My Journal': MyJournal,
+  'My Journal': MyJournal
+  
 }, {
   tabBarOptions: {
     labelStyle: {
@@ -125,7 +127,8 @@ const HomeStack = createStackNavigator(
     HomeScreen: HomeScreen,
     MyPlants: MyPlants,
     MyJournal: MyJournal,
-    Tabs: tabNavigator
+    Tabs: tabNavigator,
+    GardenDesign: GardenDesign
   },
   {
     headerMode: 'none',
