@@ -1,7 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView, Dimensions, ImageBackground, TouchableOpacity} from 'react-native';
 import { Card } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
+import Category from '../components/Category'
+
+const{height,width}= Dimensions.get('window')
 
 export default class DesignDetails extends React.Component {
     constructor(props) {
@@ -15,23 +18,167 @@ export default class DesignDetails extends React.Component {
     render(){
         var u=this.state.plant;
         return(
-            <ScrollView style = {styles.mainContainer}>
+            <View style = {styles.mainContainer}>
                 <HeaderComponent text="Design Details" />
-                <Card style = {styles.container}>
 
-                <Image source={require('../assets/images/balltree.jpg')} style={{width: 40, height: 200, borderRadius:200}}/>
+                <View style ={{ width : width , height: 200}}>
+                    <Image
+                    style={{flex:1, height:null, width:null, resizeMode:'cover', borderRadius:5, borderWidth:1,
+                    borderColor: '#dddddd', justifyContent:'flex-end', alignItems:'center'}}
+                    source={require('../assets/images/landscape1.png')}
+                    >
+                        
+                    </Image>
+                    <TouchableOpacity>
+                    <Text style={{fontSize:20, fontWeight:'700', textAlign:"center", borderWidth:3, borderRadius:10, borderColor:'#dddddd'}}>
+                        S E L E C T   D E S I G N
+                    </Text>
+                    </TouchableOpacity>
+                    
+                    
+
+                </View>
+
 
                 <ScrollView
-                    horizontal={true}
+                    scrollEventThrottle={16}
                 >
+                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Shrubs
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+                            <ScrollView
+                                horizontal ={true}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 1"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 2"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 3"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 4"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 5"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 6"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 7"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyShrub.jpg')}
+                                name="Shrub 8"
+                                />
+                            </ScrollView>
+                             
+                        </View>
+                        
+                    </View>
+                    
+                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Groundcovers
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+                            <ScrollView
+                                horizontal ={true}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 1"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 2"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 3"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 4"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 5"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 6"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 7"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
+                                name="Groundcover 8"
+                                />
+                            </ScrollView>
+                             
+                        </View>
+                        
+                    </View>
+
+                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Trees
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+                            <ScrollView
+                                horizontal ={true}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                <Category 
+                                imageUri={require('../assets/images/dummyTree.jpg')}
+                                name="Tree 1"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyTree.jpg')}
+                                name="Tree 2"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyTree.jpg')}
+                                name="Tree 3"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyTree.jpg')}
+                                name="Tree 4"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyTree.jpg')}
+                                name="Tree 5"
+                                />
+                                <Category 
+                                imageUri={require('../assets/images/dummyTree.jpg')}
+                                name="Tree 6"
+                                />
+                            </ScrollView>
+                             
+                        </View>
+                        
+                    </View>
 
                 </ScrollView>
-
-                </Card>
-
                 
-                
-            </ScrollView>
+            </View>
 
         );
     
@@ -47,12 +194,9 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     mainContainer: {
-        backgroundColor: '#6ac99e'
+        backgroundColor: '#fff'
     },
 
-    containerStyle: {
-        alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,
-        marginTop: -3, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b'
-    },
+    
     contents: { fontSize: 14, fontWeight: '300', borderBottomWidth: 0.5, borderBottomColor: '#000', paddingTop: 10 }
 });
