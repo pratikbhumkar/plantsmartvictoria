@@ -12,11 +12,46 @@ export default class DesignDetails extends React.Component {
         this.state.plant = this.props.navigation.getParam('plant', '');
     }
     state = {
-        plant: {}
-    }
+        plants: [],
+        PlantName: '',
+        shrubs: [],
+        groundcovers: [],
+        trees:[]
+        
+      }
+
+      splitPlants = () =>{
+          var plants = this.state.plants;
+          var newShrubs = this.state.shrubs;
+          var newGroundcovers= this.state.groundcovers;
+          var newTrees= this.state.trees;
+
+          for (i=0; i < plants.length; i++)
+          {
+              if (plants[i].type == 'shrubs')
+              {
+                newShrubs.push(plants[i]);
+                  this.setState({shrubs:newShrubs});
+              }
+              if (plants[i].type == 'groundcover')
+              {
+                newGroundcovers.push(plants[i]);
+                this.setState({groundcovers:newGroundcovers});
+              }
+              if (plants[i].type == 'trees')
+              {
+                newTrees.push(plants[i]);
+                this.setState({trees:newTrees});
+
+              }
+          }
+      }
+
+      
+
 
     render(){
-        var u=this.state.plant;
+        
         return(
             <View style = {styles.mainContainer}>
                 <HeaderComponent text="Design Details" />
@@ -52,38 +87,14 @@ export default class DesignDetails extends React.Component {
                                 horizontal ={true}
                                 showsHorizontalScrollIndicator={false}
                             >
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 1"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 2"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 3"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 4"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 5"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 6"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 7"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyShrub.jpg')}
-                                name="Shrub 8"
-                                />
+                                {this.state.shrubs.map(shrub =>
+                                    <Category 
+                                    imageUri={require('../assets/images/dummyShrub.jpg')}
+                                    name= 'shrubcommonname'
+                                    />
+                                
+                                )}
+                                
                             </ScrollView>
                              
                         </View>
