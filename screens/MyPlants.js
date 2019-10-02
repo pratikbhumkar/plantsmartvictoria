@@ -164,6 +164,13 @@ export default class MyPlants extends React.Component {
                     <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
                     <Button
                       raised={true}
+                      title="Progress Tracker"
+                      onPress={() => this.props.navigation.navigate('ProgressTracker')}
+                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
+                    />
+                    <View style={{height:10}}/>
+                    <Button
+                      raised={true}
                       title="Remove"
                       onPress={() => this.removePlant(u)}
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
