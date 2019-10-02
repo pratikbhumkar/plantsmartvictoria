@@ -22,7 +22,7 @@ export default class GardenDesign extends React.Component {
             appId: "1:723453194803:web:9bd33978fafce44d"
           });
         }
-        console.log(this.props.navigation.getParam('userData', ''))
+        this.state.userData=this.props.navigation.getParam('userData', '');
     } 
     state = {
         plant: {},
@@ -41,8 +41,10 @@ export default class GardenDesign extends React.Component {
           for(var item in DesignObj){
             var bject=DesignObj[item];
             DesignObj=bject['Design'];
+            console.log('designType',DesignObj);
             that.props.navigation.navigate('DesignDetails',{
-              designType:designType
+              DesignObj:DesignObj[designType],
+              userData:that.state.userData
             })
           }
         });

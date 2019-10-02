@@ -154,14 +154,8 @@ export default class MyPlants extends React.Component {
                     containerStyle={{ borderRadius: 10, borderBottomLeftRadius: 10, padding: 10, marginBottom: 10 }}>
 
                     <Text style={styles.contents}>Botanical Name: {u['Botanicalname'].toUpperCase()}</Text>
-                    <Text style={styles.contents}>Height(m): {u['Height(m)']}</Text>
-                    <Text style={styles.contents}>Rain(mm): {u['Rain(mm)']}</Text>
-                    <Text style={styles.contents}>Genus: {u['Genus'].toUpperCase()}</Text>
-                    <Text style={styles.contents}>Spread(m): {u['Spread(m)'].toUpperCase()}</Text>
-                    <Text style={styles.contents}>Tube Colour: {u['Tubecolour'].toUpperCase()}</Text>
-                    <Text style={styles.contents}>Plant Type: {u['Type'].toUpperCase()}</Text>
-                    <Text style={styles.contents}>Soil pH: {u['SoilpH'].toUpperCase()}</Text>
-                    <Text style={styles.contents}>Soil Texture: {u['Soiltexture'].toUpperCase()}</Text>
+                    <Text style={styles.contents}>Height(m): {u['Height']}</Text>
+                    <Text style={styles.contents}>Rain(mm): {u['Rain']}</Text>
                     <Button
                       raised={true}
                       title="Progress Tracker"
@@ -188,10 +182,6 @@ export default class MyPlants extends React.Component {
     )
   }
 }
-// MyPlants.navigationOptions = {
-//   title: 'My Plants',
-//   gesturesEnabled: true
-// };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
