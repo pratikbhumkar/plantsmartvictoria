@@ -55,7 +55,7 @@ export default class DesignDetails extends React.Component {
         return(
             <View >
                 <View>
-                <HeaderComponent text="Design Details" />
+                <HeaderComponent text="Design Details" back={this.props.navigation} back={this.props.navigation}/>
 
                 <View style ={{ width : width , height: 200}}>
                     <Image
