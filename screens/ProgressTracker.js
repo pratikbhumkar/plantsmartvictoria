@@ -16,7 +16,7 @@ export default class ProgressTracker extends React.Component {
         var u=this.state.plant;
         return(
             <View>
-                <HeaderComponent text="Progress Tracker" />
+                <HeaderComponent text="Progress Tracker" back={this.props.navigation} back={this.props.navigation}/>
 
 
             <View>

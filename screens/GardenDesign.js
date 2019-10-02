@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView, Picker } from 'react-native';
 import { Card } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import Input from '../components/Input';
@@ -9,16 +9,18 @@ export default class GardenDesign extends React.Component {
     constructor(props) {
         super(props)
         this.state.plant = this.props.navigation.getParam('plant', '');
+        
     } 
     state = {
         plant: {}
+
     }
 
     render(){
         var u=this.state.plant;
         return(
             <View>
-                <HeaderComponent text="Garden Design" />
+                <HeaderComponent text="Garden Design" back={this.props.navigation} back={this.props.navigation}/>
                 <ScrollView>
                 <View style ={styles.action}>
                 <Text style={styles.title}>1. My Garden Location</Text>
@@ -44,6 +46,7 @@ export default class GardenDesign extends React.Component {
                     description1="20 Groundcovers / 5 Shrubs / Grass / 1 Tree"
                     description2="Meet your developer's landscaping guidelines"
                     transfer = {() => this.props.navigation.navigate('DesignDetails')}
+                    
                 />
 
                 <LandScapeCat 
