@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableHighlight
 } from "react-native";
 
 class LandscapeCat extends Component{
