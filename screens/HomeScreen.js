@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage } from 'react-native';
 
 import MenuItem from '../components/MenuItem';
 
@@ -7,6 +7,19 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     console.disableYellowBox=true;
+    this.retrieveItem("userData");
+  }
+  state={
+    userplants: [],
+  }
+  async retrieveItem(key) {
+    try {
+      var retrievedItem = await AsyncStorage.getItem(key);
+      var item = JSON.parse(retrievedItem);
+      this.state.userplants = item;
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   render() {
@@ -24,16 +37,24 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View style={styles.menuContainer}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs', {
+              userData: this.state.userplants
+            })}>
               <MenuItem itemImage={require('../assets/images/plantPickerSize.png')} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants', {
+              userData: this.state.userplants
+            })}>
               <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')} />
             </TouchableOpacity>
-            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('My Journal')}>
+            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('My Journal', {
+              userData: this.state.userplants
+            })}>
               <MenuItem itemImage={require('../assets/images/WateringCanSize.png')} />
             </TouchableOpacity>
-            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('GardenDesign')}>
+            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('GardenDesign', {
+              userData: this.state.userplants
+            })}>
               <MenuItem itemImage={require('../assets/images/balltree.jpg')} />
             </TouchableOpacity>
           </View>

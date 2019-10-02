@@ -9,7 +9,7 @@ const{height,width}= Dimensions.get('window')
 export default class DesignDetails extends React.Component {
     constructor(props) {
         super(props)
-        this.state.plant = this.props.navigation.getParam('plant', '');
+        this.state.plant = this.props.navigation.getParam('designType', '');
     }
     state = {
         plants: [],
@@ -48,7 +48,32 @@ export default class DesignDetails extends React.Component {
       }
 
       
-
+renderPlants(type){
+    if (this.state.shrubs.length>0) {
+        return(
+            <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                            <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                                {type}
+                            </Text>
+                            <View style={{height:130, marginTop:20}}>
+                                <ScrollView
+                                    horizontal ={true}
+                                    showsHorizontalScrollIndicator={false}
+                                >
+                                    {this.state.shrubs.map(shrub =>
+                                        <Category 
+                                        imageUri={require('../assets/images/dummyShrub.jpg')}
+                                        name= 'shrubcommonname'
+                                        />
+                                    )}   
+                                </ScrollView>
+                                 
+                            </View>
+                            
+                        </View>
+        )
+    } 
+}
 
     render(){
         
@@ -76,118 +101,18 @@ export default class DesignDetails extends React.Component {
                 </View>
                 </View>
 
-                <ScrollView
-                    scrollEventThrottle={16}
-                >
-                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
-                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                            Shrubs
-                        </Text>
-                        <View style={{height:130, marginTop:20}}>
-                            <ScrollView
-                                horizontal ={true}
-                                showsHorizontalScrollIndicator={false}
-                            >
-                                {this.state.shrubs.map(shrub =>
-                                    <Category 
-                                    imageUri={require('../assets/images/dummyShrub.jpg')}
-                                    name= 'shrubcommonname'
-                                    />
-                                
-                                )}
-                                
-                            </ScrollView>
-                             
-                        </View>
-                        
-                    </View>
+                <ScrollView scrollEventThrottle={16}>
+                    {
+                        this.renderShrubs('Shrubs')
+                    }
                     
-                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
-                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                            Groundcovers
-                        </Text>
-                        <View style={{height:130, marginTop:20}}>
-                            <ScrollView
-                                horizontal ={true}
-                                showsHorizontalScrollIndicator={false}
-                            >
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 1"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 2"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 3"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 4"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 5"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 6"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 7"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyGroundcover.jpg')}
-                                name="Groundcover 8"
-                                />
-                            </ScrollView>
-                             
-                        </View>
-                        
-                    </View>
+                    {
+                        this.renderShrubs('GroundCovers')
+                    }
 
-                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
-                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                            Trees
-                        </Text>
-                        <View style={{height:130, marginTop:20}}>
-                            <ScrollView
-                                horizontal ={true}
-                                showsHorizontalScrollIndicator={false}
-                            >
-                                <Category 
-                                imageUri={require('../assets/images/dummyTree.jpg')}
-                                name="Tree 1"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyTree.jpg')}
-                                name="Tree 2"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyTree.jpg')}
-                                name="Tree 3"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyTree.jpg')}
-                                name="Tree 4"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyTree.jpg')}
-                                name="Tree 5"
-                                />
-                                <Category 
-                                imageUri={require('../assets/images/dummyTree.jpg')}
-                                name="Tree 6"
-                                />
-                            </ScrollView>
-                             
-                        </View>
-                        
-                    </View>
-
+                    {
+                        this.renderShrubs('Trees')
+                    }
                 </ScrollView>
                 
             </View>
