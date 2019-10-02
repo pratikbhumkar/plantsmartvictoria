@@ -117,7 +117,7 @@ export default class PlantPicker extends React.Component {
         <View style={styles.container}>
           <Text style={styles.titleText}>Post Code</Text>
           <Input
-            placeholder='Post code'
+            placeholder='Postcode'
             value={this.state.postalCode}
             errorStyle={{ color: 'red' }}
             onChangeText={postalCode => this.setState({ postalCode })}
