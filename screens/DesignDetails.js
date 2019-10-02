@@ -53,7 +53,8 @@ export default class DesignDetails extends React.Component {
     render(){
         
         return(
-            <View style = {styles.mainContainer}>
+            <View >
+                <View>
                 <HeaderComponent text="Design Details" />
 
                 <View style ={{ width : width , height: 200}}>
@@ -73,7 +74,7 @@ export default class DesignDetails extends React.Component {
                     
 
                 </View>
-
+                </View>
 
                 <ScrollView
                     scrollEventThrottle={16}

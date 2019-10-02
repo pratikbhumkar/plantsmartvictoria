@@ -11,6 +11,9 @@ import MyJournal from '../screens/MyJournal.js';
 import PlantData from '../screens/PlantData.js';
 import GardenDesign from '../screens/GardenDesign.js';
 import DesignDetails from '../screens/DesignDetails.js';
+import ProgressTracker from '../screens/ProgressTracker.js';
+
+
 
 
 
@@ -127,6 +130,7 @@ const HomeStack = createStackNavigator(
   {
     HomeScreen: HomeScreen,
     MyPlants: MyPlants,
+    ProgressTracker: ProgressTracker,
     MyJournal: MyJournal,
     Tabs: tabNavigator,
     GardenDesign: GardenDesign,
