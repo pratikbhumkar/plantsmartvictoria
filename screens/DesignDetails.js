@@ -11,43 +11,20 @@ export default class DesignDetails extends React.Component {
         super(props)
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
+        
     }
     
     state = {
         userData:[],
         plant: [],
         PlantName: '',
-        shrubs: [],
+        newShrubs: [],
         groundcovers: [],
         trees:[],
         content:[]
       }
-
-      splitPlants = () =>{
-          var newShrubs = this.state.shrubs;
-          var newGroundcovers= this.state.groundcovers;
-          var newTrees= this.state.trees;
-
-          for (i=0; i < plants.length; i++)
-          {
-              if (plants[i].type == 'shrubs')
-              {
-                newShrubs.push(plants[i]);
-                  this.setState({shrubs:newShrubs});
-              }
-              if (plants[i].type == 'groundcover')
-              {
-                newGroundcovers.push(plants[i]);
-                this.setState({groundcovers:newGroundcovers});
-              }
-              if (plants[i].type == 'trees')
-              {
-                newTrees.push(plants[i]);
-                this.setState({trees:newTrees});
-
-              }
-          }
-      }
+      
+      
       addToMyPlants() {
         var uploadFlag = true;
         var designData=this.state.content;
@@ -100,7 +77,7 @@ componentWillMount(){
     var contentArray=[];
     for (const key in userPlants) {
         if (userPlants.hasOwnProperty(key)) {
-            console.log('type=',key);
+            console.log('type1=',key);
             const elements = userPlants[key];
             // console.log('type is:'+key+'::',element)
             // console.log(elements.length)
@@ -131,29 +108,115 @@ componentWillMount(){
                     >
                         
                     </Image>
-                    <TouchableOpacity>
-                    <Text style={{fontSize:20, fontWeight:'700', textAlign:"center", borderWidth:3, borderRadius:10, borderColor:'#dddddd'}}>
-                        S E L E C T   D E S I G N
-                    </Text>
-                    </TouchableOpacity>
-                    
-                   
-
-                </View>
-                
-                </View>
-
-                <ScrollView scrollEventThrottle={16}>
-                  
-                </ScrollView>
-                <Button
+                    <View style ={{ padding:2}}/>
+                    <Button
                       raised={true}
-                      title="Add"
+                      title="S E L E C T   D E S I G N"
                       onPress={() =>{
                           this.addToMyPlants();
                       }}
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                     />
+                    
+                </View>
+                
+                </View>
+
+                <ScrollView scrollEventThrottle={16} >
+               
+                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Shrubs
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+
+                                    <ScrollView
+                                        
+                                        horizontal = {true}
+                                        showsHorizontalScrollIndicator={false}>
+
+                                        {this.state.plant['SH'].map((u, i) => (
+                                            
+                                            <View key = {i}>
+                                            <Category 
+                                             imageUri={{ uri: u['url'] }}
+                                             name= {u['Commonname'].toUpperCase()}
+                                           
+                                            />
+                                            </View>
+        
+                                            ))}
+        
+                                     </ScrollView>
+                         
+                        </View>
+           
+                        
+                    </View>
+
+                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Groundcovers
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+
+                                    <ScrollView
+                                        
+                                        horizontal = {true}
+                                        showsHorizontalScrollIndicator={false}>
+                                        {this.state.plant['GC'].map((u, i) => (
+                                            
+                                            <View key = {i}>
+                                            <Category 
+                                             imageUri={{ uri: u['url'] }}
+                                             name= {u['Commonname'].toUpperCase()}
+                                           
+                                            />
+                                            </View>
+        
+                                            ))}
+        
+                                     </ScrollView>
+                         
+                        </View>
+           
+                        
+                    </View>
+                    
+                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Trees
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+
+                                    <ScrollView
+                                        
+                                        horizontal = {true}
+                                        showsHorizontalScrollIndicator={false}>
+
+                                        {this.state.plant['TS'].map((u, i) => (
+                                            
+                                            <View key = {i}>
+                                            <Category 
+                                             imageUri={{ uri: u['url'] }}
+                                             name= {u['Commonname'].toUpperCase()}
+                                           
+                                            />
+                                            </View>
+        
+                                            ))}
+        
+                                     </ScrollView>
+                         
+                        </View>
+           
+                        
+                    </View>
+
+
+
+                </ScrollView>
+               
             </View>
 
         );
