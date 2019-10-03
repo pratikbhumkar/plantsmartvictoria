@@ -12,10 +12,7 @@ export default class DesignDetails extends React.Component {
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
     }
-    componentWillMount(){
-        // console.log(this.state.plant);
-        // this.renderPlants();
-    }
+    
     state = {
         userData:[],
         plant: [],
@@ -72,8 +69,8 @@ export default class DesignDetails extends React.Component {
             ToastAndroid.show('Plant added to my plants', ToastAndroid.LONG);
           }
           userplantsArray=userplantsArray.concat(designData);
-          console.log('userplants:::',userplantsArray)
-          console.log('designData:::',designData)
+          // console.log('userplants:::',userplantsArray)
+          // console.log('designData:::',designData)
           this.storeItem("userData", userplantsArray);
         }
         else {
@@ -98,9 +95,9 @@ async storeItem(key, item) {
     }
 }
       
-renderPlants(){
+componentWillMount(){
     var userPlants=this.state.plant;
-    var content=[];
+    var contentArray=[];
     for (const key in userPlants) {
         if (userPlants.hasOwnProperty(key)) {
             console.log('type=',key);
@@ -109,14 +106,14 @@ renderPlants(){
             // console.log(elements.length)
             if (elements.length>0) {
                 elements.forEach(element => {
-                    content.push(element);
+                  contentArray.push(element);
                 });
             }  
         }
         
     }
-    console.log('content::',content);
-    this.state.content=content;
+    this.state.content=contentArray;
+    console.log(this.state.content);
     } 
 
     render(){
@@ -148,7 +145,6 @@ renderPlants(){
 
                 <ScrollView scrollEventThrottle={16}>
                   
-                {this.renderPlants()}
                 </ScrollView>
                 <Button
                       raised={true}
