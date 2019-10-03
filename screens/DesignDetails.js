@@ -131,14 +131,16 @@ componentWillMount(){
                     >
                         
                     </Image>
-                    <TouchableOpacity>
-                    <Text style={{fontSize:20, fontWeight:'700', textAlign:"center", borderWidth:3, borderRadius:10, borderColor:'#dddddd'}}>
-                        S E L E C T   D E S I G N
-                    </Text>
-                    </TouchableOpacity>
+                    <View style ={{ padding:2}}/>
+                    <Button
+                      raised={true}
+                      title="S E L E C T   D E S I G N"
+                      onPress={() =>{
+                          this.addToMyPlants();
+                      }}
+                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
+                    />
                     
-                   
-
                 </View>
                 
                 </View>
@@ -146,14 +148,7 @@ componentWillMount(){
                 <ScrollView scrollEventThrottle={16}>
                   
                 </ScrollView>
-                <Button
-                      raised={true}
-                      title="Add"
-                      onPress={() =>{
-                          this.addToMyPlants();
-                      }}
-                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
-                    />
+               
             </View>
 
         );
