@@ -18,8 +18,16 @@ export default class ProgressDetails extends React.Component {
     constructor(props){
         super(props)
         //Dhanu replace sample with the botanical name. use plantImageArray as it will have images.
-        this.retrieveItem('Sample')
+        this.state.botanicalName = this.props.navigation.getParam('botanicalName', '');
+        this.state.commonName = this.props.navigation.getParam('commonName', '');
+        this.retrieveItem(this.state.botanicalName)
+        console.log("===============================")
+        console.log(this.state.botanicalName)
+        console.log(this.state.commonName)
+
+        
     }
+
     async retrieveItem(key) {
         try {
           const retrievedItem = await AsyncStorage.getItem(key);
@@ -27,15 +35,24 @@ export default class ProgressDetails extends React.Component {
           this.setState({
             plantImageArray: item
           })
-          console.log('item retieved',item);
+          console.log('item retrieved',item);
           return item;
         } catch (error) {
           console.log(error.message);
         }
       }
       state={
-        plantImageArray:[]
+        plantImageArray:[],
+        botanicalName:'',
+        commonName:''
       }
+
+      checkArray(){
+        if(this.state.plantImageArray == null ){
+            //dummy image
+        }
+      }
+
 render() 
 {
     return(
@@ -62,8 +79,8 @@ render()
 
         <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
                 <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                    P L A N T  N A M E  C O M M O N  N A M E {"\n"}
-                    B O T A N I C A L  N A M E 
+                <Text style={styles.contents}>{this.state.commonName.toUpperCase()}{"\n"}
+                </Text>
                 </Text>
                 <Button
                       raised={true}
@@ -72,47 +89,38 @@ render()
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                     />
                 <View style={{padding:30}}/>
-                {/* <View style={{height:130, marginTop:20}}>
-
-                            <ScrollView
-                                
-                                horizontal = {true}
-                                showsHorizontalScrollIndicator={false}>
-                               
-                               
-                                    
+                <View style={{height:130, marginTop:20}}>
+                          
+                           {/* <ScrollView
                                         
-                                    <Gallery
-                                     imageUri={require('../assets/images/dummyShrub.jpg')}
-                                     date= "01/01/2019"
-                                   
-                                    />
-                                    <Gallery
-                                     imageUri={require('../assets/images/dummyShrub.jpg')}
-                                     date= "01/01/2019"
-                                    />
-                                    <Gallery
-                                     imageUri={require('../assets/images/dummyShrub.jpg')}
-                                     date= "01/01/2019"
-                                   
-                                    />
-                                   <Gallery
-                                     imageUri={require('../assets/images/dummyShrub.jpg')}
-                                     date= "01/01/2019"
-                                    />
-                                     <Gallery
-                                     imageUri={require('../assets/images/dummyShrub.jpg')}
-                                     date= "01/01/2019"
-                                    />
-
-                             
+                                        horizontal = {true}
+                                        showsHorizontalScrollIndicator={false}>
+                                       
+                                      
+                                        {this.state.plantImageArray.map((u, i) => (
+                                            
+                                            <View key = {i}>
+                                                
+                                            <Gallery 
+                                             imageUri={{ uri: u['url'] }}
+                                             date= '1/1/2019'
+                                           
+                                            />
+                                            </View>
+        
+                                        ))}
 
 
-                               
-                             </ScrollView>
-                 
+                                       
+                                        </ScrollView>*/}
+                         
+
+
+
+
+                         
                 </View>
-    */}
+    
                 
             </View>
 
@@ -127,3 +135,20 @@ render()
     );
 }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 2,
+      borderRadius: 10,
+      //backgroundColor: '#c8cdce',
+      backgroundColor: '#6ac99e',
+  
+    },
+    containerStyle: {
+      alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,
+      marginTop: -3, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b',
+    },
+    contents: { fontSize:16, fontWeight:'700',paddingHorizontal:20 }
+  });
+  
