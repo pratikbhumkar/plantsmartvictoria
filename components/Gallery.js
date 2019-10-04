@@ -3,10 +3,11 @@ import {
     View,
     Text,
     StyleSheet,
-    Image
+    Image,
+    TouchableOpacity
 } from "react-native";
 
-class Category extends Component{
+class Gallery extends Component{
     render(){
         return(
             <View style={{height:160, width:200,marginLeft:20, borderWidth:0.5, borderColor:'#dddddd'}}>
@@ -16,7 +17,7 @@ class Category extends Component{
                     />
                 </View>
                 <View style={{flex:1, paddingLeft:10, paddingTop:10, font:5}}>
-                    <Text>{this.props.name}</Text>
+                <Text>{this.props.date}</Text>
                 </View>
 
             </View>
@@ -25,4 +26,4 @@ class Category extends Component{
 
     }
 }
-export default Category;
+export default Gallery;

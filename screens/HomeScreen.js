@@ -57,6 +57,11 @@ export default class HomeScreen extends React.Component {
             })}>
               <MenuItem itemImage={require('../assets/images/balltree.jpg')} />
             </TouchableOpacity>
+            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('ProgressDetails', {
+              userData: this.state.userplants
+            })}>
+              <MenuItem itemImage={require('../assets/images/dummyShrub.jpg')} />
+            </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
