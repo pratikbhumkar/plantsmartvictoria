@@ -1,18 +1,40 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage ,CameraRoll} from 'react-native';
-import { Camera,Constants } from 'expo-camera';
-import * as FileSystem from 'expo-file-system';
+import {  StyleSheet, Text, TouchableOpacity, View, AsyncStorage ,CameraRoll} from 'react-native';
+import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
-import MenuItem from '../components/MenuItem';
 
 export default class ProgressTracker extends React.Component {
+  constructor(props){
+    super(props);
+    //Dhanu remove this when you pass plantBotanicalName
+    // this.state.plantBotanicalName = this.props.navigation.getParam('plantBotanicalName', '');
+  }
+
   state = {
     hasCameraPermission: null,
     newPhotos:false,
     statusCamera:false,
-    statusCameraStorage:false
+    statusCameraStorage:false,
+    plantBotanicalName:'Sample',
+    plantImageArray:[]
   };
-
+  async componentWillMount(){
+    // dhanu replace sample to plant botanical name whereever you find sample replace botanical name.
+    this.retrieveItem('Sample');
+  }
+  async retrieveItem(key) {
+    try {
+      const retrievedItem = await AsyncStorage.getItem(key);
+      const item = JSON.parse(retrievedItem);
+      this.setState({
+        plantImageArray: item
+      })
+      console.log('retrieved from tracker',item)
+      return item;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
    async componentDidMount() {
     this.state.statusCamera= await Permissions.askAsync(Permissions.CAMERA);
     this.state.statusCameraStorage = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -21,7 +43,6 @@ export default class ProgressTracker extends React.Component {
       this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
   };
   onPictureSaved = async photo => {
-    console.log(photo.uri)
     try {
       await CameraRoll.saveToCameraRoll(photo.uri, 'photo');
   } catch (error) {
@@ -33,8 +54,27 @@ export default class ProgressTracker extends React.Component {
     assetType: 'Photos',
   })
   .then(r => {
-    console.log('pic',r.edges[0].node.image.uri)
+    var plantDict={};
+    var plantArray=[];
+    if(this.state.plantImageArray!== undefined  && this.state.plantImageArray!== null){
+      plantArray=this.state.plantImageArray;
+    }
+    plantArray.push(r.edges[0].node.image.uri)
+    plantDict[this.state.plantBotanicalName]=plantArray;
+    console.log('item saved',plantDict)
+    this.storeItem(this.state.plantBotanicalName,plantDict)
   })
+}
+async storeItem(key, item) {
+  try {
+    //we want to wait for the Promise returned by AsyncStorage.setItem()
+    //to be resolved to the actual value before returning the value
+    var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+    this.props.navigation.pop();
+    return jsonOfItem;
+  } catch (error) {
+    console.log(error.message);
+  }
 }
   render() {
     return (

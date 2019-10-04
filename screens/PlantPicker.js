@@ -17,6 +17,7 @@ export default class PlantPicker extends React.Component {
     super(props);
 
   }
+  
   state = {
     planttype: 'Select one',
     planttypeMasterList: ['Select one', 'Trees and Shrubs', 'Aquatic and Riparian Zone Plants', 'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
@@ -26,7 +27,6 @@ export default class PlantPicker extends React.Component {
     errorMessage: ''
   }
   updateIndex = (selectedIndex) => this.setState({ selectedIndex })
-
 
   componentWillMount() {
     console.disableYellowBox = true;
@@ -82,7 +82,6 @@ export default class PlantPicker extends React.Component {
             alert('No Data found!, Please try other options')
           }
         }
-
       });
     }
   }
