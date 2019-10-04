@@ -2,6 +2,8 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Text, Alert, AsyncStorage, StatusBar, Platform, ToastAndroid } from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
+import { Ionicons } from '@expo/vector-icons';
+
 export default class MyPlants extends React.Component {
   constructor(props) {
     super(props)
