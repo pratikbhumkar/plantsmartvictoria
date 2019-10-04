@@ -12,16 +12,62 @@ export default class DesignDetails extends React.Component {
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
         
+
+        
     }
     
     state = {
         userData:[],
         plant: [],
         PlantName: '',
-        newShrubs: [],
-        groundcovers: [],
-        trees:[],
+        shrubsClimbers:[],
+        groundcoversGrasses: [],
+        treesStrapLeaves:[],
         content:[]
+      }
+      
+      shrubsAndClimbers(){
+        
+        this.state.shrubsClimbers = this.state.plant['SH'];  
+        climbers = this.state.plant['CL'];
+        if( climbers != undefined)
+        {
+            this.state.shrubsClimbers = this.state.shrubsClimbers.concat(climbers);
+          
+        }
+        
+      }
+
+      grassAndGroundcovers(){
+        
+        this.state.groundcoversGrasses = this.state.plant['GC'];  
+        grasses = this.state.plant['GS'];
+        rushes = this.state.plant['RS'];
+        if( grasses != undefined)
+        {
+            this.state.groundcoversGrasses = this.state.groundcoversGrasses.concat(grasses);
+          
+        }
+        if( rushes != undefined)
+        {
+            this.state.groundcoversGrasses = this.state.groundcoversGrasses.concat(rushes);
+          
+        }
+        
+      }
+
+      treesAndStrapLeaves(){
+        
+        this.state.treesStrapLeaves = this.state.plant['TS'];  
+        strapLeaves = this.state.plant['SLP'];
+        
+        if( strapLeaves != undefined)
+        {
+            this.state.treesStrapLeaves = this.state.treesStrapLeaves.concat(strapLeaves);
+          
+        }
+        
+        
       }
       
       
@@ -123,10 +169,45 @@ componentWillMount(){
                 </View>
 
                 <ScrollView scrollEventThrottle={16} >
+
+                <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
+                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
+                            Shrubs and Climbers
+                        </Text>
+                        <View style={{height:130, marginTop:20}}>
+
+                                    <ScrollView
+                                        
+                                        horizontal = {true}
+                                        showsHorizontalScrollIndicator={false}>
+                                       
+                                        {this.shrubsAndClimbers()}
+                                        {this.state.shrubsClimbers.map((u, i) => (
+                                            
+                                            <View key = {i}>
+                                                
+                                            <Category 
+                                             imageUri={{ uri: u['url'] }}
+                                             name= {u['Commonname'].toUpperCase()}
+                                           
+                                            />
+                                            </View>
+        
+                                            ))}
+
+
+                                       
+                                     </ScrollView>
+                         
+                        </View>
+           
+                        
+                    </View>
+
                
                     <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
                         <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                            Shrubs
+                            Grass, Groundcovers, Rushes and Sedges
                         </Text>
                         <View style={{height:130, marginTop:20}}>
 
@@ -134,8 +215,9 @@ componentWillMount(){
                                         
                                         horizontal = {true}
                                         showsHorizontalScrollIndicator={false}>
-
-                                        {this.state.plant['SH'].map((u, i) => (
+                                        
+                                        {this.grassAndGroundcovers()}
+                                        {this.state.groundcoversGrasses.map((u, i) => (
                                             
                                             <View key = {i}>
                                             <Category 
@@ -156,7 +238,7 @@ componentWillMount(){
 
                     <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
                         <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                            Groundcovers
+                            Trees and Strap-leaved Plants
                         </Text>
                         <View style={{height:130, marginTop:20}}>
 
@@ -164,7 +246,8 @@ componentWillMount(){
                                         
                                         horizontal = {true}
                                         showsHorizontalScrollIndicator={false}>
-                                        {this.state.plant['GC'].map((u, i) => (
+                                        {this.treesAndStrapLeaves()}
+                                        {this.state.treesStrapLeaves.map((u, i) => (
                                             
                                             <View key = {i}>
                                             <Category 
@@ -182,37 +265,6 @@ componentWillMount(){
            
                         
                     </View>
-                    
-                    <View style={{flex:1, backgroundColor:'white',paddingTop:20}}>
-                        <Text style={{fontSize:16, fontWeight:'700',paddingHorizontal:20}}>
-                            Trees
-                        </Text>
-                        <View style={{height:130, marginTop:20}}>
-
-                                    <ScrollView
-                                        
-                                        horizontal = {true}
-                                        showsHorizontalScrollIndicator={false}>
-
-                                        {this.state.plant['TS'].map((u, i) => (
-                                            
-                                            <View key = {i}>
-                                            <Category 
-                                             imageUri={{ uri: u['url'] }}
-                                             name= {u['Commonname'].toUpperCase()}
-                                           
-                                            />
-                                            </View>
-        
-                                            ))}
-        
-                                     </ScrollView>
-                         
-                        </View>
-           
-                        
-                    </View>
-
 
 
                 </ScrollView>
