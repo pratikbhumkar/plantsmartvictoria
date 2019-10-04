@@ -41,7 +41,6 @@ export default class GardenDesign extends React.Component {
           for(var item in DesignObj){
             var bject=DesignObj[item];
             DesignObj=bject['Design'];
-            console.log('designType',DesignObj);
             
             that.props.navigation.navigate('DesignDetails',{
               DesignObj:DesignObj[designType],

@@ -92,8 +92,7 @@ export default class DesignDetails extends React.Component {
             ToastAndroid.show('Plant added to my plants', ToastAndroid.LONG);
           }
           userplantsArray=userplantsArray.concat(designData);
-          // console.log('userplants:::',userplantsArray)
-          // console.log('designData:::',designData)
+          
           this.storeItem("userData", userplantsArray);
         }
         else {
@@ -125,8 +124,7 @@ componentWillMount(){
         if (userPlants.hasOwnProperty(key)) {
             console.log('type1=',key);
             const elements = userPlants[key];
-            // console.log('type is:'+key+'::',element)
-            // console.log(elements.length)
+           
             if (elements.length>0) {
                 elements.forEach(element => {
                   contentArray.push(element);
