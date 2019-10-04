@@ -161,7 +161,7 @@ export default class MyPlants extends React.Component {
                     <Button
                       raised={true}
                       title="Progress Tracker"
-                      onPress={() => this.props.navigation.navigate('ProgressDetails')}
+                      onPress={() => this.props.navigation.navigate('ProgressDetails',{'botanicalName':u['Botanicalname'], 'commonName':u['Commonname']})}
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                     />
                     <View style={{height:10}}/>

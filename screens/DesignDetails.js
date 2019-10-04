@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import Category from '../components/Category'
 
-const{height,width}= Dimensions.get('window')
+//const{height,width}= Dimensions.get('window')
 
 export default class DesignDetails extends React.Component {
     constructor(props) {
