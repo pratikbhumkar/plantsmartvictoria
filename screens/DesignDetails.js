@@ -35,6 +35,7 @@ export default class DesignDetails extends React.Component {
             this.state.shrubsClimbers = this.state.shrubsClimbers.concat(climbers);
           
         }
+        console.log('Shrubs and climbers***************',this.state.shrubsClimbers)
         
       }
 
