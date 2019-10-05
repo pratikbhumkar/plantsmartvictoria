@@ -21,6 +21,8 @@ class LandscapeCat extends Component{
               <Text style={styles.title}>{this.props.title}</Text>
               <Text style={styles.description}>{this.props.description1}</Text>
               <Text style={styles.description}>{this.props.description2}</Text>
+              <Text style={styles.description}>{this.props.description3}</Text>
+              <Text style={styles.description}>{this.props.description4}</Text>
             </View>
           </View>
         );
@@ -57,11 +59,14 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 15,
-      marginVertical: 4
+      marginVertical: 4,
+      fontWeight:'600'
     },
     description: {
       fontSize: 12,
-      color: '#888'
+      color: '#888',
+      borderBottomWidth:0.3,
+      width:'100%'
     },
     actions: {
       flexDirection: 'row',

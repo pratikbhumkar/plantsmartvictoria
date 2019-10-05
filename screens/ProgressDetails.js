@@ -111,20 +111,10 @@ render()
                                        
                                         </ScrollView>*/}
                          
-
-
-
-
-                         
                 </View>
     
                 
             </View>
-
-       
-           
-
-
         </ScrollView>
        
     </View>

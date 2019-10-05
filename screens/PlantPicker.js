@@ -20,7 +20,7 @@ export default class PlantPicker extends React.Component {
   
   state = {
     planttype: 'Select one',
-    planttypeMasterList: ['Select one', 'Trees and Shrubs', 'Aquatic and Riparian Zone Plants', 'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
+    planttypeMasterList: ['Select one', 'Trees and Shrubs',  'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
       , 'Rushes and Sedges'],
     location: false,
     postalCode: '3145',
@@ -56,27 +56,24 @@ export default class PlantPicker extends React.Component {
     }
     else {
       var that = this;
-      var listofTrees = [];
-      var passedList = [];
+      var plantTypeDict={"Trees and Shrubs":"TS", 'Groundcover':'GC', 'Climbers':"CL",'Grasses':"GS", 'Bulbs and Lilies':"BAL",
+      'Rushes and Sedges':'RAS'};
       var counter = 0;
       var pType = this.state.planttype;
-
-      firebase.database().ref('/0/Plant/').orderByChild('Type').equalTo(pType).on('value', function (snapshot) {
-        listofTrees = snapshot.val();
+      firebase.database().ref('/').orderByChild('Postcode').equalTo(postcode).on('value', function (snapshot) {
+        var DesignObj=snapshot.val();
         if (snapshot.numChildren() > 0) {
-          for (var k in listofTrees) {
-            var element = listofTrees[k];
-            if (element['Postcode'].includes(postcode)) {
-              passedList.push(element)
-              counter = counter + 1
-              if (counter > 9) {
-                break;
-              }
-            }
+          for(var item in DesignObj){
+            var bject=DesignObj[item];
+            DesignObj=bject['Design'];
           }
-          if (counter > 0) {
+          pType=plantTypeDict[pType];
+          var plantsAdvanceDesign=DesignObj['Advance'];
+          plants=plantsAdvanceDesign[pType]
+          console.log('Plants:',plants);
+          if (plants.length > 0) {
             that.props.navigation.navigate('Recommendations', {
-              plants: passedList
+              plants: plants
             });
           } else {
             alert('No Data found!, Please try other options')
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 20,
-    fontWeight: '300',
+    fontWeight: '600',
     paddingTop: 20,
     color: '#7d7b7a'
   },
