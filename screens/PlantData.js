@@ -22,6 +22,7 @@ export default class MyPlants extends React.Component {
                 <LandScapeCat 
                 imageUri={{uri: u['url']}}
                 title={u['Commonname'].toUpperCase()}
+                extraInfoLevel2={true}
                 description1={"Botanical Name: "+u['Botanicalname'].toUpperCase()}
                 description2={"Height(m):"+ u['Height']}
                 description3={"Rain(mm): "+u['Rain']}

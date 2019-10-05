@@ -189,9 +189,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 2,
     borderRadius: 10,
-    //backgroundColor: '#c8cdce',
-    backgroundColor: '#6ac99e',
-
+    shadowColor: 'black',
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 10,
+    borderRadius: 10,
+    backgroundColor: 'white',
   },
   containerStyle: {
     alignContent: 'center', padding: 2, paddingLeft: -3, paddingRight: -3, marginBottom: 10,

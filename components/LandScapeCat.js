@@ -4,14 +4,30 @@ import {
     Text,
     StyleSheet,
     Image,
-    TouchableOpacity,
-    TouchableHighlight
+    TouchableOpacity
 } from "react-native";
 
 class LandscapeCat extends Component{
+  renderInfo(){
+    if(this.props.extraInfoLevel1)
+    return(
+      <View style={{width:'100%'}}>
+              <Text style={styles.description}>{this.props.description3}</Text>
+              <Text style={styles.description}>{this.props.description4}</Text>
+      </View>
+    )
+    if(this.props.extraInfoLevel2)
+    return(
+      <View style={{width:'100%'}}>
+              <Text style={styles.description}>{this.props.description1}</Text>
+              <Text style={styles.description}>{this.props.description2}</Text>
+              <Text style={styles.description}>{this.props.description3}</Text>
+              <Text style={styles.description}>{this.props.description4}</Text>
+      </View>
+    )
+  }
     render(){
         return(
-            
             <View style={styles.product}>
             <View style={styles.imageContainer}>
               <TouchableOpacity activeOpacity={.5} onPress={this.props.transfer}>
@@ -19,10 +35,8 @@ class LandscapeCat extends Component{
             </View>
             <View style={styles.details}>
               <Text style={styles.title}>{this.props.title}</Text>
-              <Text style={styles.description}>{this.props.description1}</Text>
-              <Text style={styles.description}>{this.props.description2}</Text>
-              <Text style={styles.description}>{this.props.description3}</Text>
-              <Text style={styles.description}>{this.props.description4}</Text>
+              
+              {this.renderInfo()}
             </View>
           </View>
         );
@@ -38,7 +52,7 @@ const styles = StyleSheet.create({
       elevation: 5,
       borderRadius: 10,
       backgroundColor: 'white',
-      height: 300,
+      height: 400,
       margin: 20
     },
     imageContainer: {
@@ -58,12 +72,12 @@ const styles = StyleSheet.create({
       padding: 10
     },
     title: {
-      fontSize: 15,
+      fontSize: 18,
       marginVertical: 4,
       fontWeight:'600'
     },
     description: {
-      fontSize: 12,
+      fontSize: 15,
       color: '#888',
       borderBottomWidth:0.3,
       width:'100%'

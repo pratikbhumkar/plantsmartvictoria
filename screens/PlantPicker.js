@@ -70,12 +70,13 @@ export default class PlantPicker extends React.Component {
           pType=plantTypeDict[pType];
           var plantsAdvanceDesign=DesignObj['Advance'];
           plants=plantsAdvanceDesign[pType]
-          console.log('Plants:',plants);
-          if (plants.length > 0) {
-            that.props.navigation.navigate('Recommendations', {
-              plants: plants
-            });
-          } else {
+          if (plants!==undefined) {
+            if (plants.length > 0) {
+              that.props.navigation.navigate('Recommendations', {
+                plants: plants
+              });
+            }
+          }else {
             alert('No Data found!, Please try other options')
           }
         }
