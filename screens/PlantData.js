@@ -13,26 +13,25 @@ export default class MyPlants extends React.Component {
         plant: {}
     }
 
-    render(){
-        var u=this.state.plant;
-        return(
-            <ScrollView style = {styles.mainContainer}>
-                <HeaderComponent text="Plant Data" back={this.props.navigation}/>
-               
-                <LandScapeCat 
-                imageUri={{uri: u['url']}}
-                title={u['Commonname'].toUpperCase()}
-                extraInfoLevel2={true}
-                description1={"Botanical Name: "+u['Botanicalname'].toUpperCase()}
-                description2={"Height(m):"+ u['Height']}
-                description3={"Rain(mm): "+u['Rain']}
-                description4={"Spread(m):"+u['Spread'].toUpperCase()}
-                transfer = {() => {
-                  this.props.navigation.navigate('PlantStack', {
-                              plant: u
-                            });
-                }}
-            />
+    render() {
+        var u = this.state.plant;
+        return (
+            <ScrollView style={styles.mainContainer}>
+                <HeaderComponent text="Plant Data" back={this.props.navigation} />
+                <LandScapeCat
+                    imageUri={{ uri: u['url'] }}
+                    title={u['Commonname'].toUpperCase()}
+                    extraInfoLevel2={true}
+                    description1={"Botanical Name: " + u['Botanicalname'].toUpperCase()}
+                    description2={"Height(m):" + u['Height']}
+                    description3={"Rain(mm): " + u['Rain']}
+                    description4={"Spread(m):" + u['Spread'].toUpperCase()}
+                    transfer={() => {
+                        this.props.navigation.navigate('PlantStack', {
+                            plant: u
+                        });
+                    }}
+                />
             </ScrollView>
         )
     }

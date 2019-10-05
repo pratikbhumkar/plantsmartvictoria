@@ -23,7 +23,7 @@ export default class Recommendations extends React.Component {
     this.props.navigation.addListener(
       'willBlur',
       payload => {
-        this.loadItems("userData");
+        this.loadItems();
       });
   }
   async retrieveItem(key) {
@@ -81,35 +81,6 @@ export default class Recommendations extends React.Component {
       console.log(error.message);
     }
   }
-
-  render() {
-
-    return (
-      <View style={{ width: '100%', height: '100%' }}>
-        <HeaderComponent text="Recommendations" back={this.props.navigation}/>
-        <ScrollView style={styles.container}>
-          {
-            this.state.plants.map((u, i) => {
-              return (
-                <LandScapeCat 
-                key={i}
-                imageUri={{uri: u['url']}}
-                title={u['Commonname'].toUpperCase()}
-                description1=""
-                description2=""
-                transfer = {() => {
-                  this.props.navigation.navigate('PlantStack', {
-                              plant: u
-                            });
-                }}
-            />
-              );
-            })
-          }
-        </ScrollView>
-      </View>
-    );
-  }
   timeToString(time) {
     try {
       const date = new Date(time);
@@ -127,14 +98,13 @@ export default class Recommendations extends React.Component {
 
       if (!items[strTime]) {
         items[strTime] = [];
-        // console.log(this.state.userplants);
         if (this.state.userplants !== null) {
           var numItems = this.state.userplants.length;
           for (let j = 0; j < numItems; j++) {
             var item = this.state.userplants[j];
-            var itemRain = Number(item['Rain(mm)']);
+            var itemRain = Number(item['Rain']);
             if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
-              this.state.items[strTime].push({
+              items[strTime].push({
                 name: 'Water ' + this.state.userplants[j].Commonname,
                 height: 60
               });
@@ -172,6 +142,35 @@ export default class Recommendations extends React.Component {
     Object.keys(items).forEach(key => { newItems[key] = items[key]; });
     this.storeItem("CalendarItems", newItems);
   }
+  render() {
+
+    return (
+      <View style={{ width: '100%', height: '100%' }}>
+        <HeaderComponent text="Recommendations" back={this.props.navigation} />
+        <ScrollView style={styles.container}>
+          {
+            this.state.plants.map((u, i) => {
+              return (
+                <LandScapeCat
+                  key={i}
+                  imageUri={{ uri: u['url'] }}
+                  title={u['Commonname'].toUpperCase()}
+                  description1=""
+                  description2=""
+                  transfer={() => {
+                    this.props.navigation.navigate('PlantStack', {
+                      plant: u
+                    });
+                  }}
+                />
+              );
+            })
+          }
+        </ScrollView>
+      </View>
+    );
+  }
+
 }
 Recommendations.navigationOptions = {
   title: 'Recommendations',

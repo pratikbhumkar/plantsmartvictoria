@@ -19,9 +19,6 @@ export default class MyJournal extends React.Component {
     items: {},
     today: '',
   }
-
-
-
   componentWillMount() {
     const date = new Date();
     var today = date.toISOString().split('T')[0];
@@ -32,7 +29,6 @@ export default class MyJournal extends React.Component {
     try {
       const retrievedItem = await AsyncStorage.getItem("CalendarItems");
       const item = JSON.parse(retrievedItem);
-      // console.log(item)
       if (item !== null || typeof item !== undefined)
         this.setState({
           items: item
@@ -61,11 +57,10 @@ export default class MyJournal extends React.Component {
   }
 
   render() {
-    // console.log(this.state.items)
     if (this.state.items !== null) {
       return (
         <View style={{ width: '100%', height: '100%' }}>
-          <HeaderComponent text="My Journal" back={this.props.navigation}/>
+          <HeaderComponent text="My Journal" back={this.props.navigation} />
           <Agenda
             items={this.state.items}
             selected={this.state.today}

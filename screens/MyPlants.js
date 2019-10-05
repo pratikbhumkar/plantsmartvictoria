@@ -51,12 +51,11 @@ export default class MyPlants extends React.Component {
 
       if (!items[strTime]) {
         items[strTime] = [];
-        // console.log(this.state.userplants);
         if (this.state.userplants !== null) {
           var numItems = this.state.userplants.length;
           for (let j = 0; j < numItems; j++) {
             var item = this.state.userplants[j];
-            var itemRain = Number(item['Rain(mm)']);
+            var itemRain = Number(item['Rain']);
             if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
               this.state.items[strTime].push({
                 name: 'Water ' + this.state.userplants[j].Commonname,
@@ -142,7 +141,7 @@ export default class MyPlants extends React.Component {
         return (
           <ScrollView style={styles.container}>
             <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
-            <HeaderComponent text="My Plants" back={this.props.navigation}/>
+            <HeaderComponent text="My Plants" back={this.props.navigation} />
             {
 
               this.state.userplants.map((u, i) => {
@@ -161,10 +160,10 @@ export default class MyPlants extends React.Component {
                     <Button
                       raised={true}
                       title="Progress Tracker"
-                      onPress={() => this.props.navigation.navigate('ProgressDetails',{'botanicalName':u['Botanicalname'], 'commonName':u['Commonname'], 'url':u['url']})}
+                      onPress={() => this.props.navigation.navigate('ProgressDetails', { 'botanicalName': u['Botanicalname'], 'commonName': u['Commonname'], 'url': u['url'] })}
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                     />
-                    <View style={{height:10}}/>
+                    <View style={{ height: 10 }} />
                     <Button
                       raised={true}
                       title="Remove"

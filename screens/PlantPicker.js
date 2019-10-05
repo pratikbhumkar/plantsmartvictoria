@@ -17,10 +17,10 @@ export default class PlantPicker extends React.Component {
     super(props);
 
   }
-  
+
   state = {
     planttype: 'Select one',
-    planttypeMasterList: ['Select one', 'Trees and Shrubs',  'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
+    planttypeMasterList: ['Select one', 'Trees and Shrubs', 'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
       , 'Rushes and Sedges'],
     location: false,
     postalCode: '3145',
@@ -56,27 +56,30 @@ export default class PlantPicker extends React.Component {
     }
     else {
       var that = this;
-      var plantTypeDict={"Trees and Shrubs":"TS", 'Groundcover':'GC', 'Climbers':"CL",'Grasses':"GS", 'Bulbs and Lilies':"BAL",
-      'Rushes and Sedges':'RAS'};
+      var plantTypeDict = {
+        "Trees and Shrubs": "TS", 'Groundcover': 'GC', 'Climbers': "CL", 'Grasses': "GS", 'Bulbs and Lilies': "BAL",
+        'Rushes and Sedges': 'RAS'
+      };
       var counter = 0;
       var pType = this.state.planttype;
       firebase.database().ref('/').orderByChild('Postcode').equalTo(postcode).on('value', function (snapshot) {
-        var DesignObj=snapshot.val();
+        var DesignObj = snapshot.val();
+        console.log(DesignObj)
         if (snapshot.numChildren() > 0) {
-          for(var item in DesignObj){
-            var bject=DesignObj[item];
-            DesignObj=bject['Design'];
+          for (var item in DesignObj) {
+            var bject = DesignObj[item];
+            DesignObj = bject['Design'];
           }
-          pType=plantTypeDict[pType];
-          var plantsAdvanceDesign=DesignObj['Advance'];
-          plants=plantsAdvanceDesign[pType]
-          if (plants!==undefined) {
+          pType = plantTypeDict[pType];
+          var plantsAdvanceDesign = DesignObj['Advance'];
+          plants = plantsAdvanceDesign[pType]
+          if (plants !== undefined) {
             if (plants.length > 0) {
               that.props.navigation.navigate('Recommendations', {
                 plants: plants
               });
             }
-          }else {
+          } else {
             alert('No Data found!, Please try other options')
           }
         }
@@ -109,7 +112,7 @@ export default class PlantPicker extends React.Component {
     return (
       <ImageBackground
         source={require('../assets/images/backgroundset1.png')} style={{ width: '100%', height: '100%' }}>
-        <HeaderComponent text="Picker" back={this.props.navigation} back={this.props.navigation}/>
+        <HeaderComponent text="Picker" back={this.props.navigation} back={this.props.navigation} />
         <StatusBar backgroundColor="#75ebb6" barStyle="light-content" />
         <View style={styles.container}>
           <Text style={styles.titleText}>Post Code</Text>
