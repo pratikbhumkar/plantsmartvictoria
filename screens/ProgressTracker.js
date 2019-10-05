@@ -7,7 +7,7 @@ export default class ProgressTracker extends React.Component {
   constructor(props){
     super(props);
     //Dhanu remove this when you pass plantBotanicalName
-    // this.state.plantBotanicalName = this.props.navigation.getParam('plantBotanicalName', '');
+    this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
   }
 
   state = {
@@ -15,21 +15,21 @@ export default class ProgressTracker extends React.Component {
     newPhotos:false,
     statusCamera:false,
     statusCameraStorage:false,
-    plantBotanicalName:'Sample',
+    plantBotanicalName:'',
     plantImageArray:[]
   };
   async componentWillMount(){
     // dhanu replace sample to plant botanical name whereever you find sample replace botanical name.
-    this.retrieveItem('Sample');
+    this.retrieveItem(this.state.plantBotanicalName);
   }
   async retrieveItem(key) {
     try {
       const retrievedItem = await AsyncStorage.getItem(key);
       const item = JSON.parse(retrievedItem);
       this.setState({
-        plantImageArray: item
+        plantImageArray:item[this.state.plantBotanicalName]
       })
-      console.log('retrieved from tracker',item)
+      // console.log('retrieved from tracker',item)
       return item;
     } catch (error) {
       console.log(error.message);

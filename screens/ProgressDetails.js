@@ -20,12 +20,12 @@ export default class ProgressDetails extends React.Component {
         //Dhanu replace sample with the botanical name. use plantImageArray as it will have images.
         this.state.botanicalName = this.props.navigation.getParam('botanicalName', '');
         this.state.commonName = this.props.navigation.getParam('commonName', '');
-        this.retrieveItem(this.state.botanicalName)
-        console.log("===============================")
-        console.log(this.state.botanicalName)
-        console.log(this.state.commonName)
-
-        
+        this.props.navigation.addListener(
+          'willFocus',
+          payload => {
+            this.retrieveItem(this.state.botanicalName)
+          });
+       
     }
 
     async retrieveItem(key) {
@@ -35,7 +35,6 @@ export default class ProgressDetails extends React.Component {
           this.setState({
             plantImageArray: item
           })
-          console.log('item retrieved',item);
           return item;
         } catch (error) {
           console.log(error.message);
@@ -47,11 +46,7 @@ export default class ProgressDetails extends React.Component {
         commonName:''
       }
 
-      checkArray(){
-        if(this.state.plantImageArray == null ){
-            //dummy image
-        }
-      }
+     
 
 render() 
 {
@@ -85,7 +80,9 @@ render()
                 <Button
                       raised={true}
                       title="Progress Tracker"
-                      onPress={() => this.props.navigation.navigate('ProgressTracker')}
+                      onPress={() => this.props.navigation.navigate('ProgressTracker',{
+                        botanicalName:this.state.botanicalName
+                      })}
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                     />
                 <View style={{padding:30}}/>

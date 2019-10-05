@@ -142,9 +142,9 @@ componentWillMount(){
         return(
             <View >
                 <View>
-                <HeaderComponent text="Design Details" back={this.props.navigation} back={this.props.navigation}/>
+                <HeaderComponent text="Design Details"  back={this.props.navigation}/>
 
-                <View style ={{ width : width , height: 200}}>
+                <View style ={{ width : null , height: 200}}>
                     <Image
                     style={{flex:1, height:null, width:null, resizeMode:'cover', borderRadius:5, borderWidth:1,
                     borderColor: '#dddddd', justifyContent:'flex-end', alignItems:'center'}}
