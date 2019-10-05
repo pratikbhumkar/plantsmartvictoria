@@ -7,6 +7,9 @@ export default class ProgressTracker extends React.Component {
   constructor(props){
     super(props);
     //Dhanu remove this when you pass plantBotanicalName
+    this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName','');
+    console.log('*********************************************')
+    console.log('botanica', this.state.plantBotanicalName)
 
   }
 
