@@ -57,7 +57,7 @@ export default class MyPlants extends React.Component {
             var item = this.state.userplants[j];
             var itemRain = Number(item['Rain']);
             if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
-              this.state.items[strTime].push({
+              items[strTime].push({
                 name: 'Water ' + this.state.userplants[j].Commonname,
                 height: 60
               });
@@ -139,11 +139,11 @@ export default class MyPlants extends React.Component {
     if (this.state.userplants !== undefined) {
       if (this.state.userplants !== null) {
         return (
+          <View style={{height:'100%',width:'100%'}}>
+          <HeaderComponent text="My Plants" back={this.props.navigation} />
           <ScrollView style={styles.container}>
-            <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
-            <HeaderComponent text="My Plants" back={this.props.navigation} />
+            <StatusBar backgroundColor='#6ac99e' barStyle='light-content' /> 
             {
-
               this.state.userplants.map((u, i) => {
                 return (
                   <Card style={styles.container}
@@ -175,6 +175,7 @@ export default class MyPlants extends React.Component {
               })
             }
           </ScrollView>
+          </View>
         )
       }
     }

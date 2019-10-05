@@ -16,7 +16,20 @@ import ProgressDetails from '../screens/ProgressDetails';
 
 
 
-
+GardenDesign.navigationOptions = {
+  tabBarLabel: 'Garden Design',
+  gesturesEnabled: true,
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `${focused ? 'md-albums' : 'md-albums'}`
+          : 'md-albums'
+      }
+    />
+  ),
+};
 
 MyJournal.navigationOptions = {
   tabBarLabel: 'My Journal',
@@ -113,9 +126,9 @@ SettingsStack.navigationOptions = {
 
 const tabNavigator = createBottomTabNavigator({
   'Plant Picker': SettingsStack,
+  'Design': GardenDesign,
   'My Plants': MyPlants,
-  'My Journal': MyJournal
-  
+  'My Journal': MyJournal,
 }, {
   tabBarOptions: {
     labelStyle: {
