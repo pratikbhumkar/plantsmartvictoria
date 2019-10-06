@@ -10,11 +10,11 @@ export default class DesignDetails extends React.Component {
         super(props)
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
-        // this.props.navigation.addListener(
-        //     'willBlur',
-        //     payload => {
-        //       this.loadItems();
-        //     });
+        this.props.navigation.addListener(
+            'willBlur',
+            payload => {
+              this.loadItems();
+            });
     }
     state = {
         userData: [],
@@ -108,7 +108,7 @@ export default class DesignDetails extends React.Component {
         }
         const newItems = {};
         Object.keys(items).forEach(key => { newItems[key] = items[key]; });
-        this.storeItem("CalendarItems", newItems);
+        this.storeCalendarItem("CalendarItems", newItems);
     }
     addToMyPlants() {
         var uploadFlag = true;
@@ -144,6 +144,16 @@ export default class DesignDetails extends React.Component {
         }
     }
     async storeItem(key, item) {
+        try {
+            //we want to wait for the Promise returned by AsyncStorage.setItem()
+            //to be resolved to the actual value before returning the value
+            var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+            return jsonOfItem;
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+    async storeCalendarItem(key, item) {
         try {
             //we want to wait for the Promise returned by AsyncStorage.setItem()
             //to be resolved to the actual value before returning the value
