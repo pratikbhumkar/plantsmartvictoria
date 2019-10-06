@@ -2,6 +2,8 @@ import React from 'react';
 import HeaderComponent from '../components/HeaderComponent.js';
 import { Card, Button } from 'react-native-elements'
 import Gallery from '../components/Gallery'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 
 import {
@@ -15,6 +17,7 @@ import {
 } from "react-native";
 
 const { height, width } = Dimensions.get('window')
+
 
 export default class ProgressDetails extends React.Component {
   constructor(props) {
@@ -168,28 +171,29 @@ export default class ProgressDetails extends React.Component {
             <View style={{ padding: 30 }} />
             <View style={{ height: 130, marginTop: 20 }}>
 
-              <ScrollView
+            <ScrollView
 
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
 
-
                 {this.state.plantImageArray.map((u, i) => (
 
-                  <View key={i}>
+                <View key={i}>
+                <TouchableOpacity key={i} onPress={() => this.setState({url: u['url']})} >
+                <Gallery
+                    imageUri={{ uri: u['url'] }}
+                    date={u['date']}
 
-                    <Gallery
-                      imageUri={{ uri: u['url'] }}
-                      date={u['date']}
-
-                    />
-                  </View>
+                />
+                </TouchableOpacity>
+                </View>
 
                 ))}
 
 
 
-              </ScrollView>
+            </ScrollView>
+
 
             </View>
 

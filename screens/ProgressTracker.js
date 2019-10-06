@@ -54,6 +54,7 @@ export default class ProgressTracker extends React.Component {
       console.log(error);
   }
   CameraRoll.getPhotos({
+    groupTypes:'All',
     first: 1,
     assetType: 'Photos',
   })
