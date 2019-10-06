@@ -10,6 +10,11 @@ export default class DesignDetails extends React.Component {
         super(props)
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
+        // this.props.navigation.addListener(
+        //     'willBlur',
+        //     payload => {
+        //       this.loadItems();
+        //     });
     }
     state = {
         userData: [],
@@ -121,7 +126,7 @@ export default class DesignDetails extends React.Component {
             userplantsArray = userplantsArray.concat(designData);
             this.state.userData = userplantsArray;
             this.storeItem("userData", userplantsArray);
-            this.loadItems();
+            // this.loadItems();
             if (Platform.OS === 'ios') {
                 alert('Plant added to my plants');
             }

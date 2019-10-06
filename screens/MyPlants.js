@@ -180,7 +180,10 @@ export default class MyPlants extends React.Component {
       }
     }
     return (
-      <View><Text>No Plants, add some</Text></View>
+      <View>
+        <HeaderComponent text="My Plants" back={this.props.navigation} />
+        <Text>No Plants, add some</Text>
+      </View>
     )
   }
 }

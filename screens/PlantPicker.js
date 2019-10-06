@@ -64,7 +64,6 @@ export default class PlantPicker extends React.Component {
       var pType = this.state.planttype;
       firebase.database().ref('/').orderByChild('Postcode').equalTo(postcode).on('value', function (snapshot) {
         var DesignObj = snapshot.val();
-        console.log(DesignObj)
         if (snapshot.numChildren() > 0) {
           for (var item in DesignObj) {
             var bject = DesignObj[item];

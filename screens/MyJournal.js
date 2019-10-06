@@ -79,7 +79,10 @@ export default class MyJournal extends React.Component {
     }
     else {
       return (
-        <View><Text>No Plants added please add some!</Text></View>
+        <View>
+          <HeaderComponent text="My Journal" back={this.props.navigation} />
+          <Text>No Plants added please add some!</Text>
+        </View>
       )
     }
   }
