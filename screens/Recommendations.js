@@ -143,26 +143,38 @@ export default class Recommendations extends React.Component {
     this.storeItem("CalendarItems", newItems);
   }
   render() {
-
     return (
       <View style={{ width: '100%', height: '100%' }}>
-        <HeaderComponent text="Recommendations" back={this.props.navigation} />
+        <HeaderComponent text="Recommendations" back={this.props.navigation}/>
         <ScrollView style={styles.container}>
           {
             this.state.plants.map((u, i) => {
               return (
-                <LandScapeCat
-                  key={i}
-                  imageUri={{ uri: u['url'] }}
-                  title={u['Commonname'].toUpperCase()}
-                  description1=""
-                  description2=""
-                  transfer={() => {
-                    this.props.navigation.navigate('PlantStack', {
-                      plant: u
-                    });
-                  }}
-                />
+                <Card containerStyle={styles.containerStyle} key={i} >
+                <View key={i} style={{ width: '100%', padding: 5 }}>
+                  <TouchableOpacity key={i}
+                    onPress={() => {
+                      this.props.navigation.navigate('PlantStack', {
+                        plant: u
+                      });
+                    }}>
+                    <View>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
+                      <Image
+                        source={{ uri: u['url'] }}
+                        style={{ width: '100%', height: 250 }} />
+                    </View>
+                  </TouchableOpacity>
+                  <View style={{ alignContent: 'flex-end', alignItems: 'flex-end', margin: 15 }}>
+                    <Button
+                      raised={true}
+                      title="Add"
+                      onPress={() => this.addToMyPlants(u)}
+                      buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
+                    />
+                  </View>
+                </View>
+              </Card>
               );
             })
           }
@@ -170,8 +182,9 @@ export default class Recommendations extends React.Component {
       </View>
     );
   }
+  }
 
-}
+
 Recommendations.navigationOptions = {
   title: 'Recommendations',
 };
@@ -185,7 +198,14 @@ const styles = StyleSheet.create({
   },
   containerStyle: {
     alignContent: 'center', padding: 2, marginBottom: 10,
-    marginTop: 5, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b'
+    marginTop: 5, backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#827f7b',
+    shadowColor: 'black',
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 5,
+    borderRadius: 10,
+    backgroundColor: 'white',
   },
   contents: { fontSize: 12, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' },
   product: {
