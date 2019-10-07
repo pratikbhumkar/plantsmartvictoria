@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import HeaderComponent from '../components/HeaderComponent.js';
 
+
 export default class MyJournal extends React.Component {
   constructor(props) {
     super(props)
@@ -12,6 +13,7 @@ export default class MyJournal extends React.Component {
         this.retrieveItem("userData");
         this.retrieveCalendarData();
       });
+     
   }
 
   state = {

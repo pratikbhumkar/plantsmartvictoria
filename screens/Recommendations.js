@@ -3,7 +3,11 @@ import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, 
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import LandScapeCat from '../components/LandScapeCat';
+import { observer } from 'mobx-react';
+import UserPlants from '../model/UserPlants';
+import Journal from '../model/JournalEntry';
 
+@observer
 export default class Recommendations extends React.Component {
   state = {
     plants: [],
@@ -14,17 +18,17 @@ export default class Recommendations extends React.Component {
     super(props);
     this.state.plants = this.props.navigation.getParam('plants', '');
 
-    this.props.navigation.addListener(
-      'willFocus',
-      payload => {
-        this.retrieveItem("userData");
-      });
+    // this.props.navigation.addListener(
+    //   'willFocus',
+    //   payload => {
+    //     this.retrieveItem("userData");
+    //   });
 
-    this.props.navigation.addListener(
-      'willBlur',
-      payload => {
-        this.loadItems();
-      });
+    // this.props.navigation.addListener(
+    //   'willBlur',
+    //   payload => {
+    //     this.loadItems();
+    //   });
   }
   async retrieveItem(key) {
     try {
@@ -37,39 +41,19 @@ export default class Recommendations extends React.Component {
   }
 
   addToMyPlants(u) {
-    var uploadFlag = true;
-    var userplantsArray = this.state.userplants;
-    if (userplantsArray === null) {       //This fix is for new devices using app and no data in app storage so cant store in empty array.
-      userplantsArray = [];
-    }
     const date = new Date();
     var addDate = date.toISOString().split('T')[0];
-    u.addDate = addDate;
-    userplantsArray.forEach(element => {
-      if (element['Botanicalname'] == u['Botanicalname']) {
-        uploadFlag = false;
-      }
+
+    UserPlants.addPlant({
+      commonName: u.Commonname, botanicalName: u.Botanicalname, rain: String(u.Rain)
+      , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url
+    })
+    alert('Plant added to my plants');
+    UserPlants.plantsArray.map((plant, i) => {
+      this.state.userplants.push(plant)
     });
-    if (uploadFlag) {
-      if (Platform.OS === 'ios') {
-        alert('Plant added to my plants');
-      }
-      else {
-        ToastAndroid.show('Plant added to my plants', ToastAndroid.LONG);
-      }
-      userplantsArray.push(u);
-      this.storeItem("userData", userplantsArray);
-    }
-    else {
-      if (Platform.OS === 'ios') {
-        alert('Plant already added to my plants');
-      }
-      else {
-        ToastAndroid.show('Plant already added to my plants', ToastAndroid.LONG);
-      }
-    }
-
-
+    // console.log('plants::',this.state.userplants)
+    this.loadItems()
   }
   async storeItem(key, item) {
     try {
@@ -89,6 +73,7 @@ export default class Recommendations extends React.Component {
     }
   }
   async loadItems() {
+    console.log(this.state.userplants)
     // setTimeout(() => {
     var day = new Date().valueOf();
     var items = {};
@@ -102,34 +87,34 @@ export default class Recommendations extends React.Component {
           var numItems = this.state.userplants.length;
           for (let j = 0; j < numItems; j++) {
             var item = this.state.userplants[j];
-            var itemRain = Number(item['Rain']);
+            var itemRain = Number(item['rain']);
             if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
               items[strTime].push({
-                name: 'Water ' + this.state.userplants[j].Commonname,
+                name: 'Water ' + this.state.userplants[j].commonName,
                 height: 60
               });
 
             } else if (itemRain > 300 && itemRain < 401 && [1, 15].includes(i)) {
               items[strTime].push({
-                name: 'Water ' + this.state.userplants[j].Commonname,
+                name: 'Water ' + this.state.userplants[j].commonName,
                 height: 60
               });
             } else if (itemRain > 400) {
               items[strTime].push({
-                name: 'Water ' + this.state.userplants[j].Commonname,
+                name: 'Water ' + this.state.userplants[j].commonName,
                 height: 60
               });
             }
             else if ([1, 15].includes(i)) {
               items[strTime].push({
-                name: 'Fertilize ' + this.state.userplants[j].Commonname,
+                name: 'Fertilize ' + this.state.userplants[j].commonName,
                 height: 60
               });
 
             }
             else if ([1].includes(i)) {
               items[strTime].push({
-                name: 'Prune ' + this.state.userplants[j].Commonname,
+                name: 'Prune ' + this.state.userplants[j].commonName,
                 height: 60
               });
             }
@@ -140,41 +125,42 @@ export default class Recommendations extends React.Component {
     const newItems = {};
 
     Object.keys(items).forEach(key => { newItems[key] = items[key]; });
-    this.storeItem("CalendarItems", newItems);
+    console.log('Calendar items:', newItems);
+    // this.storeItem("CalendarItems", newItems);
   }
   render() {
     return (
       <View style={{ width: '100%', height: '100%' }}>
-        <HeaderComponent text="Recommendations" back={this.props.navigation}/>
+        <HeaderComponent text="Recommendations" back={this.props.navigation} />
         <ScrollView style={styles.container}>
           {
             this.state.plants.map((u, i) => {
               return (
                 <Card containerStyle={styles.containerStyle} key={i} >
-                <View key={i} style={{ width: '100%', padding: 5 }}>
-                  <TouchableOpacity key={i}
-                    onPress={() => {
-                      this.props.navigation.navigate('PlantStack', {
-                        plant: u
-                      });
-                    }}>
-                    <View>
-                      <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
-                      <Image
-                        source={{ uri: u['url'] }}
-                        style={{ width: '100%', height: 250 }} />
+                  <View key={i} style={{ width: '100%', padding: 5 }}>
+                    <TouchableOpacity key={i}
+                      onPress={() => {
+                        this.props.navigation.navigate('PlantStack', {
+                          plant: u
+                        });
+                      }}>
+                      <View>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', borderBottomWidth: 0.5, borderBottomColor: '#000' }}>{u['Commonname'].toUpperCase()}</Text>
+                        <Image
+                          source={{ uri: u['url'] }}
+                          style={{ width: '100%', height: 250 }} />
+                      </View>
+                    </TouchableOpacity>
+                    <View style={{ alignContent: 'flex-end', alignItems: 'flex-end', margin: 15 }}>
+                      <Button
+                        raised={true}
+                        title="Add"
+                        onPress={() => this.addToMyPlants(u)}
+                        buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
+                      />
                     </View>
-                  </TouchableOpacity>
-                  <View style={{ alignContent: 'flex-end', alignItems: 'flex-end', margin: 15 }}>
-                    <Button
-                      raised={true}
-                      title="Add"
-                      onPress={() => this.addToMyPlants(u)}
-                      buttonStyle={{ height: 40, width: 80, borderRadius: 20, backgroundColor: '#6ac99e' }}
-                    />
                   </View>
-                </View>
-              </Card>
+                </Card>
               );
             })
           }
@@ -182,7 +168,7 @@ export default class Recommendations extends React.Component {
       </View>
     );
   }
-  }
+}
 
 
 Recommendations.navigationOptions = {

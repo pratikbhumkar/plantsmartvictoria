@@ -7,20 +7,20 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     console.disableYellowBox=true;
-    this.retrieveItem("userData");
+    // this.retrieveItem("userData");
   }
   state={
     userplants: [],
   }
-  async retrieveItem(key) {
-    try {
-      var retrievedItem = await AsyncStorage.getItem(key);
-      var item = JSON.parse(retrievedItem);
-      this.state.userplants = item;
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  // async retrieveItem(key) {
+  //   try {
+  //     var retrievedItem = await AsyncStorage.getItem(key);
+  //     var item = JSON.parse(retrievedItem);
+  //     this.state.userplants = item;
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
 
   render() {
     return (

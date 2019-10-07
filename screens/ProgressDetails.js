@@ -95,7 +95,7 @@ export default class ProgressDetails extends React.Component {
 
         <View>
 
-          <HeaderComponent text="Progress Details" back={this.props.navigation} back={this.props.navigation} />
+          <HeaderComponent text="Progress Details" back={this.props.navigation} />
 
           <View>
 

@@ -3,8 +3,10 @@ import { StyleSheet, View, Text, Image, AsyncStorage, ScrollView, Dimensions, To
 import { Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import Category from '../components/Category'
+import {observer} from 'mobx-react';
+import UserPlants from '../model/UserPlants';
 
-
+@observer
 export default class DesignDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -52,19 +54,14 @@ export default class DesignDetails extends React.Component {
             this.state.treesStrapLeaves = this.state.treesStrapLeaves.concat(strapLeaves);
         }
     }
-    timeToString(time) {
-        try {
-            const date = new Date(time);
-            return date.toISOString().split('T')[0];
-        } catch (error) {
-        }
-    }
+   
     async loadItems() {
         var day = new Date().valueOf();
         var items = {};
         for (let i = 0; i < 30; i++) {
-            var time = day + i * 24 * 60 * 60 * 1000;
-            var strTime = this.timeToString(time);
+            var time = day + i * 86400000;
+            var date = new Date(time);
+            var strTime = date.toISOString().split('T')[0];;
 
             if (!items[strTime]) {
                 items[strTime] = [];
@@ -75,30 +72,30 @@ export default class DesignDetails extends React.Component {
                         var itemRain = Number(item['Rain']);
                         if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
                             items[strTime].push({
-                                name: 'Water ' + this.state.userData[j].Commonname,
+                                name: 'Water ' + item.Commonname,
                                 height: 60
                             });
                         } else if (itemRain > 300 && itemRain < 401 && [1, 15].includes(i)) {
                             items[strTime].push({
-                                name: 'Water ' + this.state.userData[j].Commonname,
+                                name: 'Water ' + item.Commonname,
                                 height: 60
                             });
                         } else if (itemRain > 400) {
                             items[strTime].push({
-                                name: 'Water ' + this.state.userData[j].Commonname,
+                                name: 'Water ' + item.Commonname,
                                 height: 60
                             });
                         }
                         else if ([1, 15].includes(i)) {
                             items[strTime].push({
-                                name: 'Fertilize ' + this.state.userData[j].Commonname,
+                                name: 'Fertilize ' +item.Commonname,
                                 height: 60
                             });
 
                         }
                         else if ([1].includes(i)) {
                             items[strTime].push({
-                                name: 'Prune ' + this.state.userData[j].Commonname,
+                                name: 'Prune ' + item.Commonname,
                                 height: 60
                             });
                         }
@@ -111,37 +108,12 @@ export default class DesignDetails extends React.Component {
         this.storeCalendarItem("CalendarItems", newItems);
     }
     addToMyPlants() {
-        var uploadFlag = true;
-        var designData = this.state.content;
-        var userplantsArray = this.state.userData;
-        if (userplantsArray === null) {       //This fix is for new devices using app and no data in app storage so cant store in empty array.
-            userplantsArray = [];
-        }
         const date = new Date();
         var addDate = date.toISOString().split('T')[0];
-        designData.forEach(element => {
-            element.addDate = addDate;
+        this.state.content.forEach(element => {
+            UserPlants.addPlant({commonName:element.Commonname,botanicalName:element.Botanicalname,rain:String(element.Rain)
+                ,spread:String(element.Spread),height:String(element.Height),addDate:addDate,url:element.url})
         });
-        if (uploadFlag) {
-            userplantsArray = userplantsArray.concat(designData);
-            this.state.userData = userplantsArray;
-            this.storeItem("userData", userplantsArray);
-            // this.loadItems();
-            if (Platform.OS === 'ios') {
-                alert('Plant added to my plants');
-            }
-            else {
-                ToastAndroid.show('Plant added to my plants', ToastAndroid.LONG);
-            }
-        }
-        else {
-            if (Platform.OS === 'ios') {
-                alert('Plant already added to my plants');
-            }
-            else {
-                ToastAndroid.show('Plant already added to my plants', ToastAndroid.LONG);
-            }
-        }
     }
     async storeItem(key, item) {
         try {
