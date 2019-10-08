@@ -39,7 +39,9 @@ export default class Recommendations extends React.Component {
     })
     alert('Plant added to my plants');
     UserPlants.plantsArray.map((plant, i) => {
+      if(i!=0){
       this.state.userplants.push(plant)
+      }
     });
     // console.log('plants::',this.state.userplants)
     this.loadItems()
@@ -115,7 +117,7 @@ export default class Recommendations extends React.Component {
 
     Object.keys(items).forEach(key => { newItems[key] = items[key]; });
     console.log('Calendar items:', newItems);
-    // this.storeItem("CalendarItems", newItems);
+    this.storeItem("CalendarItems", newItems);
   }
   render() {
     return (

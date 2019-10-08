@@ -10,7 +10,7 @@ export default class MyJournal extends React.Component {
     this.props.navigation.addListener(
       'willFocus',
       payload => {
-        this.retrieveItem("userData");
+        // this.retrieveItem("userData");
         this.retrieveCalendarData();
       });
      
@@ -31,6 +31,7 @@ export default class MyJournal extends React.Component {
     try {
       const retrievedItem = await AsyncStorage.getItem("CalendarItems");
       const item = JSON.parse(retrievedItem);
+      console.log('cal items',item)
       if (item !== null || typeof item !== undefined)
         this.setState({
           items: item

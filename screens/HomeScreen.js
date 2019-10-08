@@ -1,12 +1,23 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage } from 'react-native';
-
+import { observer } from 'mobx-react';
+import UserPlants from '../model/UserPlants';
 import MenuItem from '../components/MenuItem';
 
+@observer
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     console.disableYellowBox=true;
+    var plantArray=[];
+          UserPlants.plantsArray.map((plant, i) => {
+            if(i!=0){
+              plantArray.push(plant);
+            }
+            this.setState({
+              userplants:plantArray
+            })
+          })
     // this.retrieveItem("userData");
   }
   state={

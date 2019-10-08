@@ -65,10 +65,10 @@ export default class DesignDetails extends React.Component {
 
             if (!items[strTime]) {
                 items[strTime] = [];
-                if (this.state.userData !== null) {
-                    var numItems = this.state.userData.length;
+                if (this.state.content !== null) {
+                    var numItems = this.state.content.length;
                     for (let j = 0; j < numItems; j++) {
-                        var item = this.state.userData[j];
+                        var item = this.state.content[j];
                         var itemRain = Number(item['Rain']);
                         if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
                             items[strTime].push({
