@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, CameraRoll } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, CameraRoll, Platform } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 
@@ -51,8 +51,11 @@ export default class ProgressTracker extends React.Component {
     try {
       CameraRoll.saveToCameraRoll(photo.uri, 'photo');
       var picuri=photo.uri;
-      picuri=picuri.substring( picuri.lastIndexOf('/'),);
+      if(Platform.OS == 'android'){
+        picuri=picuri.substring( picuri.lastIndexOf('/'),);
       picuri='file:///storage/emulated/0/DCIM'+picuri
+
+      }
       const date = new Date();
       var today = date.toISOString().split('T')[0];
       plantArray.push([picuri,today])
