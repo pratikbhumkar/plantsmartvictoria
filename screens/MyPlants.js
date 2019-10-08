@@ -8,19 +8,24 @@ import UserPlants from '../model/UserPlants';
 export default class MyPlants extends React.Component {
   constructor(props) {
     super(props)
-    // this.props.navigation.addListener(
-    //   'willFocus',
-    //   payload => {
-    //     this.retrieveItem('userData');
-    //   });
-    // this.props.navigation.addListener(
-    //   'willBlur',
-    //   payload => {
-    //     this.loadItems("userData");
-    //   });
+    this.props.navigation.addListener(
+        'willFocus',
+        payload => {
+          var plantArray=[];
+          UserPlants.plantsArray.map((plant, i) => {
+            if(i!=0){
+              plantArray.push(plant);
+            }
+            this.setState({
+              userplants:plantArray
+            })
+          })
+        });
   }
+
   state = {
     plants: [],
+    plantObject:'',
     userplants: []
   }
   async storeItem(key, item) {
@@ -42,7 +47,6 @@ export default class MyPlants extends React.Component {
       var time = day + i * 86400000;
       var date = new Date(time);
       var strTime = date.toISOString().split('T')[0];
-
       if (!items[strTime]) {
         items[strTime] = [];
         if (this.state.userplants !== null) {
@@ -91,16 +95,14 @@ export default class MyPlants extends React.Component {
   }
 
   render() {
-    var userplants= UserPlants;
-
-      if (this.state.userplants !== null) {
+      if (this.state.userplants.length>0) {
         return (
           <View style={{height:'100%',width:'100%'}}>
           <HeaderComponent text="My Plants" back={this.props.navigation} />
           <ScrollView style={styles.container}>
             <StatusBar backgroundColor='#6ac99e' barStyle='light-content' /> 
             {
-              userplants.plantsArray.map((plant, i) => {
+              this.state.userplants.map((plant, i) => {
                 return (
                   <Card style={styles.container}
                     image={{ uri: plant.url }}

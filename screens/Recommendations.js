@@ -18,17 +18,6 @@ export default class Recommendations extends React.Component {
     super(props);
     this.state.plants = this.props.navigation.getParam('plants', '');
 
-    // this.props.navigation.addListener(
-    //   'willFocus',
-    //   payload => {
-    //     this.retrieveItem("userData");
-    //   });
-
-    // this.props.navigation.addListener(
-    //   'willBlur',
-    //   payload => {
-    //     this.loadItems();
-    //   });
   }
   async retrieveItem(key) {
     try {

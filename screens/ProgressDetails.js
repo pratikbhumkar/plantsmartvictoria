@@ -22,7 +22,6 @@ const { height, width } = Dimensions.get('window')
 export default class ProgressDetails extends React.Component {
   constructor(props) {
     super(props)
-    //Dhanu replace sample with the botanical name. use plantImageArray as it will have images.
     this.state.botanicalName = this.props.navigation.getParam('botanicalName', '');
     this.state.commonName = this.props.navigation.getParam('commonName', '');
     this.state.url = this.props.navigation.getParam('url', '');
@@ -34,45 +33,31 @@ export default class ProgressDetails extends React.Component {
       });
 
   }
-
-
   splittingArray(item) {
     var newArray = [];
     var newObj = {};
-
-    console.log('this is some item', item);
-
-    item = item[this.state.botanicalName];
-
-    item.forEach(element => {
-
-      console.log('this is one element : ', element[0])
-      newObj = { "url": element[0], "date": element[1] };
-      newArray.push(newObj);
-
-    });
-
-    console.log("Something New Array", newArray);
-
+    if (item !== null) {
+      item = item[this.state.botanicalName];
+      item.forEach(element => {
+        newObj = { "url": element[0], "date": element[1] };
+        newArray.push(newObj);
+      });
+    }
     this.state.plantImageArray = newArray;
-
   }
-
 
   async retrieveItem(key) {
     try {
       const retrievedItem = await AsyncStorage.getItem(key);
+
       const item = JSON.parse(retrievedItem);
-
-
       this.splittingArray(item);
-
       this.setState({
         plantImageArray: this.state.plantImageArray
       })
       return item;
     } catch (error) {
-      console.log(error.message);
+      throw error
     }
   }
   state = {
@@ -86,23 +71,13 @@ export default class ProgressDetails extends React.Component {
 
   render() {
     var imageUrl = this.state.url;
-    console.log('**************************$$$$$$$$$$$$$$$$$$$$$$$')
-    console.log('plant array', this.state.plantImageArray);
-
     if (this.state.plantImageArray == null) {
-
       return (
-
         <View>
-
           <HeaderComponent text="Progress Details" back={this.props.navigation} />
-
           <View>
-
             <View style={{ padding: 20 }} />
-
             <Text style={styles.contents}>There are no saved images for this plant. </Text>
-
             <View style={{ padding: 20 }} />
             <Button
               raised={true}
@@ -112,30 +87,14 @@ export default class ProgressDetails extends React.Component {
               })}
               buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
             />
-
-
           </View>
-
-
         </View>
-
-
-
-
       );
-
-
-
-
-
-
     }
-
     return (
       <View >
         <View>
           <HeaderComponent text="Progress Details" back={this.props.navigation} back={this.props.navigation} />
-
           <View style={{ width: width, height: 300 }}>
             <Image
               style={{
@@ -144,17 +103,11 @@ export default class ProgressDetails extends React.Component {
               }}
               source={{ uri: imageUrl }}
             >
-
             </Image>
             <View style={{ padding: 2 }} />
-
-
           </View>
-
         </View>
-
         <ScrollView scrollEventThrottle={16} >
-
           <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20 }}>
             <Text style={{ fontSize: 16, fontWeight: '700', paddingHorizontal: 20 }}>
               <Text style={styles.contents}>{this.state.commonName.toUpperCase()}{"\n"}
@@ -170,39 +123,24 @@ export default class ProgressDetails extends React.Component {
             />
             <View style={{ padding: 30 }} />
             <View style={{ height: 130, marginTop: 20 }}>
-
-            <ScrollView
-
+              <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-
                 {this.state.plantImageArray.map((u, i) => (
-
-                <View key={i}>
-                <TouchableOpacity key={i} onPress={() => this.setState({url: u['url']})} >
-                <Gallery
-                    imageUri={{ uri: u['url'] }}
-                    date={u['date']}
-
-                />
-                </TouchableOpacity>
-                </View>
-
+                  <View key={i}>
+                    <TouchableOpacity key={i} onPress={() => this.setState({ url: u['url'] })} >
+                      <Gallery
+                        imageUri={{ uri: u['url'] }}
+                        date={u['date']}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 ))}
-
-
-
-            </ScrollView>
-
-
+              </ScrollView>
             </View>
-
-
           </View>
         </ScrollView>
-
       </View>
-
     );
   }
 }

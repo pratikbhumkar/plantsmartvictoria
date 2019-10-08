@@ -1,118 +1,105 @@
 import React from 'react';
-import {  StyleSheet, Text, TouchableOpacity, View, AsyncStorage ,CameraRoll} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, CameraRoll } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 
 export default class ProgressTracker extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    //Dhanu remove this when you pass plantBotanicalName
-    this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName','');
-    console.log('*********************************************')
-    console.log('botanica', this.state.plantBotanicalName)
-
+    this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
   }
 
   state = {
     hasCameraPermission: null,
-    newPhotos:false,
-    statusCamera:false,
-    statusCameraStorage:false,
-    plantBotanicalName:'',
-    plantImageArray:[]
+    newPhotos: false,
+    statusCamera: false,
+    statusCameraStorage: false,
+    plantBotanicalName: '',
+    plantImageArray: []
   };
-  async componentWillMount(){
+  componentWillMount() {
     this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
-    // dhanu replace sample to plant botanical name whereever you find sample replace botanical name.
     this.retrieveItem(this.state.plantBotanicalName);
   }
   async retrieveItem(key) {
+    var picuri=''
     try {
-      const retrievedItem = await AsyncStorage.getItem(key);
-      const item = JSON.parse(retrievedItem);
-      this.setState({
-        plantImageArray:item[this.state.plantBotanicalName]
-      })
-      // console.log('retrieved from tracker',item)
-      return item;
+      var retrievedItem = await AsyncStorage.getItem(key);
+      if (retrievedItem == null) {
+        this.state.plantImageArray = []
+    }else {
+      var item = JSON.parse(retrievedItem);
+      this.state.plantImageArray = item[this.state.plantBotanicalName]
+    }
+   } catch (error) {
+      throw (error.message);
+    }
+  }
+  componentDidMount() {
+    this.state.statusCamera = Permissions.askAsync(Permissions.CAMERA);
+    this.state.statusCameraStorage = Permissions.askAsync(Permissions.CAMERA_ROLL);
+  }
+  takePicture = () => {
+    this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
+  };
+  onPictureSaved = photo => {
+    var plantDict = {};
+        var plantArray = [];
+        if (this.state.plantImageArray !== undefined && this.state.plantImageArray !== null) {
+          plantArray = this.state.plantImageArray;
+        }
+    try {
+      CameraRoll.saveToCameraRoll(photo.uri, 'photo');
+      var picuri=photo.uri;
+      picuri=picuri.substring( picuri.lastIndexOf('/'),);
+      picuri='file:///storage/emulated/0/DCIM'+picuri
+      const date = new Date();
+      var today = date.toISOString().split('T')[0];
+      plantArray.push([picuri,today])
+      plantDict[this.state.plantBotanicalName] = plantArray;
+      this.storeItem(this.state.plantBotanicalName, plantDict)
+    } catch (error) {
+      console.log (error);
+    }
+  }
+  async storeItem(key, item) {
+    try {
+      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+      this.props.navigation.pop();
+      return jsonOfItem;
     } catch (error) {
       console.log(error.message);
     }
   }
-   async componentDidMount() {
-    this.state.statusCamera= await Permissions.askAsync(Permissions.CAMERA);
-    this.state.statusCameraStorage = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  }
-  takePicture = () => {
-      this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
-  };
-  onPictureSaved = async photo => {
-    try {
-      await CameraRoll.saveToCameraRoll(photo.uri, 'photo');
-  } catch (error) {
-      //Print the error
-      console.log(error);
-  }
-  CameraRoll.getPhotos({
-     first: 1,
-    assetType: 'Photos',
-  })
-  .then(r => {
-    var plantDict={};
-    var plantArray=[];
-    if(this.state.plantImageArray!== undefined  && this.state.plantImageArray!== null){
-      plantArray=this.state.plantImageArray;
-    }
-    const date = new Date();
-    var today = date.toISOString().split('T')[0];
-    plantArray.push([r.edges[0].node.image.uri,today])
-    plantDict[this.state.plantBotanicalName]=plantArray;
-    console.log('item saved',plantDict)
-    this.storeItem(this.state.plantBotanicalName,plantDict)
-  })
-}
-async storeItem(key, item) {
-  try {
-    //we want to wait for the Promise returned by AsyncStorage.setItem()
-    //to be resolved to the actual value before returning the value
-    var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
-    this.props.navigation.pop();
-    return jsonOfItem;
-  } catch (error) {
-    console.log(error.message);
-  }
-}
   render() {
     return (
       <View style={{ flex: 1 }}>
-      <Camera style={{ flex: 1 }} type={'back'}
-        ref={ref => { this.camera = ref; }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'row',
-          }}>
-          
-          <TouchableOpacity
-          onPress={this.takePicture}
-          style={{
-            flex: 1,
-            margin:100,
-            padding:20,
-            borderWidth:0.5,
-            borderRadius:10,
-            backgroundColor:'#fff',
-            alignSelf: 'flex-end',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ fontSize: 18, color: 'black'}}>Take Picture</Text>
-        </TouchableOpacity>
-        </View>
-        
-      </Camera>
-    </View>
+        <Camera style={{ flex: 1 }} type={'back'}
+          ref={ref => { this.camera = ref; }}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'transparent',
+              flexDirection: 'row',
+            }}>
+            <TouchableOpacity
+              onPress={this.takePicture}
+              style={{
+                flex: 1,
+                margin: 100,
+                padding: 20,
+                borderWidth: 0.5,
+                borderRadius: 10,
+                backgroundColor: '#fff',
+                alignSelf: 'flex-end',
+                alignItems: 'center',
+              }}>
+              <Text style={{ fontSize: 18, color: 'black' }}>Take Picture</Text>
+            </TouchableOpacity>
+          </View>
+
+        </Camera>
+      </View>
 
     );
 
