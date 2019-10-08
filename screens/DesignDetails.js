@@ -154,9 +154,10 @@ export default class DesignDetails extends React.Component {
     render() {
         return (
             <View >
-                <View>
+               
                     <HeaderComponent text="Design Details" back={this.props.navigation} />
-                    <View style={{ width: null, height: 200 }}>
+                <ScrollView>
+                    <View style={{ width: null, height: 150 }}>
                         <Image
                             style={{
                                 flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 5, borderWidth: 1,
@@ -175,7 +176,7 @@ export default class DesignDetails extends React.Component {
                             buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                         />
                     </View>
-                </View>
+                
                 <ScrollView scrollEventThrottle={16} >
                     <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20 }}>
                         <Text style={{ fontSize: 16, fontWeight: '700', paddingHorizontal: 20 }}>
@@ -237,6 +238,7 @@ export default class DesignDetails extends React.Component {
                             </ScrollView>
                         </View>
                     </View>
+                </ScrollView>
                 </ScrollView>
             </View>
         );
