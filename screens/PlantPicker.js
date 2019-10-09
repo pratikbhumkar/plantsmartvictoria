@@ -131,12 +131,13 @@ export default class PlantPicker extends React.Component {
             onPress={this.readFromDatabase}>
             <Text style={styles.searchText}>GO!</Text>
           </TouchableOpacity>
-          <View>
+          
+        </View>
+        <View>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('DataVisualisation')} >
           <Text>Data Visualisation</Text>
           </TouchableOpacity>
           </View>
-        </View>
       </ImageBackground>
     );
   }
