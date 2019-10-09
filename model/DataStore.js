@@ -4,8 +4,12 @@ import { observable, action, computed } from 'mobx';
 class PlantStore {
   @observable calendarItems = [];
   @observable plantJournal;
+  @observable imageDict;
 
-
+  @action
+  storePlantImages(BotanicalName,imageArray){
+    this.imageDict[BotanicalName]=imageArray
+  }
 
 
   @action

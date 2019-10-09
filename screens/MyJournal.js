@@ -29,38 +29,7 @@ class MyJournal extends React.Component {
     this.state.today = today;
   }
 
-  // async retrieveCalendarData() {
-  //   try {
-  //     const retrievedItem = await AsyncStorage.getItem("CalendarItems");
-  //     const item = JSON.parse(retrievedItem);
-  //     console.log('cal items',item)
-  //     if (item !== null || typeof item !== undefined)
-  //       this.setState({
-  //         items: item
-  //       })
-  //     else {
-  //       this.setState({
-  //         items: {}
-  //       })
-  //     }
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-  // async retrieveItem(key) {
-  //   try {
-  //     const retrievedItem = await AsyncStorage.getItem(key);
-  //     const item = JSON.parse(retrievedItem);
-  //     this.setState({
-  //       userplants: item
-  //     })
-  //     return item;
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-
-  // }
-
+  
   render() {
     if (this.state.items !== null) {
       return (

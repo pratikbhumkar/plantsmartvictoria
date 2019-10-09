@@ -84,7 +84,6 @@ class DesignDetails extends React.Component {
                 plantArray.push(plant)
             }
         });
-        console.log(plantArray)
         this.props.PlantStore.loadItems(plantArray);
     }
     render() {

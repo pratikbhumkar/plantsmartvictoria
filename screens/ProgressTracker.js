@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, CameraRoll, Platform } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
+import { inject, observer } from 'mobx-react';
 
-export default class ProgressTracker extends React.Component {
+class ProgressTracker extends React.Component {
   constructor(props) {
     super(props);
     this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
@@ -22,16 +23,16 @@ export default class ProgressTracker extends React.Component {
     this.retrieveItem(this.state.plantBotanicalName);
   }
   async retrieveItem(key) {
-    var picuri=''
+    var picuri = ''
     try {
       var retrievedItem = await AsyncStorage.getItem(key);
       if (retrievedItem == null) {
         this.state.plantImageArray = []
-    }else {
-      var item = JSON.parse(retrievedItem);
-      this.state.plantImageArray = item[this.state.plantBotanicalName]
-    }
-   } catch (error) {
+      } else {
+        var item = JSON.parse(retrievedItem);
+        this.state.plantImageArray = item[this.state.plantBotanicalName]
+      }
+    } catch (error) {
       throw (error.message);
     }
   }
@@ -44,36 +45,27 @@ export default class ProgressTracker extends React.Component {
   };
   onPictureSaved = photo => {
     var plantDict = {};
-        var plantArray = [];
-        if (this.state.plantImageArray !== undefined && this.state.plantImageArray !== null) {
-          plantArray = this.state.plantImageArray;
-        }
+    var plantArray = [];
+    if (this.state.plantImageArray !== undefined && this.state.plantImageArray !== null) {
+      plantArray = this.state.plantImageArray;
+    }
     try {
       CameraRoll.saveToCameraRoll(photo.uri, 'photo');
-      var picuri=photo.uri;
-      if(Platform.OS == 'android'){
-        picuri=picuri.substring( picuri.lastIndexOf('/'),);
-      picuri='file:///storage/emulated/0/DCIM'+picuri
-
+      var picuri = photo.uri;
+      if (Platform.OS == 'android') {
+        picuri = picuri.substring(picuri.lastIndexOf('/'));
+        picuri = 'file:///storage/emulated/0/DCIM' + picuri
       }
       const date = new Date();
       var today = date.toISOString().split('T')[0];
-      plantArray.push([picuri,today])
-      plantDict[this.state.plantBotanicalName] = plantArray;
-      this.storeItem(this.state.plantBotanicalName, plantDict)
+      plantArray.push([picuri, today])
+      this.props.PlantStore.storePlantImages(this.state.plantBotanicalName, plantArray);
+
     } catch (error) {
-      console.log (error);
+      console.log(error);
     }
   }
-  async storeItem(key, item) {
-    try {
-      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
-      this.props.navigation.pop();
-      return jsonOfItem;
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+ 
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -109,51 +101,5 @@ export default class ProgressTracker extends React.Component {
   }
 }
 
+export default inject("PlantStore")(observer(ProgressTracker))
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    alignContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-
-  },
-  items: {
-    paddingRight: 30
-  },
-
-  overlayContainer: {
-    flex: 1,
-
-
-  },
-  top: {
-    height: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-  },
-  header: {
-    color: '#fff',
-    fontSize: 28,
-    borderColor: '#fff',
-    borderWidth: 2,
-    padding: 20,
-    paddingLeft: 40,
-    paddingRight: 40,
-    textAlign: 'center',
-    backgroundColor: 'transparent',
-  },
-  menuContainer: {
-    paddingLeft: 39,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center'
-  },
-
-
-});

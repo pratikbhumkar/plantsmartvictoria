@@ -3,23 +3,12 @@ import HeaderComponent from '../components/HeaderComponent.js';
 import { Card, Button } from 'react-native-elements'
 import Gallery from '../components/Gallery'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
-
-import {
-  View,
-  Text,
-  StyleSheet,
-  AsyncStorage,
-  Dimensions,
-  Image,
-  ScrollView
-} from "react-native";
-
+import { View,Text,StyleSheet,AsyncStorage,Dimensions,Image,ScrollView } from "react-native";
+import { inject, observer } from 'mobx-react';
+import ProgressTracker from './ProgressTracker.js';
 const { height, width } = Dimensions.get('window')
 
-
-export default class ProgressDetails extends React.Component {
+class ProgressDetails extends React.Component {
   constructor(props) {
     super(props)
     this.state.botanicalName = this.props.navigation.getParam('botanicalName', '');
@@ -29,7 +18,7 @@ export default class ProgressDetails extends React.Component {
     this.props.navigation.addListener(
       'willFocus',
       payload => {
-        this.retrieveItem(this.state.botanicalName)
+        this.splittingArray(this.props.PlantStore.imageDict)
       });
 
   }
@@ -46,20 +35,6 @@ export default class ProgressDetails extends React.Component {
     this.state.plantImageArray = newArray;
   }
 
-  async retrieveItem(key) {
-    try {
-      const retrievedItem = await AsyncStorage.getItem(key);
-
-      const item = JSON.parse(retrievedItem);
-      this.splittingArray(item);
-      this.setState({
-        plantImageArray: this.state.plantImageArray
-      })
-      return item;
-    } catch (error) {
-      throw error
-    }
-  }
   state = {
     plantImageArray: [],
     botanicalName: '',
@@ -144,7 +119,7 @@ export default class ProgressDetails extends React.Component {
     );
   }
 }
-
+export default inject("PlantStore")(observer(ProgressTracker))
 const styles = StyleSheet.create({
   container: {
     flex: 1,
