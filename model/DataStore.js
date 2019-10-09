@@ -4,7 +4,7 @@ import { observable, action, computed } from 'mobx';
 class PlantStore {
   @observable calendarItems = [];
   @observable plantJournal;
-  @observable imageDict;
+  @observable imageDict={};
 
   @action
   storePlantImages(BotanicalName,imageArray){

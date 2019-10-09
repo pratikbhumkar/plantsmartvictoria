@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View,Text,StyleSheet,AsyncStorage,Dimensions,Image,ScrollView } from "react-native";
 import { inject, observer } from 'mobx-react';
 import ProgressTracker from './ProgressTracker.js';
+import { toJS } from 'mobx';
 const { height, width } = Dimensions.get('window')
 
 class ProgressDetails extends React.Component {
@@ -18,7 +19,7 @@ class ProgressDetails extends React.Component {
     this.props.navigation.addListener(
       'willFocus',
       payload => {
-        this.splittingArray(this.props.PlantStore.imageDict)
+        this.splittingArray(toJS(this.props.PlantStore.imageDict))
       });
 
   }
@@ -27,12 +28,17 @@ class ProgressDetails extends React.Component {
     var newObj = {};
     if (item !== null) {
       item = item[this.state.botanicalName];
-      item.forEach(element => {
-        newObj = { "url": element[0], "date": element[1] };
-        newArray.push(newObj);
-      });
+      if(item){
+        item.forEach(element => {
+          newObj = { "url": element[0], "date": element[1] };
+          newArray.push(newObj);
+        });
+      }
+      
     }
-    this.state.plantImageArray = newArray;
+    this.setState({
+      plantImageArray : newArray
+    })
   }
 
   state = {
@@ -57,9 +63,10 @@ class ProgressDetails extends React.Component {
             <Button
               raised={true}
               title="Capture Image"
-              onPress={() => this.props.navigation.navigate('ProgressTracker', {
-                'botanicalName': this.state.botanicalName
-              })}
+              // onPress={() => {console.log('clicked')
+              //   this.props.navigation.navigate('ProgressTracker', {
+              //   'botanicalName': this.state.botanicalName
+              // })}}
               buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
             />
           </View>
@@ -119,7 +126,7 @@ class ProgressDetails extends React.Component {
     );
   }
 }
-export default inject("PlantStore")(observer(ProgressTracker))
+export default inject("PlantStore")(observer(ProgressDetails))
 const styles = StyleSheet.create({
   container: {
     flex: 1,

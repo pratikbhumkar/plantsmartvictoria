@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, CameraRoll, Pla
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { inject, observer } from 'mobx-react';
-
+import { toJS } from 'mobx';
 class ProgressTracker extends React.Component {
   constructor(props) {
     super(props);
@@ -20,22 +20,8 @@ class ProgressTracker extends React.Component {
   };
   componentWillMount() {
     this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
-    this.retrieveItem(this.state.plantBotanicalName);
   }
-  async retrieveItem(key) {
-    var picuri = ''
-    try {
-      var retrievedItem = await AsyncStorage.getItem(key);
-      if (retrievedItem == null) {
-        this.state.plantImageArray = []
-      } else {
-        var item = JSON.parse(retrievedItem);
-        this.state.plantImageArray = item[this.state.plantBotanicalName]
-      }
-    } catch (error) {
-      throw (error.message);
-    }
-  }
+
   componentDidMount() {
     this.state.statusCamera = Permissions.askAsync(Permissions.CAMERA);
     this.state.statusCameraStorage = Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -58,9 +44,14 @@ class ProgressTracker extends React.Component {
       }
       const date = new Date();
       var today = date.toISOString().split('T')[0];
+      var imagedict=toJS(this.props.PlantStore.imageDict);
+      plantArray=imagedict[this.state.plantBotanicalName]
+      if(plantArray==null || typeof plantArray=='undefined'){
+        plantArray=[]
+      }
       plantArray.push([picuri, today])
       this.props.PlantStore.storePlantImages(this.state.plantBotanicalName, plantArray);
-
+      this.props.navigation.pop();
     } catch (error) {
       console.log(error);
     }
