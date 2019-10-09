@@ -156,24 +156,8 @@ export default class DesignDetails extends React.Component {
             <View >
                 <View>
                     <HeaderComponent text="Design Details" back={this.props.navigation} />
-                    <View style={{ width: null, height: 200 }}>
-                        <Image
-                            style={{
-                                flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 5, borderWidth: 1,
-                                borderColor: '#dddddd', justifyContent: 'flex-end', alignItems: 'center'
-                            }}
-                            source={require('../assets/images/landscape1.png')}
-                        >
-                        </Image>
-                        <View style={{ padding: 2 }} />
-                        <Button
-                            raised={true}
-                            title="S E L E C T   D E S I G N"
-                            onPress={() => {
-                                this.addToMyPlants();
-                            }}
-                            buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
-                        />
+                    <View style={{ width: null, height: null }}>
+                       
                     </View>
                 </View>
                 <ScrollView scrollEventThrottle={16} >
@@ -216,7 +200,17 @@ export default class DesignDetails extends React.Component {
                                 ))}
                             </ScrollView>
                         </View>
+                        
+                        
                     </View>
+                    <Button
+                            raised={true}
+                            title="S E L E C T   D E S I G N"
+                            onPress={() => {
+                                this.addToMyPlants();
+                            }}
+                            buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
+                        />
                     <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20 }}>
                         <Text style={{ fontSize: 16, fontWeight: '700', paddingHorizontal: 20 }}>
                             Trees and Strap-leaved Plants
@@ -243,6 +237,9 @@ export default class DesignDetails extends React.Component {
     }
 }
 
+DesignDetails.navigationOptions = {
+    title: 'DesignDetails',
+  };
 const styles = StyleSheet.create({
     container: {
         flex: 1,

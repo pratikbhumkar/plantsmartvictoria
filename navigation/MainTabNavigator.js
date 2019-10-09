@@ -16,20 +16,7 @@ import ProgressDetails from '../screens/ProgressDetails';
 
 
 
-GardenDesign.navigationOptions = {
-  tabBarLabel: 'Garden Design',
-  gesturesEnabled: true,
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `${focused ? 'md-albums' : 'md-albums'}`
-          : 'md-albums'
-      }
-    />
-  ),
-};
+
 
 MyJournal.navigationOptions = {
   tabBarLabel: 'My Journal',
@@ -63,6 +50,24 @@ MyPlants.navigationOptions = {
 };
 
 
+
+// GardenDesign.navigationOptions = {
+//   tabBarLabel: 'Garden Design',
+//   gesturesEnabled: true,
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === 'ios'
+//           ? `${focused ? 'md-albums' : 'md-albums'}`
+//           : 'md-albums'
+//       }
+//     />
+//   ),
+// };
+
+
+
 const PlantStack = createStackNavigator(
   {
     'Plant Data': PlantData
@@ -71,8 +76,8 @@ const PlantStack = createStackNavigator(
     headerMode: 'none',
     title: 'Plant Data'
   },
-
 );
+
 PlantStack.navigationOptions = {
   tabBarLabel: 'Plant Data',
   gesturesEnabled: true,
@@ -97,6 +102,25 @@ LinksStack.navigationOptions = {
 };
 
 LinksStack.path = '';
+
+const DesignStack = createStackNavigator(
+  {
+    'GardenDesign': GardenDesign,
+    'DesignDetails':DesignDetails
+  },
+  {
+    headerMode: "none"
+  }
+);
+
+DesignStack.navigationOptions = {
+  backgroundColor: '#6ac99e',
+  tabBarLabel: 'Garden Design',
+  // tabBarVisible: false,
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'md-link' : 'md-link'} />
+  ),
+};
 
 const SettingsStack = createStackNavigator(
   {
@@ -126,7 +150,7 @@ SettingsStack.navigationOptions = {
 
 const tabNavigator = createBottomTabNavigator({
   'Plant Picker': SettingsStack,
-  'Design': GardenDesign,
+  'Design': DesignStack,
   'My Plants': MyPlants,
   'My Journal': MyJournal,
 }, {
