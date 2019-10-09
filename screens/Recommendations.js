@@ -3,12 +3,11 @@ import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, 
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import LandScapeCat from '../components/LandScapeCat';
-import { observer } from 'mobx-react';
 import UserPlants from '../model/UserPlants';
 import Journal from '../model/JournalEntry';
+import { inject, observer } from 'mobx-react';
 
-@observer
-export default class Recommendations extends React.Component {
+class Recommendations extends React.Component {
   state = {
     plants: [],
     PlantName: '',
@@ -37,88 +36,19 @@ export default class Recommendations extends React.Component {
       commonName: u.Commonname, botanicalName: u.Botanicalname, rain: String(u.Rain)
       , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url
     })
+    var plantArray = []
     alert('Plant added to my plants');
     UserPlants.plantsArray.map((plant, i) => {
-      if(i!=0){
-      this.state.userplants.push(plant)
+      if (i != 0) {
+        plantArray.push(plant)
       }
     });
-    // console.log('plants::',this.state.userplants)
-    this.loadItems()
-  }
-  async storeItem(key, item) {
-    try {
-      //we want to wait for the Promise returned by AsyncStorage.setItem()
-      //to be resolved to the actual value before returning the value
-      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
-      return jsonOfItem;
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-  timeToString(time) {
-    try {
-      const date = new Date(time);
-      return date.toISOString().split('T')[0];
-    } catch (error) {
-    }
-  }
-  async loadItems() {
-    console.log(this.state.userplants)
-    // setTimeout(() => {
-    var day = new Date().valueOf();
-    var items = {};
-    for (let i = 0; i < 30; i++) {
-      var time = day + i * 24 * 60 * 60 * 1000;
-      var strTime = this.timeToString(time);
 
-      if (!items[strTime]) {
-        items[strTime] = [];
-        if (this.state.userplants !== null) {
-          var numItems = this.state.userplants.length;
-          for (let j = 0; j < numItems; j++) {
-            var item = this.state.userplants[j];
-            var itemRain = Number(item['rain']);
-            if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
-              items[strTime].push({
-                name: 'Water ' + this.state.userplants[j].commonName,
-                height: 60
-              });
-
-            } else if (itemRain > 300 && itemRain < 401 && [1, 15].includes(i)) {
-              items[strTime].push({
-                name: 'Water ' + this.state.userplants[j].commonName,
-                height: 60
-              });
-            } else if (itemRain > 400) {
-              items[strTime].push({
-                name: 'Water ' + this.state.userplants[j].commonName,
-                height: 60
-              });
-            }
-            else if ([1, 15].includes(i)) {
-              items[strTime].push({
-                name: 'Fertilize ' + this.state.userplants[j].commonName,
-                height: 60
-              });
-
-            }
-            else if ([1].includes(i)) {
-              items[strTime].push({
-                name: 'Prune ' + this.state.userplants[j].commonName,
-                height: 60
-              });
-            }
-          }
-        }
-      }
-    }
-    const newItems = {};
-
-    Object.keys(items).forEach(key => { newItems[key] = items[key]; });
-    console.log('Calendar items:', newItems);
-    this.storeItem("CalendarItems", newItems);
+    this.props.PlantStore.loadItems(plantArray);
   }
+
+
+
   render() {
     return (
       <View style={{ width: '100%', height: '100%' }}>
@@ -160,7 +90,7 @@ export default class Recommendations extends React.Component {
     );
   }
 }
-
+export default inject("PlantStore")(observer(Recommendations))
 
 Recommendations.navigationOptions = {
   title: 'Recommendations',

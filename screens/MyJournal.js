@@ -2,18 +2,20 @@ import React from 'react';
 import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import HeaderComponent from '../components/HeaderComponent.js';
-
-
-export default class MyJournal extends React.Component {
+import { inject, observer } from 'mobx-react';
+import { toJS } from 'mobx';
+class MyJournal extends React.Component {
   constructor(props) {
     super(props)
+
     this.props.navigation.addListener(
       'willFocus',
       payload => {
-        // this.retrieveItem("userData");
-        this.retrieveCalendarData();
+        this.setState({
+          items: toJS(this.props.PlantStore.calendarItems)
+        })
       });
-     
+    ;
   }
 
   state = {
@@ -27,37 +29,37 @@ export default class MyJournal extends React.Component {
     this.state.today = today;
   }
 
-  async retrieveCalendarData() {
-    try {
-      const retrievedItem = await AsyncStorage.getItem("CalendarItems");
-      const item = JSON.parse(retrievedItem);
-      console.log('cal items',item)
-      if (item !== null || typeof item !== undefined)
-        this.setState({
-          items: item
-        })
-      else {
-        this.setState({
-          items: {}
-        })
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-  async retrieveItem(key) {
-    try {
-      const retrievedItem = await AsyncStorage.getItem(key);
-      const item = JSON.parse(retrievedItem);
-      this.setState({
-        userplants: item
-      })
-      return item;
-    } catch (error) {
-      console.log(error.message);
-    }
+  // async retrieveCalendarData() {
+  //   try {
+  //     const retrievedItem = await AsyncStorage.getItem("CalendarItems");
+  //     const item = JSON.parse(retrievedItem);
+  //     console.log('cal items',item)
+  //     if (item !== null || typeof item !== undefined)
+  //       this.setState({
+  //         items: item
+  //       })
+  //     else {
+  //       this.setState({
+  //         items: {}
+  //       })
+  //     }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+  // async retrieveItem(key) {
+  //   try {
+  //     const retrievedItem = await AsyncStorage.getItem(key);
+  //     const item = JSON.parse(retrievedItem);
+  //     this.setState({
+  //       userplants: item
+  //     })
+  //     return item;
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
 
-  }
+  // }
 
   render() {
     if (this.state.items !== null) {
@@ -107,7 +109,7 @@ export default class MyJournal extends React.Component {
   }
 
 }
-
+export default inject("PlantStore")(observer(MyJournal))
 const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',

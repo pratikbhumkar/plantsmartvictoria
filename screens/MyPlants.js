@@ -1,106 +1,42 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Alert, AsyncStorage, StatusBar, Platform, ToastAndroid } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, StatusBar, Platform, ToastAndroid } from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
-import {observer} from 'mobx-react';
 import UserPlants from '../model/UserPlants';
-@observer
-export default class MyPlants extends React.Component {
+import { inject, observer } from 'mobx-react';
+
+
+class MyPlants extends React.Component {
   constructor(props) {
     super(props)
     this.props.navigation.addListener(
-        'willFocus',
-        payload => {
-          var plantArray=[];
-          UserPlants.plantsArray.map((plant, i) => {
-            if(i!=0){
-              plantArray.push(plant);
-            }
-            this.setState({
-              userplants:plantArray
-            })
+      'willFocus',
+      payload => {
+        var plantArray = [];
+        UserPlants.plantsArray.map((plant, i) => {
+          if (i != 0) {
+            plantArray.push(plant);
+          }
+          this.setState({
+            userplants: plantArray
           })
-        });
+        })
+      });
   }
 
   state = {
     plants: [],
-    plantObject:'',
+    plantObject: '',
     userplants: []
-  }
-  async storeItem(key, item) {
-    try {
-      //we want to wait for the Promise returned by AsyncStorage.setItem()
-      //to be resolved to the actual value before returning the value
-      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
-      return jsonOfItem;
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
- 
-  async loadItems() {
-    setTimeout(() => {
-    var day = new Date().valueOf();
-    var items = {};
-    for (let i = 0; i < 30; i++) {
-      var time = day + i * 86400000;
-      var date = new Date(time);
-      var strTime = date.toISOString().split('T')[0];
-      if (!items[strTime]) {
-        items[strTime] = [];
-        if (this.state.userplants !== null) {
-          var numItems = this.state.userplants.length;
-          for (let j = 0; j < numItems; j++) {
-            var item = this.state.userplants[j];
-            var itemRain = Number(item['Rain']);
-            if (itemRain > 0 && itemRain < 301 && [1, 5, 8, 12, 15, 19, 22, 26].includes(i)) {
-              items[strTime].push({
-                name: 'Water ' + item.Commonname,
-                height: 60
-              });
-
-            } else if (itemRain > 300 && itemRain < 401 && [1, 15].includes(i)) {
-              items[strTime].push({
-                name: 'Water ' + item.Commonname,
-                height: 60
-              });
-            } else {
-              items[strTime].push({
-                name: 'Water ' + item.Commonname,
-                height: 60
-              });
-            }
-          }
-        }
-      }
-    }
-    const newItems = {};
-    Object.keys(items).forEach(key => { newItems[key] = items[key]; });
-    this.storeItem("CalendarItems", newItems);
-    }, 1);
-  }
-
-  async retrieveItem(key) {
-    try {
-      const retrievedItem = await AsyncStorage.getItem(key);
-      const item = JSON.parse(retrievedItem);
-      this.setState({
-        userplants: item
-      })
-      return item;
-    } catch (error) {
-      console.log(error.message);
-    }
   }
 
   render() {
-      if (this.state.userplants.length>0) {
-        return (
-          <View style={{height:'100%',width:'100%'}}>
+    if (this.state.userplants.length > 0) {
+      return (
+        <View style={{ height: '100%', width: '100%' }}>
           <HeaderComponent text="My Plants" back={this.props.navigation} />
           <ScrollView style={styles.container}>
-            <StatusBar backgroundColor='#6ac99e' barStyle='light-content' /> 
+            <StatusBar backgroundColor='#6ac99e' barStyle='light-content' />
             {
               this.state.userplants.map((plant, i) => {
                 return (
@@ -122,26 +58,28 @@ export default class MyPlants extends React.Component {
                       buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                     />
                     <View style={{ height: 10 }} />
-                    
+
                   </Card>
                 );
               })
             }
           </ScrollView>
-          </View>
-        )
-      }
-      else{
-          return (
-                <View>
-                  <HeaderComponent text="My Plants" back={this.props.navigation} />
-                  <Text>No Plants, add some</Text>
-                </View>
-              )
-      }
-    
+        </View>
+      )
+    }
+    else {
+      return (
+        <View>
+          <HeaderComponent text="My Plants" back={this.props.navigation} />
+          <Text>No Plants, add some</Text>
+        </View>
+      )
+    }
+
   }
 }
+
+export default inject("PlantStore")(observer(MyPlants))
 const styles = StyleSheet.create({
   container: {
     flex: 1,
