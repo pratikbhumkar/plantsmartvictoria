@@ -2,10 +2,8 @@
   "expo": {
     "name": "PlantSmartVictoria",
     "slug": "plantsmartvictoria",
-    
     "privacy": "public",
     "sdkVersion": "34.0.0",
-    
     "platforms": [
       "ios",
       "android",
@@ -26,11 +24,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier":"com.monash.plantsmartvictoria"
+      "bundleIdentifier": "com.monash.plantsmartvictoria"
     },
-    "android":{
-      "package":"com.monash.plantsmartvictoria"
-    }
-
+    "android": {
+      "package": "com.monash.plantsmartvictoria"
+    },
+    "description": ""
   }
 }
