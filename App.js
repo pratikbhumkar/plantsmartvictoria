@@ -6,9 +6,21 @@ import { Ionicons } from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
 import PlantStore from './model/DataStore';
 import {Provider} from 'mobx-react';
+// import firebase from 'firebase';
 
 export default function App(props) {
-  
+  // var firebaseConfig2 = {
+  //   apiKey: "AIzaSyCCq1TmLebAJhlan-31JesZO_ACDpMJrK4",
+  //   authDomain: "plantsmartvicuserdata.firebaseapp.com",
+  //   databaseURL: "https://plantsmartvicuserdata.firebaseio.com",
+  //   projectId: "plantsmartvicuserdata",
+  //   storageBucket: "plantsmartvicuserdata.appspot.com",
+  //   messagingSenderId: "980002538452",
+  //   appId: "1:980002538452:web:b079e1ceda50dfb4cf0c41",
+  //   measurementId: "G-VZ2RVBWY1S"
+  // };
+  // firebase.initializeApp(firebaseConfig2);
+
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {

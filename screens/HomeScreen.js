@@ -3,6 +3,7 @@ import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage
 import { observer } from 'mobx-react';
 import UserPlants from '../model/UserPlants';
 import MenuItem from '../components/MenuItem';
+import firebase from 'firebase';
 
 @observer
 export default class HomeScreen extends React.Component {
@@ -18,27 +19,27 @@ export default class HomeScreen extends React.Component {
               userplants:plantArray
             })
           })
-    // this.retrieveItem("userData");
-  }
+          if (!firebase.apps.length) {
+            firebase.initializeApp({
+              apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
+              authDomain: "plantsmartvictoria.firebaseapp.com",
+              databaseURL: "https://plantsmartvictoria.firebaseio.com",
+              projectId: "plantsmartvictoria",
+              storageBucket: "plantsmartvictoria.appspot.com",
+              messagingSenderId: "723453194803",
+              appId: "1:723453194803:web:9bd33978fafce44d"
+            });
+          }
+        }
   state={
     userplants: [],
   }
-  // async retrieveItem(key) {
-  //   try {
-  //     var retrievedItem = await AsyncStorage.getItem(key);
-  //     var item = JSON.parse(retrievedItem);
-  //     this.state.userplants = item;
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
 
   render() {
     return (
       <ImageBackground
         source={require('../assets/images/balltree.jpg')}
         style={styles.container}>
-
         <View style={styles.overlayContainer}>
           <View style={styles.top}>
             <Text style={styles.header}>

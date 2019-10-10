@@ -11,17 +11,6 @@ export default class GardenDesign extends React.Component {
   constructor(props) {
     super(props)
     this.onPress = this.onPress.bind(this);
-    if (!firebase.apps.length) {
-      firebase.initializeApp({
-        apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
-        authDomain: "plantsmartvictoria.firebaseapp.com",
-        databaseURL: "https://plantsmartvictoria.firebaseio.com",
-        projectId: "plantsmartvictoria",
-        storageBucket: "plantsmartvictoria.appspot.com",
-        messagingSenderId: "723453194803",
-        appId: "1:723453194803:web:9bd33978fafce44d"
-      });
-    }
     this.state.userData = this.props.navigation.getParam('userData', '');
   }
   state = {

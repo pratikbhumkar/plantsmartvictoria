@@ -8,10 +8,6 @@ import HeaderComponent from '../components/HeaderComponent.js';
 
 
 export default class PlantPicker extends React.Component {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
 
   constructor(props) {
     super(props);
@@ -30,17 +26,7 @@ export default class PlantPicker extends React.Component {
 
   componentWillMount() {
     console.disableYellowBox = true;
-    if (!firebase.apps.length) {
-      firebase.initializeApp({
-        apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
-        authDomain: "plantsmartvictoria.firebaseapp.com",
-        databaseURL: "https://plantsmartvictoria.firebaseio.com",
-        projectId: "plantsmartvictoria",
-        storageBucket: "plantsmartvictoria.appspot.com",
-        messagingSenderId: "723453194803",
-        appId: "1:723453194803:web:9bd33978fafce44d"
-      });
-    }
+    
     this._getLocationAsync();
   }
 
