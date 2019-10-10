@@ -51,22 +51,22 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/plantPickerSize.png')} />
+              <MenuItem itemImage={require('../assets/images/picker-black.png')} text="Plant Picker"/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/MyPlantsSize.png')} />
+              <MenuItem itemImage={require('../assets/images/myplants-black.png')} text="My Plants"/>
             </TouchableOpacity>
-            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('My Journal', {
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Journal', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/WateringCanSize.png')} />
+              <MenuItem itemImage={require('../assets/images/journal-black.png')} text="My Journal"/>
             </TouchableOpacity>
-            <TouchableOpacity style={{ paddingRight: 30 }} onPress={() => this.props.navigation.navigate('Design', {
+            <TouchableOpacity  onPress={() => this.props.navigation.navigate('Design', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/balltree.jpg')} />
+              <MenuItem itemImage={require('../assets/images/design-black.png')} text="My Design"/>
             </TouchableOpacity>
            
           </View>

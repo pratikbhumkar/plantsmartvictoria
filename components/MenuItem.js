@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import {Text,
   View,
   Image,
   StyleSheet,
@@ -12,6 +12,7 @@ export default class MenuItem extends React.Component{
           <Image
             source={this.props.itemImage}
             style={styles.image} />
+            <Text style={{color:'#fff'}}>{this.props.text}</Text>
         </View>
       );
     }
@@ -22,17 +23,20 @@ export default class MenuItem extends React.Component{
 const styles = StyleSheet.create(
   {
     menuItem: {
-      padding: 10,
+      marginTop:180,
+      padding: 5,
+      borderColor:'#fff',
+      borderWidth:2,
       backgroundColor: 'transparent',
-
+      
     },
     image: {
-      width:90,
-      height:90,
-      opacity: 0.7,
-      borderColor: '#F5B041',
+      width:60,
+      height:60,
+      opacity: 1,
+      // borderColor: '#F5B041',
       borderWidth: 3,
-      backgroundColor: '#ffc966',
+      // backgroundColor: '#ffc966',
 
 
     }
