@@ -67,7 +67,7 @@ class ProgressDetails extends React.Component {
               //   this.props.navigation.navigate('ProgressTracker', {
               //   'botanicalName': this.state.botanicalName
               // })}}
-              buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
+              style={{ height: 40, padding:20,width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
             />
           </View>
         </View>

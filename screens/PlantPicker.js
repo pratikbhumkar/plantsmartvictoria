@@ -57,7 +57,7 @@ export default class PlantPicker extends React.Component {
     else {
       var that = this;
       var plantTypeDict = {
-        "Trees and Shrubs": "TS", 'Groundcover': 'GC', 'Climbers': "CL", 'Grasses': "GS", 'Bulbs and Lilies': "BAL",
+        "Trees and Shrubs": "TS", 'Groundcover': 'GC', 'Climbers': "CL", 'Grasses': "GS", 
         'Rushes and Sedges': 'RAS'
       };
       var counter = 0;
@@ -127,16 +127,18 @@ export default class PlantPicker extends React.Component {
           <Picker selectedValue={this.state.planttype} onValueChange={this.updateplanttype}>
             {plantypeitems}
           </Picker>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('DataVisualisation')} style={{marginTop:50,flex:0.1}}>
+          <Text style={{textDecorationLine:'underline'}}>Tell me a bit more about my area!</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button}
             onPress={this.readFromDatabase}>
             <Text style={styles.searchText}>GO!</Text>
           </TouchableOpacity>
           <View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('DataVisualisation')} >
-          <Text>Data Visualisation</Text>
-          </TouchableOpacity>
+          
           </View>
         </View>
+       
       </ImageBackground>
     );
   }
