@@ -34,7 +34,7 @@ class Recommendations extends React.Component {
 
     UserPlants.addPlant({
       commonName: u.Commonname, botanicalName: u.Botanicalname, rain: String(u.Rain)
-      , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url
+      , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url,design:'null'
     })
     var plantArray = []
     alert('Plant added to my plants');

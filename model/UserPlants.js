@@ -22,12 +22,16 @@ const plantStore= types.model('Plants',{
         return self.plantsArray;
     },
     removeDesignPlants(designToRemove){
+        // console.log('Length before:',self.plantsArray.length)
         self.plantsArray.forEach(element => {
-            if(element.design==designToRemove){
+            // console.log(element.design,designToRemove,element.design==designToRemove,);
+            if(element.design!=designToRemove && element.design!='null'){
                 self.plantsArray.remove(element)
             }
         });
+        // console.log('Length after:',self.plantsArray.length)
     }
+
 })
 )
 .create({

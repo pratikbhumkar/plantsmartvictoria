@@ -102,8 +102,6 @@ export default class GardenDesign extends React.Component {
     );
 
   }
-
-
 }
 
 

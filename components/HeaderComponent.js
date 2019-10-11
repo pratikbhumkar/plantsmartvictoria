@@ -1,14 +1,15 @@
 import React from 'react';
 import { View,Image } from 'react-native';
 import {Header,Button } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HeaderComponent(props) {
   return (
     <Header
-          leftComponent={ <View style={{display:'flex'}}><Image 
+          leftComponent={ <View style={{display:'flex'}}><TouchableOpacity onPress={()=> {props.back.navigate('HomeScreen')}}><Image 
             style={{width: 50, height: 50,display:'flex',padding:5}}
             source={require('../assets/images/logoboxed.png')}
-          /></View>}
+          /></TouchableOpacity></View>}
           centerComponent={{text:props.text,style:{fontSize:22,color:'#ffff'}}}
           rightComponent={
             <Button
