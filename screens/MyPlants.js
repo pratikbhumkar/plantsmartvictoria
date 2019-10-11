@@ -55,10 +55,9 @@ class MyPlants extends React.Component {
                       raised={true}
                       title="Progress Tracker"
                       onPress={() => this.props.navigation.navigate('ProgressDetails', { 'botanicalName': plant['botanicalName'], 'commonName': plant['commonName'], 'url': plant['url'] })}
-                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
+                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
                     />
                     <View style={{ height: 10 }} />
-
                   </Card>
                 );
               })

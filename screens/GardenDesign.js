@@ -33,7 +33,8 @@ export default class GardenDesign extends React.Component {
           DesignObj = bject['Design'];
           that.props.navigation.navigate('DesignDetails', {
             DesignObj: DesignObj[designType],
-            userData: that.state.userData
+            userData: that.state.userData,
+            DesignName:designType
           })
         }
       });
@@ -49,15 +50,17 @@ export default class GardenDesign extends React.Component {
         <ScrollView>
           <View style={styles.action}>
             <Text style={styles.title}>Location</Text>
-          </View>
+            </View>
           <Input
             placeholder='Postcode'
             value={this.state.postalCode}
             errorStyle={{ color: 'red' }}
             onChangeText={postalCode => this.setState({ postalCode })}
             errorMessage={this.state.errorMessage}
-            inputContainerStyle={{ width: '18%' }}
+            inputContainerStyle={{ width: '18%' ,marginLeft:20}}
+            style={{paddingLeft:20}}
           />
+          
           <Text style={styles.title}>Garden Design</Text>
 
           <LandScapeCat
@@ -126,11 +129,11 @@ const styles = StyleSheet.create({
   action: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
-
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
+    paddingLeft:20,
     paddingVertical: 5,
     color: 'green',
     paddingTop: 10

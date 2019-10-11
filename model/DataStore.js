@@ -5,11 +5,15 @@ class PlantStore {
   @observable calendarItems = [];
   @observable plantJournal;
   @observable imageDict={};
+  @observable designSelected='';
 
   @action
   storePlantImages(BotanicalName,imageArray){
     this.imageDict[BotanicalName]=imageArray
   }
+
+ 
+
 
 
   @action

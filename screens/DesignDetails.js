@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image,ScrollView, Dimensions, ToastAndroid, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView, Dimensions, ToastAndroid, TouchableOpacity, Platform } from 'react-native';
 import { Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import Category from '../components/Category'
@@ -11,7 +11,7 @@ class DesignDetails extends React.Component {
         super(props)
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
-
+        this.state.design=this.props.getParam('DesignName', '');
     }
     componentWillMount() {
         var userPlants = this.state.plant;
@@ -30,6 +30,7 @@ class DesignDetails extends React.Component {
     }
 
     state = {
+        design:'',
         userData: [],
         plant: [],
         PlantName: '',
@@ -70,12 +71,21 @@ class DesignDetails extends React.Component {
     addToMyPlants() {
         const date = new Date();
         var addDate = date.toISOString().split('T')[0];
-        this.state.content.forEach(element => {
+
+        if(this.props.PlantStore.designSelected!=this.state.design && this.props.PlantStore.designSelected!=='null'){
+            alert('You have chosen a design already, your design will be changed to:',this.state.design)
+            UserPlants.removeDesignPlants(this.state.design)
+          }else{
+            this.props.PlantStore.designSelected=this.state.design;
+          }
+          this.state.content.forEach(element => {
             UserPlants.addPlant({
                 commonName: element.Commonname, botanicalName: element.Botanicalname, rain: String(element.Rain)
                 , spread: String(element.Spread), height: String(element.Height), addDate: addDate, url: element.url
+                ,design:this.state.design
             })
         });
+      
 
         var plantArray = []
         alert('Plant added to my plants');
@@ -138,14 +148,7 @@ class DesignDetails extends React.Component {
 
 
                     </View>
-                    <Button
-                        raised={true}
-                        title="S E L E C T   D E S I G N"
-                        onPress={() => {
-                            this.addToMyPlants();
-                        }}
-                        buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
-                    />
+
                     <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20 }}>
                         <Text style={{ fontSize: 16, fontWeight: '700', paddingHorizontal: 20 }}>
                             Trees and Strap-leaved Plants
@@ -167,6 +170,16 @@ class DesignDetails extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
+                <View style={{ height: 150, width: '80%', marginTop: 100, marginLeft: 50 }}>
+                    <Button
+                        raised={true}
+                        title="SELECT DESIGN"
+                        onPress={() => {
+                            this.addToMyPlants();
+                        }}
+                        buttonStyle={{ height: 60, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6' }}
+                    />
+                </View>
             </View>
         );
     }
