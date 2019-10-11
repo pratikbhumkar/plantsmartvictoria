@@ -46,7 +46,6 @@ export default class PlantPicker extends React.Component {
         "Trees and Shrubs": "TS", 'Groundcover': 'GC', 'Climbers': "CL", 'Grasses': "GS",
         'Rushes and Sedges': 'RAS'
       };
-      var counter = 0;
       var pType = this.state.planttype;
       firebase.database().ref('/').orderByChild('Postcode').equalTo(postcode).on('value', function (snapshot) {
         var DesignObj = snapshot.val();
@@ -167,9 +166,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignSelf: 'center',
     padding: 10,
-    position: 'absolute',
     bottom: 1,
-    marginBottom: 160,
+    marginTop: 70,
     height: 100,
     borderRadius: 120,
     width: 100,
@@ -179,7 +177,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
-    //backgroundColor: '#fff'
+    padding: 20
   }
 });

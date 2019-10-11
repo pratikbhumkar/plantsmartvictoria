@@ -52,22 +52,22 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/picker-black.png')} text="Plant Picker"/>
+              <MenuItem itemImage={require('../assets/images/picker-black.png')} text="Picker"/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/myplants-black.png')} text="My Plants"/>
+              <MenuItem itemImage={require('../assets/images/myplants-black.png')} text="Plants"/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('My Journal', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/journal-black.png')} text="My Journal"/>
+              <MenuItem itemImage={require('../assets/images/journal-black.png')} text="Journal"/>
             </TouchableOpacity>
             <TouchableOpacity  onPress={() => this.props.navigation.navigate('Design', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/design-black.png')} text="My Design"/>
+              <MenuItem itemImage={require('../assets/images/design-black.png')} text="Design"/>
             </TouchableOpacity>
            
           </View>
@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
 
   },
   items: {
-    paddingRight: 30
+    width:'25%'
+
   },
 
   overlayContainer: {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   menuContainer: {
-    paddingLeft: 39,
+    // paddingLeft: ,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'center',
