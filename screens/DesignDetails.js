@@ -90,7 +90,7 @@ class DesignDetails extends React.Component {
                                 UserPlants.addPlant({
                                     commonName: element.Commonname, botanicalName: element.Botanicalname, rain: String(element.Rain)
                                     , spread: String(element.Spread), height: String(element.Height), addDate: addDate, url: element.url
-                                    , design: self.state.design
+                                    , design: self.state.design, PlantComplete:"0"
                                 })
                             });
                         }
@@ -106,7 +106,7 @@ class DesignDetails extends React.Component {
                 UserPlants.addPlant({
                     commonName: element.Commonname, botanicalName: element.Botanicalname, rain: String(element.Rain)
                     , spread: String(element.Spread), height: String(element.Height), addDate: addDate, url: element.url
-                    , design: self.state.design
+                    , design: self.state.design,PlantComplete:"0"
                 })
             });
             UserPlants.plantsArray.map((plant, i) => {

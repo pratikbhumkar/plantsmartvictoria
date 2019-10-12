@@ -11,7 +11,6 @@ class PlantStore {
   storePlantImages(BotanicalName,imageArray){
     this.imageDict[BotanicalName]=imageArray
   }
-
  
 
 

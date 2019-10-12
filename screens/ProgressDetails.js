@@ -2,12 +2,13 @@ import React from 'react';
 import HeaderComponent from '../components/HeaderComponent.js';
 import { Card, Button } from 'react-native-elements'
 import Gallery from '../components/Gallery'
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { View,Text,StyleSheet,AsyncStorage,Dimensions,Image,ScrollView } from "react-native";
+import { View,Text,StyleSheet,TouchableOpacity,Dimensions,Image,ScrollView } from "react-native";
 import { inject, observer } from 'mobx-react';
 import ProgressTracker from './ProgressTracker.js';
 import { toJS } from 'mobx';
-const { height, width } = Dimensions.get('window')
+import UserPlants from '../model/UserPlants';
+const { height, width } = Dimensions.get('window');
+
 
 class ProgressDetails extends React.Component {
   constructor(props) {
@@ -103,6 +104,20 @@ class ProgressDetails extends React.Component {
               })}
               buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
             />
+            <Button
+                raised={true}
+                title="Mark Complete"
+                onPress={(plant) => {
+                  console.log('botname sent:',this.state.botanicalName)
+                  var result = UserPlants.markComplete(this.state.botanicalName,this.props.PlantStore.designSelected);
+                  if (result) {
+                    alert('You can claim the developer incentive!')
+                  }
+                }}
+                buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
+              >
+                <Text>Mark Complete</Text>
+              </Button>
             <View style={{ padding: 30 }} />
             <View style={{ height: 130, marginTop: 20 }}>
               <ScrollView
