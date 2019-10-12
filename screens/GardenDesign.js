@@ -1,46 +1,55 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements'
+import { StyleSheet, View, Text,  ScrollView } from 'react-native';
 import firebase from 'firebase';
 import HeaderComponent from '../components/HeaderComponent.js';
-//import Input from '../components/Input';
 import { Input } from 'react-native-elements';
 import LandScapeCat from '../components/LandScapeCat';
 
+/**
+ * This component is responsible for garden design.
+ */
 export default class GardenDesign extends React.Component {
   constructor(props) {
     super(props)
-    this.onPress = this.onPress.bind(this);
-    this.state.userData = this.props.navigation.getParam('userData', '');
+    this.onPress = this.onPress.bind(this); //Binding the onpress method.
+    this.state.userData = this.props.navigation.getParam('userData', ''); //Getting user data from parent component.
   }
   state = {
     plant: {},
     postalCode: '3145',
     userData: []
   }
+  /**
+   * This method updates the selected design.
+   * @param {*} design 
+   */
   onPress(design) {
     selectedDesign = design;
   }
+  /**
+   * This method gets the details from the selected design
+   * @param {*} designType: The selected design type. 
+   */
   getDesignDetails(designType) {
     var postCode=0;
     var okflag=false;
-    try {
+    try { //Postcode Validation
       postCode=Number(this.state.postalCode);
     } catch (error) {
       alert('Please enter valid Postcode')
     }
-    if (4000 >postCode && postCode>2999){
+    if (4000 >postCode && postCode>2999){ //Check for victorian postcode.
       okflag=true
     }
-    if (okflag) {
+    if (okflag) { //If everything is correct get data from firebase.
       var that = this;
       firebase.database().ref('/').orderByChild('Postcode').equalTo(this.state.postalCode).on('value', function (snapshot) {
         postCodeSnapshot = snapshot.val();
         var DesignObj = snapshot.val();
         for (var item in DesignObj) {
-          var bject = DesignObj[item];
-          DesignObj = bject['Design'];
-          that.props.navigation.navigate('DesignDetails', {
+          var designData = DesignObj[item];
+          DesignObj = designData['Design'];
+          that.props.navigation.navigate('DesignDetails', {   //Go to design details and pass the design type and details and user's data.
             DesignObj: DesignObj[designType],
             userData: that.state.userData,
             DesignName:designType
@@ -51,6 +60,9 @@ export default class GardenDesign extends React.Component {
       alert('Please enter Postal Code, This will help us get your soil type and Soil Ph getting best plants for you!')
     }
   }
+  /**
+   * Render the Garden design component.
+   */
   render() {
     var u = this.state.plant;
     return (
@@ -113,7 +125,7 @@ export default class GardenDesign extends React.Component {
   }
 }
 
-
+//Stytles for Garden Design
 const styles = StyleSheet.create({
   screen: {
     flex: 1

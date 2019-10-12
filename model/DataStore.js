@@ -1,17 +1,22 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 
-
+/**
+ * Store which stores and manages the user and plant data.
+ */
 class PlantStore {
-  @observable calendarItems = [];
-  @observable plantJournal;
-  @observable imageDict={};
-  @observable designSelected='';
+  @observable calendarItems = [];   //Store calendar items
+  @observable plantJournal;   //Store plant journal object.
+  @observable imageDict={};   //Store the image dictionary for the plant
+  @observable designSelected='';  //Store the design selected for the user.
 
   @action
   storePlantImages(BotanicalName,imageArray){
     this.imageDict[BotanicalName]=imageArray
   }
- 
+ /**
+  * This method creates the calendar items for the plants.
+  * @param {*} plantArray 
+  */
   @action
   loadItems(plantArray) {
     // setTimeout(() => {

@@ -1,23 +1,32 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, Alert, AsyncStorage, TouchableOpacity, Platform } from 'react-native';
+import {  View, Text,  ScrollView, Alert, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import Category from '../components/Category'
 import { inject, observer } from 'mobx-react';
 import UserPlants from '../model/UserPlants';
-
+/**
+ * Component reponsible for design's details.
+ */
 class DesignDetails extends React.Component {
     constructor(props) {
         super(props)
+        //Saving passed data.
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
         this.state.design = this.props.navigation.getParam('DesignName', '');
+        //Storing the user's data on screen focus lost.
         this.props.navigation.addListener(
             'willBlur',
             payload => {
                 this.storeItem('userData',this.state.userPlants)
             });
     }
+    /**
+   * This method stores data to user's local memory.
+   * @param {*} key : Key used to store the data.
+   * @param {*} item : Item to be stored
+   */
     async storeItem(key, item) {
         try {
           //we want to wait for the Promise returned by AsyncStorage.setItem()
@@ -28,6 +37,9 @@ class DesignDetails extends React.Component {
           console.log(error.message);
         }
       }
+    /**
+     * Separating invidual plants and saving to state.
+     */
     componentWillMount() {
         var userPlants = this.state.plant;
         var contentArray = [];
@@ -56,7 +68,7 @@ class DesignDetails extends React.Component {
         items: {},
         userPlants:[]
     }
-
+    //Separating plant components
     shrubsAndClimbers() {
         this.state.shrubsClimbers = this.state.plant['SH'];
         climbers = this.state.plant['CL'];
@@ -83,7 +95,9 @@ class DesignDetails extends React.Component {
         }
     }
 
-
+    /**
+     * This method adds the data to user's plants.
+     */
     addToMyPlants() {
         const date = new Date();
         var addDate = date.toISOString().split('T')[0];
@@ -135,6 +149,9 @@ class DesignDetails extends React.Component {
             alert('Plant added to my plants');
         }
     }
+    /**
+     * Rendering the Design details component.
+     */
     render() {
         return (
             <View >
@@ -215,7 +232,9 @@ class DesignDetails extends React.Component {
         );
     }
 }
-export default inject("PlantStore")(observer(DesignDetails))
+
+export default inject("PlantStore")(observer(DesignDetails))        //Injecting mobx store to component.
+//Stytles for Design details
 DesignDetails.navigationOptions = {
     title: 'DesignDetails',
 };

@@ -2,10 +2,11 @@ import React, {Component}   from "react";
 import {
     View,
     Text,
-    StyleSheet,
     Image
 } from "react-native";
-
+/**
+ * Component for individual categories.
+ */
 class Category extends Component{
     render(){
         return(

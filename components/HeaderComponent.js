@@ -2,7 +2,10 @@ import React from 'react';
 import { View,Image } from 'react-native';
 import {Header,Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+/**
+ * Header for the app.
+ * @param {*} props Navigational properties passed to go back and home.
+ */
 export default function HeaderComponent(props) {
   return (
     <Header

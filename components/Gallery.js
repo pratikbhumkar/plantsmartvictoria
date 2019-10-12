@@ -2,9 +2,7 @@ import React, {Component}   from "react";
 import {
     View,
     Text,
-    StyleSheet,
-    Image,
-    TouchableOpacity
+    Image
 } from "react-native";
 
 class Gallery extends Component{

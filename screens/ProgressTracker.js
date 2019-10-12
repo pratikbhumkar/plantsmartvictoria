@@ -5,10 +5,13 @@ import * as Permissions from 'expo-permissions';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import UserPlants from '../model/UserPlants';
-
+/**
+ * This component is reponsible for captuing the image to keep track of the plant.
+ */
 class ProgressTracker extends React.Component {
   constructor(props) {
     super(props);
+    //Setting data retrieved from parent page.
     this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
   }
 
@@ -20,47 +23,54 @@ class ProgressTracker extends React.Component {
     plantBotanicalName: '',
     plantImageArray: []
   };
-  componentWillMount() {
-    this.state.plantBotanicalName = this.props.navigation.getParam('botanicalName', '');
-  }
 
+  //Getting the permission from user for Camera and camera storage once the component is mounted.
   componentDidMount() {
     this.state.statusCamera = Permissions.askAsync(Permissions.CAMERA);
     this.state.statusCameraStorage = Permissions.askAsync(Permissions.CAMERA_ROLL);
   }
+  /**
+   * This method is reponsible for taking the pictures.
+   */
   takePicture = () => {
     this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
   };
+/**
+ * This method is called on picture is saved.
+ */
   onPictureSaved = photo => {
-    var plantDict = {};
     var plantArray = [];
+    //Checking if data exists.
     if (this.state.plantImageArray !== undefined && this.state.plantImageArray !== null) {
       plantArray = this.state.plantImageArray;
     }
     try {
-      CameraRoll.saveToCameraRoll(photo.uri, 'photo');
+      CameraRoll.saveToCameraRoll(photo.uri, 'photo');  //Saving data to storage.
       var picuri = photo.uri;
-      if (Platform.OS == 'android') {
+      if (Platform.OS == 'android') { //On android get the image name from image uri, IOS natively provides it.
         picuri = picuri.substring(picuri.lastIndexOf('/'));
         picuri = 'file:///storage/emulated/0/DCIM' + picuri
       }
+      //Date for the date required for the image.
       const date = new Date();
       var today = date.toISOString().split('T')[0];
-      var imagedict=toJS(this.props.PlantStore.imageDict);
-      plantArray=imagedict[this.state.plantBotanicalName]
-      if(plantArray==null || typeof plantArray=='undefined'){
-        plantArray=[]
+      var imagedict = toJS(this.props.PlantStore.imageDict);  
+      plantArray = imagedict[this.state.plantBotanicalName]
+      if (plantArray == null || typeof plantArray == 'undefined') {
+        plantArray = []
       }
+      //Push the clicked image to array.
       plantArray.push([picuri, today])
-      // this.props.PlantStore.storePlantImages(this.state.plantBotanicalName, plantArray);
-      console.log('to be stored ',plantArray);
-      UserPlants.storeImages(this.state.plantBotanicalName,[picuri, today])
-      this.props.navigation.pop();
+      //Store image in memory
+      UserPlants.storeImages(this.state.plantBotanicalName, [picuri, today])
+      this.props.navigation.pop(); //Go backon success
     } catch (error) {
       console.log(error);
     }
   }
- 
+  /**
+ * Rendering the progress tracker component.
+ */
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -72,6 +82,7 @@ class ProgressTracker extends React.Component {
               backgroundColor: 'transparent',
               flexDirection: 'row',
             }}>
+              {/* Button to click picture. */}
             <TouchableOpacity
               onPress={this.takePicture}
               style={{
@@ -96,5 +107,7 @@ class ProgressTracker extends React.Component {
   }
 }
 
-export default inject("PlantStore")(observer(ProgressTracker))
+export default inject("PlantStore")(observer(ProgressTracker)) //Injecting mobx store to component.
+
+//Style details for Progress Details page.
 

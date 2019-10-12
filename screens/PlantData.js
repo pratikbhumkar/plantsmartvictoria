@@ -1,18 +1,22 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements'
+import { StyleSheet,ScrollView } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent.js';
 import LandScapeCat from '../components/LandScapeCat';
-
+/**
+ * This component shows plant's data.
+ */
 export default class MyPlants extends React.Component {
     constructor(props) {
         super(props)
+        ////Get data passed from prior component
         this.state.plant = this.props.navigation.getParam('plant', '');
     }
     state = {
         plant: {}
     }
-
+/**
+ * Rendering the Plant data component.
+ */
     render() {
         var u = this.state.plant;
         return (
@@ -36,10 +40,12 @@ export default class MyPlants extends React.Component {
         )
     }
 }
+//Setting the navigation options.
 MyPlants.navigationOptions = {
     title: 'My Plants',
 
 };
+//Style details for Plant data page.
 const styles = StyleSheet.create({
     container: {
         flex: 1,

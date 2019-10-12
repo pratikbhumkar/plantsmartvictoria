@@ -5,14 +5,18 @@ import HeaderComponent from '../components/HeaderComponent.js';
 import UserPlants from '../model/UserPlants';
 import { inject, observer } from 'mobx-react';
 
-
+/**
+ * This component shows user's plant's data.
+ */
 class MyPlants extends React.Component {
   constructor(props) {
     super(props)
+    //store users plants to local array on screen gaining focus every time.
     this.props.navigation.addListener(
       'willFocus',
       payload => {
         var plantArray = [];
+        //Avoiding the demo object and setting to state.
         UserPlants.plantsArray.map((plant, i) => {
           if (i != 0) {
             plantArray.push(plant);
@@ -29,9 +33,11 @@ class MyPlants extends React.Component {
     plantObject: '',
     userplants: []
   }
-
+  /**
+ * Rendering the My Plants component.
+ */
   render() {
-    if (this.state.userplants.length > 0) {
+    if (this.state.userplants.length > 0) {   //Checck if plants exist for user and show appropriate message.
       return (
         <View style={{ height: '100%', width: '100%' }}>
           <HeaderComponent text="My Plants" back={this.props.navigation} />
@@ -77,8 +83,9 @@ class MyPlants extends React.Component {
 
   }
 }
-
-export default inject("PlantStore")(observer(MyPlants))
+ 
+export default inject("PlantStore")(observer(MyPlants)) //Injecting the plantstore for data storage and retrieval
+//Style details for Plant data page.
 const styles = StyleSheet.create({
   container: {
     flex: 1,

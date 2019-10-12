@@ -4,8 +4,13 @@ import {Text,
   Image,
   StyleSheet,
 } from 'react-native';
-
+/**
+ * This component displays the main menu on home screen.
+ */
 export default class MenuItem extends React.Component{
+  /**
+   * Rendering the component
+   */
   render() {
     return (
         <View style={styles.menuItem}>
@@ -19,7 +24,7 @@ export default class MenuItem extends React.Component{
 
 
 }
-
+//Style for the component
 const styles = StyleSheet.create(
   {
     menuItem: {

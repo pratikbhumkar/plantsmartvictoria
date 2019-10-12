@@ -6,7 +6,9 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import HeaderComponent from '../components/HeaderComponent.js';
 
-
+/**
+ * This component is responsible for picker form.
+ */
 export default class PlantPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -15,29 +17,33 @@ export default class PlantPicker extends React.Component {
   state = {
     planttype: 'Select one',
     planttypeMasterList: ['Select one', 'Trees and Shrubs', 'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
-      , 'Rushes and Sedges'],
+      , 'Rushes and Sedges'],   //A master list for controlling the plant types.
     location: false,
     postalCode: '3145',
     errorMessage: ''
   }
-  updateIndex = (selectedIndex) => this.setState({ selectedIndex })
+  updateIndex = (selectedIndex) => this.setState({ selectedIndex })  //Update the picked index.
 
   componentWillMount() {
     console.disableYellowBox = true;
     
-    this._getLocationAsync();
+    this._getLocationAsync();   //Getting the location access for postcode details
   }
-
+/**
+ * Setting the current plant type
+ */
   updateplanttype = (planttype) => {
     this.setState({ planttype: planttype })
   }
 
-
+/**
+ * Reading data from firebase realtime database.
+ */
   readFromDatabase = () => {
     var postcode = this.state.postalCode
     var okFlag=false;
     try {
-      if(2999<Number(this.state.postalCode) && 4000>Number(this.state.postalCode)){
+      if(2999<Number(this.state.postalCode) && 4000>Number(this.state.postalCode)){   //Postcode verification and error-handling. 
         okFlag=true;
       }
       else{
@@ -51,34 +57,38 @@ export default class PlantPicker extends React.Component {
     }
     else {
       var that = this;
-      var plantTypeDict = {
+      var plantTypeDict = {       //Dictionary to convert plant shortforms stored in database.
         "Trees and Shrubs": "TS", 'Groundcover': 'GC', 'Climbers': "CL", 'Grasses': "GS",
         'Rushes and Sedges': 'RAS'
       };
       var pType = this.state.planttype;
+      //Getting data from firebase.
       firebase.database().ref('/').orderByChild('Postcode').equalTo(postcode).on('value', function (snapshot) {
         var DesignObj = snapshot.val();
-        if (snapshot.numChildren() > 0) {
+        if (snapshot.numChildren() > 0) {      //Checking if the plant type has plants in it
           for (var item in DesignObj) {
-            var bject = DesignObj[item];
-            DesignObj = bject['Design'];
+            var designData = DesignObj[item];
+            DesignObj = designData['Design'];
           }
           pType = plantTypeDict[pType];
           var plantsAdvanceDesign = DesignObj['Advance'];
           plants = plantsAdvanceDesign[pType]
-          if (plants !== undefined) {
-            if (plants.length > 0) {
+          if (typeof plants !== 'undefined') { //Checking if the data exists
+            if (plants.length > 0) {  //if yes then show recommendation page, passing plants.
               that.props.navigation.navigate('Recommendations', {
                 plants: plants
               });
             }
-          } else {
+          } else {    //Else show error message.
             alert('No Data found!, Please try other options')
           }
         }
       });
     }
   }
+  /**
+   * This method gets the data from user's location and converts to postcode data.
+   */
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -96,7 +106,9 @@ export default class PlantPicker extends React.Component {
 
   };
 
-
+/**
+ * This method renders Picker form components
+ */
   render() {
 
     let plantypeitems = this.state.planttypeMasterList.map((s, i) => {
@@ -138,6 +150,7 @@ export default class PlantPicker extends React.Component {
   }
 }
 
+//Styling data for picker
 const styles = StyleSheet.create({
   input: {
     height: 40,

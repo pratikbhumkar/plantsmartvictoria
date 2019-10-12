@@ -1,38 +1,43 @@
 import React from 'react';
 import HeaderComponent from '../components/HeaderComponent.js';
-import { Card, Button } from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import Gallery from '../components/Gallery'
 import { View, AsyncStorage, Text, StyleSheet, TouchableOpacity, Dimensions, Image, ScrollView } from "react-native";
 import { inject, observer } from 'mobx-react';
-import ProgressTracker from './ProgressTracker.js';
-import { toJS } from 'mobx';
 import UserPlants from '../model/UserPlants';
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window'); //Getting the width of display
 
-
+/**
+ * This component is reponsible for showing the progress details for a plant.
+ */
 class ProgressDetails extends React.Component {
   constructor(props) {
     super(props)
+    //Getting the passed data and storing in state.
     this.state.botanicalName = this.props.navigation.getParam('botanicalName', '');
     this.state.commonName = this.props.navigation.getParam('commonName', '');
     this.state.url = this.props.navigation.getParam('url', '');
-
+    //Split the array contents on loading.
     this.props.navigation.addListener(
       'willFocus',
       payload => {
         this.splittingArray()
       });
+    //Store user's plant data on screen losing focus.
     this.props.navigation.addListener(
       'willBlur',
       payload => {
         this.storeItem('userData', UserPlants.getPlants())
       });
   }
+  /**
+   * This method splits the plant content into invidual components.
+   */
   splittingArray() {
-    var item = UserPlants.getPlant(this.state.botanicalName);
-    var newPlant=item.plantImage.slice(0,)
-    newPlant.push([this.state.url,'Original'])
-    if (item !== null) {
+    var plants = UserPlants.getPlant(this.state.botanicalName);
+    var newPlant = plants.plantImage.slice(0)    //Creating a new array.
+    newPlant.push([this.state.url, 'Original'])  //Adding the original data for comparison.
+    if (plants !== null) {  //If the plant has data then set to state.
       this.setState({
         plantImageArray: newPlant
       })
@@ -44,6 +49,12 @@ class ProgressDetails extends React.Component {
     commonName: '',
     url: ''
   }
+
+  /**
+  * This method stores data to user's local memory.
+  * @param {*} key : Key used to store the data.
+  * @param {*} item : Item to be stored
+  */
   async storeItem(key, item) {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(item));
@@ -51,8 +62,11 @@ class ProgressDetails extends React.Component {
       console.log(error.message);
     }
   }
+  /**
+ * Rendering the progress detail component.
+ */
   render() {
-    var imageArray = this.state.plantImageArray.slice(0,);
+    var imageArray = this.state.plantImageArray.slice(0);
     var imageUrl = this.state.url;
     if (this.state.plantImageArray == null) {
       return (
@@ -76,7 +90,7 @@ class ProgressDetails extends React.Component {
         <View >
           <HeaderComponent text="Progress Details" back={this.props.navigation} back={this.props.navigation} />
           <ScrollView>
-            <View style={{ height: null, width: null,marginBottom:200 }}>
+            <View style={{ height: null, width: null, marginBottom: 200 }}>
               <View style={{ width: width, height: 300 }}>
                 <Image
                   style={{
@@ -94,6 +108,7 @@ class ProgressDetails extends React.Component {
                     <Text style={styles.contents}>{this.state.commonName.toUpperCase()}{"\n"}
                     </Text>
                   </Text>
+                  {/* Button for capturing the image passing botanical name for identification of plant data. */}
                   <Button
                     raised={true}
                     title="Image Capture"
@@ -102,6 +117,7 @@ class ProgressDetails extends React.Component {
                     })}
                     buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                   />
+                  {/* Button for marking the plant as complete */}
                   <Button
                     raised={true}
                     title="Mark Complete"
@@ -118,6 +134,7 @@ class ProgressDetails extends React.Component {
                   </Button>
                   <View style={{ padding: 30 }} />
                   <View style={{ height: 130, marginTop: 20 }}>
+                    {/* Displaying the first list of plants */}
                     <ScrollView
                       horizontal={true}
                       showsHorizontalScrollIndicator={false}>
@@ -142,7 +159,10 @@ class ProgressDetails extends React.Component {
     );
   }
 }
-export default inject("PlantStore")(observer(ProgressDetails))
+
+export default inject("PlantStore")(observer(ProgressDetails)) //Injecting mobx store to component.
+
+//Style details for Progress Details page.
 const styles = StyleSheet.create({
   container: {
     flex: 1,

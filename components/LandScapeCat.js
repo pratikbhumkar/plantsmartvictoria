@@ -6,7 +6,9 @@ import {
     Image,
     TouchableOpacity
 } from "react-native";
-
+/**
+ * Component created for type of landscape category.
+ */
 class LandscapeCat extends Component{
   renderInfo(){
     if(this.props.extraInfoLevel1)
@@ -26,6 +28,9 @@ class LandscapeCat extends Component{
       </View>
     )
   }
+  /**
+   * Rendering the component
+   */
     render(){
         return(
             <View style={styles.product}>
@@ -43,6 +48,7 @@ class LandscapeCat extends Component{
 
     }
 }
+//Style for the component
 const styles = StyleSheet.create({
     product: {
       shadowColor: 'black',

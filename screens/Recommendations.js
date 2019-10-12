@@ -2,11 +2,11 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Text, Image, ToastAndroid, AsyncStorage, Platform, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
-import LandScapeCat from '../components/LandScapeCat';
 import UserPlants from '../model/UserPlants';
-import Journal from '../model/JournalEntry';
 import { inject, observer } from 'mobx-react';
-
+/**
+ * This component shows user the recommended plants after comparing the soil type, soil ph and rainfall.
+ */
 class Recommendations extends React.Component {
   state = {
     plants: [],
@@ -15,13 +15,18 @@ class Recommendations extends React.Component {
   }
   constructor(props) {
     super(props);
-    this.state.plants = this.props.navigation.getParam('plants', '');
-    this.props.navigation.addListener(
+    this.state.plants = this.props.navigation.getParam('plants', '');     //Get data passed from picker component to be displayed.
+    this.props.navigation.addListener(      //On leaving the page the user's data to be stored in local memory.
       'willBlur',
       payload => {
-          this.storeItem('userData',this.state.userplants)
+        this.storeItem('userData', this.state.userplants)
       });
   }
+  /**
+   * This method stores data to user's local memory.
+   * @param {*} key : Key used to store the data.
+   * @param {*} item : Item to be stored
+   */
   async storeItem(key, item) {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(item));
@@ -29,31 +34,32 @@ class Recommendations extends React.Component {
       console.log(error.message);
     }
   }
-
+  /**
+   * This method adds to user's My plants section.
+   * @param {*} u : Plant selected to be added.
+   */
   addToMyPlants(u) {
+    //Determining the date which can be added along with the plant data to be stored.
     const date = new Date();
     var addDate = date.toISOString().split('T')[0];
-
-    var uploadResult=UserPlants.addPlant({
+    //Adding to userplants.
+    var uploadResult = UserPlants.addPlant({
       commonName: u.Commonname, botanicalName: u.Botanicalname, rain: String(u.Rain)
-      , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url,design:'null', PlantComplete:"0"
+      , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url, design: 'null', PlantComplete: "0"
     })
-    var plantArray = []
+    //Determining the result of upload and show appropriate message.
     if (uploadResult) {
       alert('Plant added to my plants');
     } else {
       alert('Plant already added.')
     }
-    
-    UserPlants.plantsArray.map((plant, i) => {
-      if (i != 0) {
-        plantArray.push(plant)
-      }
-    });
-    this.state.userplants=plantArray;
-    this.props.PlantStore.loadItems(plantArray);
+    //Storing the plants for displaying on My plants and calendar items.
+    this.state.userplants = UserPlants.getPlants();
+    this.props.PlantStore.loadItems(this.state.userplants);
   }
-
+/**
+ * Rendering the recommendation component.
+ */
   render() {
     return (
       <View style={{ width: '100%', height: '100%' }}>
@@ -95,12 +101,12 @@ class Recommendations extends React.Component {
     );
   }
 }
-export default inject("PlantStore")(observer(Recommendations))
-
+export default inject("PlantStore")(observer(Recommendations))      //Injecting mobx store to component.
+//Setting the navigation options.
 Recommendations.navigationOptions = {
   title: 'Recommendations',
 };
-
+//Style details for recommendation page.
 const styles = StyleSheet.create({
   container: {
     padding: 10,
