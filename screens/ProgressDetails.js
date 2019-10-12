@@ -30,9 +30,11 @@ class ProgressDetails extends React.Component {
   }
   splittingArray() {
     var item = UserPlants.getPlant(this.state.botanicalName);
+    var newPlant=item.plantImage.slice(0,)
+    newPlant.push([this.state.url,'Original'])
     if (item !== null) {
       this.setState({
-        plantImageArray: item.plantImage
+        plantImageArray: newPlant
       })
     }
   }
@@ -50,10 +52,7 @@ class ProgressDetails extends React.Component {
     }
   }
   render() {
-    var imageArray = this.state.plantImageArray.slice(0);
-    imageArray.push([this.state.url, 'Original'])
-    console.log('This is array==', imageArray)
-
+    var imageArray = this.state.plantImageArray.slice(0,);
     var imageUrl = this.state.url;
     if (this.state.plantImageArray == null) {
       return (

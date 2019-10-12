@@ -22,6 +22,10 @@ const plantStore = types.model('Plants', {
                 self.plantsArray.push(plant);  
             } 
         },
+        pushOriginal(plant,originalURL){
+            var plant=self.plantsArray.find(plant);
+            plant.plantImage.push(originalURL,'Original')
+        },
         getPlants() {
             return self.plantsArray.slice(1,);
         },
