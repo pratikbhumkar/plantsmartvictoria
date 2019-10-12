@@ -16,13 +16,17 @@ class Recommendations extends React.Component {
   constructor(props) {
     super(props);
     this.state.plants = this.props.navigation.getParam('plants', '');
-
+    this.props.navigation.addListener(
+      'willBlur',
+      payload => {
+          this.storeItem('userData',this.state.userplants)
+      });
   }
-  async retrieveItem(key) {
+  async storeItem(key, item) {
     try {
-      var retrievedItem = await AsyncStorage.getItem(key);
-      var item = JSON.parse(retrievedItem);
-      this.state.userplants = item;
+      //we want to wait for the Promise returned by AsyncStorage.setItem()
+      //to be resolved to the actual value before returning the value
+      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
       console.log(error.message);
     }
@@ -43,7 +47,7 @@ class Recommendations extends React.Component {
         plantArray.push(plant)
       }
     });
-
+    this.state.userplants=plantArray;
     this.props.PlantStore.loadItems(plantArray);
   }
 

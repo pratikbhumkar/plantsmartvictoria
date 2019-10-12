@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, Alert, ToastAndroid, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView, Alert, AsyncStorage, TouchableOpacity, Platform } from 'react-native';
 import { Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import Category from '../components/Category'
@@ -12,7 +12,22 @@ class DesignDetails extends React.Component {
         this.state.plant = this.props.navigation.getParam('DesignObj', '');
         this.state.userData = this.props.navigation.getParam('userData', '');
         this.state.design = this.props.navigation.getParam('DesignName', '');
+        this.props.navigation.addListener(
+            'willBlur',
+            payload => {
+                this.storeItem('userData',this.state.userPlants)
+            });
     }
+    async storeItem(key, item) {
+        try {
+          //we want to wait for the Promise returned by AsyncStorage.setItem()
+          //to be resolved to the actual value before returning the value
+          var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+          return jsonOfItem;
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
     componentWillMount() {
         var userPlants = this.state.plant;
         var contentArray = [];
@@ -38,7 +53,8 @@ class DesignDetails extends React.Component {
         groundcoversGrasses: [],
         treesStrapLeaves: [],
         content: [],
-        items: {}
+        items: {},
+        userPlants:[]
     }
 
     shrubsAndClimbers() {
@@ -114,6 +130,7 @@ class DesignDetails extends React.Component {
                     plantArray.push(plant)
                 }
             });
+            this.state.userPlants=plantArray;
             this.props.PlantStore.loadItems(plantArray);
             alert('Plant added to my plants');
         }
@@ -122,7 +139,6 @@ class DesignDetails extends React.Component {
         return (
             <View >
                 <HeaderComponent text="Design Details" back={this.props.navigation} />
-
                 <ScrollView scrollEventThrottle={16} style={{ marginBottom: 30 }}>
                     <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20 }}>
                         <Text style={{ fontSize: 16, fontWeight: '700', paddingHorizontal: 20 }}>

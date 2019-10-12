@@ -30,11 +30,25 @@ export default class HomeScreen extends React.Component {
               appId: "1:723453194803:web:9bd33978fafce44d"
             });
           }
+        this.retrieveItem('userData')
         }
   state={
     userplants: [],
   }
-
+  async retrieveItem(key) {
+    try {
+      var retrievedItem = await AsyncStorage.getItem(key);
+      var item = JSON.parse(retrievedItem);
+      if(item){
+        item.forEach(element => {
+          UserPlants.addPlant(element)
+        });
+        this.props.PlantStore.loadItems(item);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   render() {
     return (
       <ImageBackground
@@ -92,13 +106,10 @@ const styles = StyleSheet.create({
   },
   items: {
     width:'25%'
-
   },
 
   overlayContainer: {
     flex: 1,
-
-
   },
   top: {
     height: '50%',
@@ -118,7 +129,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   menuContainer: {
-    // paddingLeft: ,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'center',

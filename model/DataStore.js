@@ -12,9 +12,6 @@ class PlantStore {
     this.imageDict[BotanicalName]=imageArray
   }
  
-
-
-
   @action
   loadItems(plantArray) {
     // setTimeout(() => {
@@ -71,12 +68,8 @@ class PlantStore {
 
     Object.keys(items).forEach(key => { newItems[key] = items[key]; });
     this.calendarItems = newItems
-    // this.props.PlantStore.calendarItems=newItems;
   }
 
-  //   @computed
-  //   get plantJournalCount() {
-  //     return this.birds.length;
-  //   }
+ 
 }
 export default new PlantStore();

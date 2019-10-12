@@ -17,7 +17,9 @@ const plantStore = types.model('Plants', {
 })
     .actions(self => ({
         addPlant(plant) {
-            self.plantsArray.push(plant);
+            if (!self.plantsArray.includes(plant)) {
+                self.plantsArray.push(plant);  
+            } 
         },
         getPlants() {
             return self.plantsArray;
