@@ -10,6 +10,7 @@ const Plant = types.model('Plants', {
     url: types.string,
     design: types.string,
     PlantComplete: types.string,
+    plantImage:types.array(types.array(types.string,types.string))
 })
 
 const plantStore = types.model('Plants', {
@@ -22,7 +23,16 @@ const plantStore = types.model('Plants', {
             } 
         },
         getPlants() {
-            return self.plantsArray;
+            return self.plantsArray.slice(1,);
+        },
+        getPlant(botanicalName){
+            for (let index = 0; index < self.plantsArray.length; index++) {
+                var element = self.plantsArray[index];
+                if (element.botanicalName==botanicalName) {
+                    return element
+                }
+            }
+            return null;
         },
         removeDesignPlants(designToRemove) {
             self.plantsArray.forEach(element => {
@@ -51,6 +61,15 @@ const plantStore = types.model('Plants', {
             } else {
                 return false;
             }
+        },
+        storeImages(botanicalName,imageLocationArray){
+            self.plantsArray.forEach(element => {
+                if(element.botanicalName==botanicalName) {
+                    element.plantImage.push(imageLocationArray);
+                }
+
+            });
+            
         }
     })
     )
@@ -58,7 +77,7 @@ const plantStore = types.model('Plants', {
         plantsArray: [{
             commonName: 'SampCom', botanicalName: 'sampbot', rain: '100', spread: '100', height: '100', addDate: ''
             , url: 'https://www.google.com/search?sxsrf=ACYBGNS2L9T5EY03uL00twRzEekIn6_YAA:1570524741179&q=image&tbm=isch&source=univ&sxsrf=ACYBGNS2L9T5EY03uL00twRzEekIn6_YAA:1570524741179&sa=X&ved=2ahUKEwiJ_bvKpIzlAhXVZSsKHaLGDtMQsAR6BAgDEAE&biw=1536&bih=792#'
-            , design: 'null', PlantComplete: "0"
+            , design: 'null', PlantComplete: "0",plantImage:[['default','default']]
         }]
     })
 

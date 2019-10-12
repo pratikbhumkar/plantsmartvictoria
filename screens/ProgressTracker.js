@@ -4,6 +4,8 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
+import UserPlants from '../model/UserPlants';
+
 class ProgressTracker extends React.Component {
   constructor(props) {
     super(props);
@@ -50,7 +52,9 @@ class ProgressTracker extends React.Component {
         plantArray=[]
       }
       plantArray.push([picuri, today])
-      this.props.PlantStore.storePlantImages(this.state.plantBotanicalName, plantArray);
+      // this.props.PlantStore.storePlantImages(this.state.plantBotanicalName, plantArray);
+      console.log('to be stored ',plantArray);
+      UserPlants.storeImages(this.state.plantBotanicalName,[picuri, today])
       this.props.navigation.pop();
     } catch (error) {
       console.log(error);

@@ -24,9 +24,7 @@ class Recommendations extends React.Component {
   }
   async storeItem(key, item) {
     try {
-      //we want to wait for the Promise returned by AsyncStorage.setItem()
-      //to be resolved to the actual value before returning the value
-      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+      await AsyncStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
       console.log(error.message);
     }
