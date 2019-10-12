@@ -1,12 +1,11 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage } from 'react-native';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import UserPlants from '../model/UserPlants';
 import MenuItem from '../components/MenuItem';
 import firebase from 'firebase';
 
-@observer
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     console.disableYellowBox=true;
@@ -92,7 +91,7 @@ export default class HomeScreen extends React.Component {
 
   }
 }
-
+export default inject("PlantStore")(observer(HomeScreen))
 
 const styles = StyleSheet.create({
   container: {

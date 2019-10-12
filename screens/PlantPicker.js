@@ -8,10 +8,8 @@ import HeaderComponent from '../components/HeaderComponent.js';
 
 
 export default class PlantPicker extends React.Component {
-
   constructor(props) {
     super(props);
-
   }
 
   state = {
@@ -37,7 +35,18 @@ export default class PlantPicker extends React.Component {
 
   readFromDatabase = () => {
     var postcode = this.state.postalCode
-    if (this.state.planttype == 'Select one') {
+    var okFlag=false;
+    try {
+      if(2999<Number(this.state.postalCode) && 4000>Number(this.state.postalCode)){
+        okFlag=true;
+      }
+      else{
+        alert('Please enter a valid Victorian Postcode! from else')
+      }
+    } catch (error) {
+      alert('Please enter a valid Victorian Postcode! from error')
+    }
+    if (this.state.planttype == 'Select one' && okFlag) {
       alert('Please select option')
     }
     else {

@@ -22,8 +22,17 @@ export default class GardenDesign extends React.Component {
     selectedDesign = design;
   }
   getDesignDetails(designType) {
-    var postCode=Number(this.state.postalCode);
-    if (4000 >postCode && postCode>2999) {
+    var postCode=0;
+    var okflag=false;
+    try {
+      postCode=Number(this.state.postalCode);
+    } catch (error) {
+      alert('Please enter valid Postcode')
+    }
+    if (4000 >postCode && postCode>2999){
+      okflag=true
+    }
+    if (okflag) {
       var that = this;
       firebase.database().ref('/').orderByChild('Postcode').equalTo(this.state.postalCode).on('value', function (snapshot) {
         postCodeSnapshot = snapshot.val();

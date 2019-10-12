@@ -51,8 +51,6 @@ class Recommendations extends React.Component {
     this.props.PlantStore.loadItems(plantArray);
   }
 
-
-
   render() {
     return (
       <View style={{ width: '100%', height: '100%' }}>
