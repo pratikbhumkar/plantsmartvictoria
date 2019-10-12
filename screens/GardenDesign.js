@@ -36,7 +36,7 @@ export default class GardenDesign extends React.Component {
     try { //Postcode Validation
       postCode=Number(this.state.postalCode);
     } catch (error) {
-      alert('Please enter valid Postcode')
+      alert('Please enter a valid Victorian Postcode')
     }
     if (4000 >postCode && postCode>2999){ //Check for victorian postcode.
       okflag=true
@@ -57,7 +57,7 @@ export default class GardenDesign extends React.Component {
         }
       });
     } else {
-      alert('Please enter Postal Code, This will help us get your soil type and Soil Ph getting best plants for you!')
+      alert('Please enter a valid Victorian Postcode, This will help us get your soil type and soil pH getting the best plants for you!')
     }
   }
   /**

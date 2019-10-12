@@ -47,10 +47,10 @@ export default class PlantPicker extends React.Component {
         okFlag=true;
       }
       else{
-        alert('Please enter a valid Victorian Postcode! from else')
+        alert('Please enter a valid Victorian Postcode! This will help us get your soil type and Soil Ph getting the best plants for you! ')
       }
     } catch (error) {
-      alert('Please enter a valid Victorian Postcode! from error')
+      alert('Please enter a valid Victorian Postcode! This will help us get your soil type and Soil Ph getting the best plants for you!')
     }
     if (this.state.planttype == 'Select one' && okFlag) {
       alert('Please select option')
