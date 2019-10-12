@@ -34,12 +34,17 @@ class Recommendations extends React.Component {
     const date = new Date();
     var addDate = date.toISOString().split('T')[0];
 
-    UserPlants.addPlant({
+    var uploadResult=UserPlants.addPlant({
       commonName: u.Commonname, botanicalName: u.Botanicalname, rain: String(u.Rain)
       , spread: String(u.Spread), height: String(u.Height), addDate: addDate, url: u.url,design:'null', PlantComplete:"0"
     })
     var plantArray = []
-    alert('Plant added to my plants');
+    if (uploadResult) {
+      alert('Plant added to my plants');
+    } else {
+      alert('Plant already added.')
+    }
+    
     UserPlants.plantsArray.map((plant, i) => {
       if (i != 0) {
         plantArray.push(plant)

@@ -18,9 +18,21 @@ const plantStore = types.model('Plants', {
 })
     .actions(self => ({
         addPlant(plant) {
-            if (!self.plantsArray.includes(plant)) {
-                self.plantsArray.push(plant);  
-            } 
+            var insertFlag=true;
+            for (let index = 0; index < self.plantsArray.length; index++) {
+                var element = self.plantsArray[index];
+                if (element.botanicalName==plant.botanicalName) {
+                    insertFlag=false;
+                    break;
+                }
+            }
+            if(insertFlag){
+                self.plantsArray.push(plant)
+                return true;
+            }
+            else{
+                return false;
+            }
         },
         pushOriginal(plant,originalURL){
             var plant=self.plantsArray.find(plant);
