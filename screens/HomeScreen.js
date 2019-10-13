@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, AsyncStorage,Linking } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import UserPlants from '../model/UserPlants';
 import MenuItem from '../components/MenuItem';
@@ -76,26 +76,28 @@ class HomeScreen extends React.Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Tabs', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/picker-black.png')} text="Picker" />
+              <MenuItem itemImage={require('../assets/images/picker-white.png')} text="Picker" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('My Plants', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/myplants-black.png')} text="Plants" />
+              <MenuItem itemImage={require('../assets/images/myplants-white.png')} text="Plants" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('My Journal', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/journal-black.png')} text="Journal" />
+              <MenuItem itemImage={require('../assets/images/journal-white.png')} text="Journal" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Design', {
               userData: this.state.userplants
             })}>
-              <MenuItem itemImage={require('../assets/images/design-black.png')} text="Design" />
+              <MenuItem itemImage={require('../assets/images/design-white.png')} text="Design" />
             </TouchableOpacity>
 
           </View>
+          
         </View>
+        <Text style={{bottom:50,borderWidth:1,borderColor:'#fff',color:'#fff',fontSize:25}} onPress={ ()=> Linking.openURL('https://vicsmartp.sgedu.site') } >Click here to visit our website.</Text>
       </ImageBackground>
 
     );

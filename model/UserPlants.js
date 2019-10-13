@@ -55,7 +55,7 @@ const plantStore = types.model('Plants', {
         },
         removeDesignPlants(designToRemove) {    //Remove plants of a particular design
             self.plantsArray.forEach(element => {
-                if (element.design != designToRemove && element.design != 'null') {
+                if (element.design != designToRemove && element.design != 'null') {     //Marking complete to plants which are added via design only.
                     self.plantsArray.remove(element)
                 }
             });
@@ -63,15 +63,13 @@ const plantStore = types.model('Plants', {
         markComplete(plantBotanicalName,design) { //Mark complete a deisgn and return value accordingly.
             
             self.plantsArray.forEach(element => {
-                console.log('Botanical Name',plantBotanicalName,'plant name',element.botanicalName);
-                if (element.botanicalName == plantBotanicalName) {
+                if (element.botanicalName == plantBotanicalName && element.design!=='null') {
                     element.PlantComplete = '1';
                 }
             });
             var completeFlag = true;
             self.plantsArray.forEach(element => {
-                console.log(element.PlantComplete,element.design,design,element.PlantComplete=='0', element.design==design)
-                if (element.PlantComplete=='0' && element.design==design) {
+                if (element.PlantComplete=='0' && element.design==design) {     //changing the design's plant as complete.
                     completeFlag = false;
                 }
             });

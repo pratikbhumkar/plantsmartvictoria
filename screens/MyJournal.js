@@ -37,7 +37,7 @@ class MyJournal extends React.Component {
    * Rendering the journal component.
    */
   render() {
-    if (this.state.items !== null) {      //If there are no journal items present show message on screen.
+    if (Object.keys(this.state.items).length >0 ) {      //If there are no journal items present show message on screen.
       return (
         <View style={{ width: '100%', height: '100%' }}>
           <HeaderComponent text="My Journal" back={this.props.navigation} />
