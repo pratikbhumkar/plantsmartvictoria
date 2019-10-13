@@ -108,6 +108,7 @@ class ProgressDetails extends React.Component {
                     <Text style={styles.contents}>{this.state.commonName.toUpperCase()}{"\n"}
                     </Text>
                   </Text>
+                  <Text style={{color:'red',fontSize:12}} > *If you are loading the app for first time, and see a blank screen please close and open again!</Text>
                   {/* Button for capturing the image passing botanical name for identification of plant data. */}
                   <Button
                     raised={true}
@@ -128,7 +129,7 @@ class ProgressDetails extends React.Component {
                         alert('You can claim the developer incentive!')
                       }
                     }}
-                    buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
+                    buttonStyle={{marginTop:10, height: 40, width: '100%', borderRadius: 20, backgroundColor: '#6ac99e', alignSelf: 'flex-end' }}
                   >
                     <Text>Mark Complete</Text>
                   </Button>
