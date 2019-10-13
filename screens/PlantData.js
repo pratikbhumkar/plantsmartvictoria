@@ -5,7 +5,7 @@ import LandScapeCat from '../components/LandScapeCat';
 /**
  * This component shows plant's data.
  */
-export default class MyPlants extends React.Component {
+export default class PlantData extends React.Component {
     constructor(props) {
         super(props)
         ////Get data passed from prior component

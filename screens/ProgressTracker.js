@@ -25,9 +25,12 @@ class ProgressTracker extends React.Component {
   };
 
   //Getting the permission from user for Camera and camera storage once the component is mounted.
-  componentDidMount() {
-    this.state.statusCamera = Permissions.askAsync(Permissions.CAMERA);
-    this.state.statusCameraStorage = Permissions.askAsync(Permissions.CAMERA_ROLL);
+ async componentDidMount() {
+    this.setState({
+      statusCamera: await Permissions.askAsync(Permissions.CAMERA),
+      statusCameraStorage: await Permissions.askAsync(Permissions.CAMERA_ROLL),
+      statusAudioStorage:await Permissions.askAsync(Permissions.AUDIO_RECORDING)
+    })
   }
   /**
    * This method is reponsible for taking the pictures.
