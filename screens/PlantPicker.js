@@ -16,7 +16,7 @@ export default class PlantPicker extends React.Component {
 
   state = {
     planttype: 'Select one',
-    planttypeMasterList: ['Select one', 'Trees and Shrubs', 'Bulbs and Lilies', 'Climbers', 'Grasses', 'Groundcover'
+    planttypeMasterList: ['Select one', 'Trees and Shrubs', 'Climbers', 'Grasses', 'Groundcover'
       , 'Rushes and Sedges'],   //A master list for controlling the plant types.
     location: false,
     postalCode: '3145',
