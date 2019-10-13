@@ -41,7 +41,7 @@ export default class PlantData extends React.Component {
     }
 }
 //Setting the navigation options.
-MyPlants.navigationOptions = {
+PlantData.navigationOptions = {
     title: 'My Plants',
 
 };
