@@ -123,7 +123,6 @@ class ProgressDetails extends React.Component {
                     raised={true}
                     title="Mark Complete"
                     onPress={(plant) => {
-                      console.log('botname sent:', this.state.botanicalName)
                       var result = UserPlants.markComplete(this.state.botanicalName, this.props.PlantStore.designSelected);
                       if (result) {
                         alert('You can claim the developer incentive!')

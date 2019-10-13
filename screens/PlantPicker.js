@@ -133,9 +133,7 @@ export default class PlantPicker extends React.Component {
           <Picker selectedValue={this.state.planttype} onValueChange={this.updateplanttype}>
             {plantypeitems}
           </Picker>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('DataVisualisation')} style={{ marginTop: 50, flex: 0.1 }}>
-            <Text style={{ textDecorationLine: 'underline' }}>Tell me a bit more about my area!</Text>
-          </TouchableOpacity>
+         
           <TouchableOpacity style={styles.button}
             onPress={this.readFromDatabase}>
             <Text style={styles.searchText}>GO!</Text>
@@ -189,7 +187,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 10,
     bottom: 1,
-    marginTop: 70,
+    marginTop: 90,
     height: 100,
     borderRadius: 120,
     width: 100,
