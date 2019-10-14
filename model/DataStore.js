@@ -52,14 +52,14 @@ class PlantStore {
                 height: 60
               });
             }
-            else if ([1, 15].includes(i)) {
+            if ([2].includes(i)) {
               items[strTime].push({
                 name: 'Fertilize ' + plantArray[j].commonName,
                 height: 60
               });
 
             }
-            else if ([1].includes(i)) {
+            if ([5].includes(i)) {
               items[strTime].push({
                 name: 'Prune ' + plantArray[j].commonName,
                 height: 60
