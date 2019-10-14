@@ -64,10 +64,10 @@ const plantStore = types.model('Plants', {
                 }
             });
         },
-        markComplete(plantBotanicalName,design) { //Mark complete a deisgn and return value accordingly.
+        markComplete(plantBotanicalName,design) { //Mark complete a deisgn and return value accordingly. && element.design!=='null'
             
             self.plantsArray.forEach(element => {
-                if (element.botanicalName == plantBotanicalName && element.design!=='null') {
+                if (element.botanicalName == plantBotanicalName ) {
                     element.PlantComplete = '1';
                 }
             });

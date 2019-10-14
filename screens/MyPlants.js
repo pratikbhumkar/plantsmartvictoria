@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, StatusBar, AsyncStorage } from 'react-native';
+import { ScrollView, StyleSheet, Image, View, Text, StatusBar, AsyncStorage } from 'react-native';
 import { Card, Button } from 'react-native-elements'
 import HeaderComponent from '../components/HeaderComponent.js';
 import UserPlants from '../model/UserPlants';
@@ -16,24 +16,23 @@ class MyPlants extends React.Component {
       'willFocus',
       payload => {
         var plantArray = [];
-        plantArray=UserPlants.getPlants()
+        plantArray = UserPlants.getPlants()
         this.setState({
           userplants: plantArray
         })
-        
+
       });
-      this.props.navigation.addListener(      //On leaving the page the user's data to be stored in local memory.
+    this.props.navigation.addListener(      //On leaving the page the user's data to be stored in local memory.
       'willBlur',
       payload => {
-        console.log('storing data',this.state.userplants)
         this.storeItem('userData', this.state.userplants)
       });
   }
- /**
-   * This method stores data to user's local memory.
-   * @param {*} key : Key used to store the data.
-   * @param {*} item : Item to be stored
-   */
+  /**
+    * This method stores data to user's local memory.
+    * @param {*} key : Key used to store the data.
+    * @param {*} item : Item to be stored
+    */
   async storeItem(key, item) {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(item));
@@ -45,6 +44,21 @@ class MyPlants extends React.Component {
     plants: [],
     plantObject: '',
     userplants: []
+  }
+  /**
+   * This method marks a plant as complete and adds a tick
+   * @param {*} plant 
+   */
+  completeTick(plant) {
+    if(plant.PlantComplete=='1')
+    return (
+      <View style={{ height: 30, marginTop: 5, width: 30, alignSelf: 'flex-end' }}>
+        <Image
+          style={{ width: 30, height: 30 }}
+          source={require('../assets/images/tick.png')}
+        />
+      </View>
+    )
   }
   /**
  * Rendering the My Plants component.
@@ -71,29 +85,29 @@ class MyPlants extends React.Component {
                     <Text style={styles.contents}>Height(m): {plant.height}</Text>
                     <Text style={styles.contents}>Rain(mm): {plant.rain}</Text>
                     <View>
-                    <Button
-                      raised={true}
-                      title="Progress Tracker"
-                      onPress={() => this.props.navigation.navigate('ProgressDetails', { 'botanicalName': plant['botanicalName'], 'commonName': plant['commonName'], 'url': plant['url'] })}
-                      buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
-                    />
+                      <Button
+                        raised={true}
+                        title="Progress Tracker"
+                        onPress={() => this.props.navigation.navigate('ProgressDetails', { 'botanicalName': plant['botanicalName'], 'commonName': plant['commonName'], 'url': plant['url'] })}
+                        buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
+                      />
                     </View>
-                    <View style={{marginTop:30}}>
-                    <Button
-                      raised={true}
-                      title="Remove Plant"
-                      onPress={() => {
-                        UserPlants.removePlant(plant.botanicalName);
-                        var plantArray = [];
-                        plantArray=UserPlants.getPlants()
-                        this.setState({
-                          userplants: plantArray
-                        })
-                      }}
-                      buttonStyle={{ height: 40,width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
-                    />
+                    <View style={{ marginTop: 30 }}>
+                      <Button
+                        raised={true}
+                        title="Remove Plant"
+                        onPress={() => {
+                          UserPlants.removePlant(plant.botanicalName);
+                          var plantArray = [];
+                          plantArray = UserPlants.getPlants()
+                          this.setState({
+                            userplants: plantArray
+                          })
+                        }}
+                        buttonStyle={{ height: 40, width: '100%', borderRadius: 20, backgroundColor: '#75ebb6', alignSelf: 'flex-end' }}
+                      />
                     </View>
-                    <View style={{ height: 10 }} />
+                        {this.completeTick(plant)}
                   </Card>
                 );
               })
@@ -113,7 +127,7 @@ class MyPlants extends React.Component {
 
   }
 }
- 
+
 export default inject("PlantStore")(observer(MyPlants)) //Injecting the plantstore for data storage and retrieval
 //Style details for Plant data page.
 const styles = StyleSheet.create({
