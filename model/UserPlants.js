@@ -19,6 +19,10 @@ const plantStore = types.model('Plants', {
     plantsArray: types.array(Plant)
 })
     .actions(self => ({
+        removePlant(botanicalName){
+            var plant=this.getPlant(botanicalName);
+            self.plantsArray.remove(plant)
+        },
         addPlant(plant) {   //This method adds data.
             var insertFlag=true;
             //Checking if plants already exists, if not add. Send appropriate return value.
