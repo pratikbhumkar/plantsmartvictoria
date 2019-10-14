@@ -59,6 +59,7 @@ class PlantStore {
               });
 
             }
+            
             if ([5].includes(i)) {
               items[strTime].push({
                 name: 'Prune ' + plantArray[j].commonName,
@@ -66,6 +67,12 @@ class PlantStore {
               });
             }
           }
+          if([2].includes(i)) {
+          items[strTime].push({
+            name: 'Click some pictures',
+            height: 60
+          });
+        }
         }
       }
     }
