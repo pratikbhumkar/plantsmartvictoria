@@ -81,7 +81,5 @@ class PlantStore {
     Object.keys(items).forEach(key => { newItems[key] = items[key]; });
     this.calendarItems = newItems
   }
-
- 
 }
 export default new PlantStore();

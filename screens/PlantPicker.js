@@ -116,7 +116,7 @@ export default class PlantPicker extends React.Component {
     });
     return (
       <ImageBackground
-        source={require('../assets/images/backgroundset1.png')} style={{ width: '100%', height: '100%' }}>
+        source={require('../assets/images/backgroundset1.png')} style={{ flex:1}}>
         <HeaderComponent text="Picker" back={this.props.navigation} back={this.props.navigation} />
         <StatusBar backgroundColor="#75ebb6" barStyle="light-content" />
         <View style={styles.container}>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold',
-    paddingTop: 20,
+    paddingTop: 25,
     color: 'black'
   },
   postcodeLocator: {
@@ -183,9 +183,8 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: '#fff',
     alignSelf: 'center',
-    padding: 10,
     bottom: 1,
-    marginTop: 90,
+    marginTop: 180,
     height: 100,
     borderRadius: 120,
     width: 100,
@@ -195,6 +194,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20
+    padding: 20,
   }
 });
