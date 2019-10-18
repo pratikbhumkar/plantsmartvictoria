@@ -30,7 +30,7 @@ const styles = StyleSheet.create(
     menuItem: {
       alignContent:'center',
       alignItems:'center',
-      marginTop:120,
+      
       margin: 5,
       borderColor:'#fff',
       borderWidth:2,

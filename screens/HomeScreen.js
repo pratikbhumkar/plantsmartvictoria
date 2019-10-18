@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginTop:100,
     alignContent: 'center',
     alignItems: 'center',
     alignSelf: 'center'
