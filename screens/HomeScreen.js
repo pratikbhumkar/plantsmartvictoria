@@ -22,7 +22,7 @@ class HomeScreen extends React.Component {
     })
     if (!firebase.apps.length) {    //Initializing firebase.
       firebase.initializeApp({
-        apiKey: "AIzaSyC61gmfLxxRwQVigtqphSdwDPCDBeRtS_g",
+        apiKey: "<your-api-key>",
         authDomain: "plantsmartvictoria.firebaseapp.com",
         databaseURL: "https://plantsmartvictoria.firebaseio.com",
         projectId: "plantsmartvictoria",
